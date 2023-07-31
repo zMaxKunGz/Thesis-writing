@@ -1,5 +1,4 @@
 \chapter{METHODOLOGY}
-\label{ch:methodology}
 
 The proposed self-distillation method training process is shown in Figure~\ref{fig:methodology}.
 The first step in training process is to train the image-text representation head by freezing both image and text encoder model as shown in Figure~\ref{fig:methodology} a).
@@ -18,7 +17,7 @@ The detail in each part of the expeirment is provided in this section.
 \end{figure}
 
 \begin{figure}[h]
-    \caption{Image-Text Representation Head}
+    \caption{Image-Text Cross Attention Classification head}
     \label{fig:cross_attention}
     \centering
     \includegraphics[width=0.5\textwidth]{Images/CrossAttention.png}
@@ -28,16 +27,16 @@ The detail in each part of the expeirment is provided in this section.
 \textcolor{red}{todo:change method image to use sub figure a and b}
 In the first step as shown in Figure~\ref{fig:methodology}a), the image-text representation head is trained with image-text pairs $(x_i, t_i)$, where $x_i$ is an image input and $t_i$ is a text created with a propmt ``This is an image of [Class]''.
 The teacher image encoder $\theta_i$ and the text encoder $\theta_t$ in the training are pre-trained and freezed.
-The image and text encoding are obtained by a mapping function $\hat{x_i} = f(x_i; \theta_i)$ and $\hat{t_i} = f(t_i; \theta_i)$ repectively. 
-The image-text representation head as shown in \ref{fig:cross_attention} which based on an cross-attention and linear classification layer, is produce logits output as \ref{eq:cross-attention}.
+The image and text encoding are obtained by a mapping function $x'_i = f(x_i; \theta_i)$ and $t'_i = f(t_i; \theta_i)$ repectively. 
+The image-text representation head as shown in Figure~\ref{fig:cross_attention} which based on an cross-attention and linear classification layer, is produce logits output as Eq.\ref{eq:cross-attention}.
 Then, the logits output from the image-text representation head transform into probability distribution output with a softmax function.
 
 \begin{equation} 
     \label{eq:cross-attention}
-    test
+    \hat{y}_i = Softmax(Attention(K=x'_i, Q=t'_i, V=x'_i))
 \end{equation}
 
-The loss function for training the image-text representation head is a cross-entropy as \ref{eq:loss-cross-attention}, where $y$ is a one-hot label.
+The loss function for training the image-text representation head is a cross-entropy as Eq.\ref{eq:loss-cross-attention}, where $y$ is a one-hot label.
 
 \begin{equation}
     \label{eq:loss-cross-attention}
@@ -46,21 +45,27 @@ The loss function for training the image-text representation head is a cross-ent
 
 
 
-\section{Model Achitecture}
-\subsection{Image-text representation head}
-By using two encoder model for vision and language individually, the image-text representation have be created to get a single image representation for every single images.
-In this experiment, the cross-attention \shortcite{alayrac2022flamingo} architecture with the linear classification head is used to create image-text representation as illustrated in Figure \ref{fig:cross_attention}.
+\section{Self-Distillation}
+After training the image-text representation head has trained, the image-text representation head is freezed during the self-distillation process.
+The student model have the the same architecture as the teacher image encoder model.
+The target for training self-distillation is the softmax output from image-text representation head with the cross entropy loss as a loss function.
 
-\subsection{Teacher student}
-For the teacher model, we will use two stream encoder based model same as CLIP model \shortcite{dosovitskiy2021an}.
-In this experiment, the teacher vision encoder model will be ResNet \shortcite{he2016deep} and ViT \shortcite{dosovitskiy2021an} version.
-For the student model we used the same architecture as teacher vision encoder model, which are ResNet and ViT.
-\textcolor{red}{todo: Add table describes both image and text encoders.}
 
-\section{Training Objectives}
-In the first step, we trained the image-text representation head with benchmark datasets by using Cross Entropy loss as describe in \ref{fig:overall_method} a). The image and text encoder was freezed during the first step training. For text input, we used "This is the image of [Class]" as a prompt \shortcite{radford2021learning}. After the first image-text representation head were trained, we create a new student model which have the same architecture as a image encoder model with a linear classification head. The student model was randomly initialized parameters. The objective for self-distillation with teacher and student is
+% \subsection{Teacher student}
+% For the teacher model, we will use two stream encoder based model same as CLIP model \shortcite{dosovitskiy2021an}.
+% In this experiment, the teacher vision encoder model will be ResNet \shortcite{he2016deep} and ViT \shortcite{dosovitskiy2021an} version.
+% For the student model we used the same architecture as teacher vision encoder model, which are ResNet and ViT.
+% \textcolor{red}{todo: Add table describes both image and text encoders.}
 
+% \section{Training Objectives}
+% In the first step, we trained the image-text representation head with benchmark datasets by using Cross Entropy loss as describe in \ref{fig:overall_method} a). The image and text encoder was freezed during the first step training. For text input, we used "This is the image of [Class]" as a prompt \shortcite{radford2021learning}. After the first image-text representation head were trained, we create a new student model which have the same architecture as a image encoder model with a linear classification head. The student model was randomly initialized parameters. The objective for self-distillation with teacher and student is
 
 \section{Evaluation}
+In this work, the evaulation metric is accuracy evaluated on ImageNet, CIFAR-10 and CIFAR-100.
+The student model is evaluated compare to the teacher image encoder model using linear probing and student model trained with self-disillation using single image encoder as a teacher model.
+
 \section{Ablation Study}
+- Repeatation self-distillation
+- 
+
 
