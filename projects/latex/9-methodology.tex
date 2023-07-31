@@ -18,14 +18,33 @@ The detail in each part of the expeirment is provided in this section.
 \end{figure}
 
 \begin{figure}[h]
-    \caption{Image-Text Cross Attention Classification head}
+    \caption{Image-Text Representation Head}
     \label{fig:cross_attention}
     \centering
     \includegraphics[width=0.5\textwidth]{Images/CrossAttention.png}
 \end{figure}
 
-\section{Dataset}
-test2
+\section{Image-Text Representation Head Training}
+\textcolor{red}{todo:change method image to use sub figure a and b}
+In the first step as shown in Figure~\ref{fig:methodology}a), the image-text representation head is trained with image-text pairs $(x_i, t_i)$, where $x_i$ is an image input and $t_i$ is a text created with a propmt ``This is an image of [Class]''.
+The teacher image encoder $\theta_i$ and the text encoder $\theta_t$ in the training are pre-trained and freezed.
+The image and text encoding are obtained by a mapping function $\hat{x_i} = f(x_i; \theta_i)$ and $\hat{t_i} = f(t_i; \theta_i)$ repectively. 
+The image-text representation head as shown in \ref{fig:cross_attention} which based on an cross-attention and linear classification layer, is produce logits output as \ref{eq:cross-attention}.
+Then, the logits output from the image-text representation head transform into probability distribution output with a softmax function.
+
+\begin{equation} 
+    \label{eq:cross-attention}
+    test
+\end{equation}
+
+The loss function for training the image-text representation head is a cross-entropy as \ref{eq:loss-cross-attention}, where $y$ is a one-hot label.
+
+\begin{equation}
+    \label{eq:loss-cross-attention}
+    \mathcal{L}_{Cls} = -y\log\hat{y}
+\end{equation}
+
+
 
 \section{Model Achitecture}
 \subsection{Image-text representation head}
