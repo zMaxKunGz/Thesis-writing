@@ -3,8 +3,8 @@
 The proposed self-distillation method training process is shown in Figure~\ref{fig:methodology}.
 The first step in the training process is to train the image-text representation head by freezing both the image and text encoder model as shown in Figure~\ref{fig:methodology} a).
 The second step is self-distillation with combined text and image representation output from the image-text representation head as shown in Figure~\ref{fig:methodology} b).
-We experiment with multiple image and text encoder models.
-We compare our self-distillation method with the self-distillation from the teacher model directly without any text encoder model.
+Difference image and text encoder models pair are choose to demonstrate the benefit of our method.
+We compare our approach with other self-distillation \shortcite{furlanello2018born,xie2020self}.
 The detail of each part in this experiment is provided in this section.
 
 \begin{figure}[h]
@@ -25,34 +25,34 @@ The detail of each part in this experiment is provided in this section.
 
 \section{Image-Text Representation Head Training}
 % \textcolor{red}{todo:change method image to use sub figure a and b}
-In the first step as shown in Figure~\ref{fig:methodology}a), the image-text representation head is trained with image-text pairs $(x_i, t_i)$, where $x_i$ is an image input and $t_i$ is a text created with a propmt ``This is an image of [Class]''.
+In the first step as shown in Figure~\ref{fig:methodology}a), the image-text representation head is trained with image-text pairs $(x, t)$, where $x$ is an image input and $t$ is a text created with a propmt ``This is an image of [Class]''.
 The teacher image encoder $\theta_i$ and the text encoder $\theta_t$ in the training are pre-trained and freezed.
-The image and text encoding are obtained by a mapping function $x'_i = f(x_i; \theta_i)$ and $t'_i = f(t_i; \theta_i)$ repectively.
-The image-text representation head as shown in Figure~\ref{fig:cross_attention} which based on an cross-attention and linear classification layer, is produce logits output as Eq.\ref{eq:cross-attention}.
+The image and text encoding are obtained by a mapping function $x' = f(x; \theta_i)$ and $t' = f(t; \theta_t)$ repectively.
+The image-text representation head as shown in Figure~\ref{fig:cross_attention} which based on a cross-attention and linear classification layer, is produce logits output as Eq.\ref{eq:cross-attention}.
 Then, the logits output from the image-text representation head transform into probability distribution output with a softmax function.
 
 \begin{equation}
     \label{eq:cross-attention}
-    \hat{y}_i = Softmax(Attention(K=x'_i, Q=t'_i, V=x'_i))
+    \hat{y} = \texttt{Softmax}(\texttt{Attention}(K=x', Q=t', V=x'))
 \end{equation}
 
-The loss function for training the image-text representation head is a cross-entropy as Eq.\ref{eq:loss-cross-attention}, where $y$ is a one-hot label and n is the number of training sample.
+The loss function for training the image-text representation head is a cross-entropy as Eq.\ref{eq:loss-cross-attention}, where $y\in\{ 0,1 \}^{C}$ is a one-hot label, $C$ is the number of target class and $N$ is the number of training sample.
 
 \begin{equation}
     \label{eq:loss-cross-attention}
-    \mathcal{L}_{Cls} = --\sum_{i}^{n} y_i\log\hat{y}_i
+    \mathcal{L}_{\texttt{classification}} = -\sum^{N} y\log\hat{y}
 \end{equation}
 
 \section{Self-Distillation}
 After the image-text representation head is trained, the image-text representation head is freezed during the self-distillation process.
 For the student model, we create a new image encoder model with same architecture as the teacher image encoder model, but with different initialized parameters.
-A linear classification and softmax layer is added on top of the student image encoder model to produce output distribution $\hat{S_i}$ for self-distillation process.
-The target for training self-distillation is the softmax output $\hat{y_i}$ from image-text representation head with the cross entropy loss as a loss function.
+A linear classification and softmax layer is added on top of the student image encoder model to produce output distribution $\hat{s}$ for self-distillation process.
+The target for training self-distillation is the softmax output $\hat{y}$ from image-text representation head with the cross entropy loss as a loss function.
 The objective for self-distillation is cross entropy loss as showed in Eq \ref{eq:loss_self_dist}.
 
 \begin{equation}
     \label{eq:loss_self_dist}
-    \mathcal{L}_{distillation} = -\sum_{i}^{n} \hat{y}_i\log\hat{s}_i
+    \mathcal{L}_{\texttt{distillation}} = -\sum^{N} \hat{y}\log\hat{s}
 \end{equation}
 
 % \subsection{Teacher student}
@@ -65,9 +65,9 @@ The objective for self-distillation is cross entropy loss as showed in Eq \ref{e
 % In the first step, we trained the image-text representation head with benchmark datasets by using Cross Entropy loss as describe in \ref{fig:overall_method} a). The image and text encoder was freezed during the first step training. For text input, we used "This is the image of [Class]" as a prompt \shortcite{radford2021learning}. After the first image-text representation head were trained, we create a new student model which have the same architecture as a image encoder model with a linear classification head. The student model was randomly initialized parameters. The objective for self-distillation with teacher and student is
 
 \section{Evaluation}
-In this work, we evaluated the student model with accuracy using image classification task.
+In this work, we evaluate the student model with accuracy using image classification task.
 The benchmarks for evalutation are ImageNet, CIFAR-10 and CIFAR-100.
-The student model is evaluated compare to the teacher image encoder model using linear probing and student model trained with self-disillation using single image encoder as a teacher model as showed in the table \ref{tab:experiment_table}.
+The student model is evaluated compare to the teacher image encoder model using linear probing and student model trained with self-disillation using single image encoder as a teacher model as showed in the Table \ref{tab:experiment_table}.
 
 \begin{table}[h]
     \caption{Experiment evalutation}
@@ -91,7 +91,7 @@ The student model is evaluated compare to the teacher image encoder model using 
 \subsection{Few-shot learning}
 As this method provides texts for training student image encoder models, the texts provide additional information for better image representations.
 Consequently, the student model benefits from our method in few-shot learning situations.
-In this part, we provide benchmark results For few-shot learning situations.
+In this part, we provide benchmark results for few-shot learning situations.
 
 \subsection{Using Image captioning as a prompt}
 For better understanding the effect of text prompts in our self-distillation method, we experiment by provided better descriptive prompt.
@@ -101,6 +101,10 @@ The image captioning model is used to create image description for the self-dist
 By using student as a teacher model for training another student model, which have the same architecture, but with different initialized parameters.
 The performance increased gradually over each generation of the student model \shortcite{furlanello2018born}.
 In this work, we also investigate the performance increasing over each generation of the student model using our self-distillation method.
+
+\subsection{Image-Text Retrieval}
+By the increasing performance in the student model using our method with textual information, we suggest that the student would be a good image encoder which also have information about text.
+Such that, we can use our method to improve image-text retrieval task.
 
 % - explainability of the student model like dino or segmentation downstream task. This one aim to test low level semantics information.
 % - Repeatation self-distillation like the BornAgain paper.
