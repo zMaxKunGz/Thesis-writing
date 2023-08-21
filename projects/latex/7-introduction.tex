@@ -11,7 +11,7 @@
 In computer vision, self-distillation \shortcite{furlanello2018born, zhang2019your, xie2020self} is a technique for improving deep learning models without increasing model size.
 This paradigm involves training a student model whose parameter size is equal to the teacher model with new parameter initialization.
 One method from this paradigm can work without any label called Self-\textbf{di}stillation with \textbf{no} labels (DINO) \shortcite{caron2021emerging}.
-The method has shown to improve the performance of both ResNet \shortcite{he2016deep} and Vision Transformers (ViT) \shortcite{dosovitskiy2021an}.
+The method has been shown to improve the performance of both ResNet \shortcite{he2016deep} and Vision Transformers (ViT) \shortcite{dosovitskiy2021an}.
 According to \shortciteA{allen-zhu2023towards}, when using the self-distillation technique, the student model is forced to learn soft-label features, which were extracted from the dataset. Additionally, by training the model with difference parameter initialization, the student model acquires knowledge from multiple views of images. The result shows around 2\% improvement by the self-distillation method over multiple ResNet models \shortcite{Zagoruyko2016WideResnet}.
 
 % However, most self-distillation methods have conventionally focused on visual information without using the textual information, which can be concise and informative.
@@ -35,11 +35,11 @@ Thus, it is a clear benefit of the training model in utilizing image and text in
 \end{figure}
 
 By merging the two paradigms, we proposed a new approach to train an image classification model by distilling knowledge from a multimodal teacher as shown in Figure~\ref{fig:overall_method}.
-A multimodal teacher models were constructed by leveraging a pre-trained language model and a pre-trained image encoder.
+Multimodal teacher models were constructed by leveraging a pre-trained language model and a pre-trained image encoder.
 The output of both encoders was combined using cross-attention and a linear classification layer, called ``image-text representation head".
 The detail of the image-text representation head is described in Figure~\ref{fig:cross_attention}.
 In this work, the encoded text was used as a query to extract the relevant information from the image encoding.
-The student model, whose had the same architecture as the teacher image encoder model, was trained using teacher output as a target.
+The student model, which had the same architecture as the teacher image encoder model, was trained using teacher output as a target.
 Thus, the student learned with high-level semantic information.
 
 The result showed that by combining textual information with images, our approach improved accuracy by 3\% in both ResNet \shortcite{he2016deep} and ViT \shortcite{dosovitskiy2021an} model compared to the baseline self-distillation method.
@@ -50,8 +50,8 @@ This suggested that by using the text encodings with cross-attention, the model 
 
 To summarize our contribution.
 Firstly this paper investigated the effectiveness of combining text-image representation by using text as a query to emphasize image representation in the self-distillation method.
-Secondly, this work proposed a method to efficiently combine textual information and image for self-distillation method.
-Lastly, this work also investigated the effect of prompt in our methods to create image descriptions for training.
+Secondly, this work proposed a method to efficiently combine textual information and images for the self-distillation method.
+Lastly, this work also investigated the effect of prompts in our methods to create image descriptions for training.
 
 % The experimental is designed to answer the question of whether the joining of textual information with image representations to create joined text image representation can enhance both the training efficiency and the accuracy of the image classification model. Furthermore, the study investigates the potential benefits of leveraging the CLIP model’s ability to understand and utilize multimodal information.
 
