@@ -25,34 +25,34 @@ The detail of each part in this experiment is provided in this section.
 
 \section{Image-Text Representation Head Training}
 % \textcolor{red}{todo:change method image to use sub figure a and b}
-In the first step as shown in Figure~\ref{fig:methodology}a), the image-text representation head is trained with image-text pairs $(x, t)$, where $x$ is an image input and $t$ is a text created with a propmt ``This is an image of [Class]''.
-The teacher image encoder $\theta_i$ and the text encoder $\theta_t$ in the training are pre-trained and freezed.
-The image and text encoding are obtained by a mapping function $x' = f(x; \theta_i)$ and $t' = f(t; \theta_t)$ repectively.
+In the first step as shown in Figure~\ref{fig:methodology}a), the image-text representation head is trained with image-text pairs $(x_i, t_i)$, where $x_i$ is an $i^{th}$ image input and $t^{th}$ is a $i^{th}$ text created with a propmt ``This is an image of [Class]''.
+The teacher image encoder $\theta_{IE}$ and the text encoder $\theta_{TE}$ in the training are pre-trained and freezed.
+The image and text encoding are obtained by a mapping function $x'_i = f(x_i; \theta_{IE})$ and $t'_i = f(t_i; \theta_{TE})$ repectively.
 The image-text representation head as shown in Figure~\ref{fig:cross_attention} which based on a cross-attention and linear classification layer, is produce logits output as Eq.\ref{eq:cross-attention}.
 Then, the logits output from the image-text representation head transform into probability distribution output with a softmax function.
 
 \begin{equation}
     \label{eq:cross-attention}
-    \hat{y} = \texttt{Softmax}(\texttt{Attention}(K=x', Q=t', V=x'))
+    \hat{y}_i = \texttt{Softmax}(\texttt{Attention}(K=x'_i, Q=t'_i, V=x'_i))
 \end{equation}
 
-The loss function for training the image-text representation head is a cross-entropy as Eq.\ref{eq:loss-cross-attention}, where $y\in\{ 0,1 \}^{C}$ is a one-hot label, $C$ is the number of target class and $N$ is the number of training sample.
+The loss function for training the image-text representation head is a cross-entropy as Eq.\ref{eq:loss-cross-attention}, where $y_i\in\{ 0,1 \}^{C}$ is a one-hot encoded label, $C$ is the number of target class and $N$ is the number of training sample.
 
 \begin{equation}
     \label{eq:loss-cross-attention}
-    \mathcal{L}_{\texttt{classification}} = -\sum^{N} y\log\hat{y}
+    \mathcal{L}_{\texttt{classification}} = -\sum_{i=1}^{N} y_i\log\hat{y}_i
 \end{equation}
 
 \section{Self-Distillation}
 After the image-text representation head is trained, the image-text representation head is freezed during the self-distillation process.
 For the student model, we create a new image encoder model with same architecture as the teacher image encoder model, but with different initialized parameters.
-A linear classification and softmax layer is added on top of the student image encoder model to produce output distribution $\hat{s}$ for self-distillation process.
-The target for training self-distillation is the softmax output $\hat{y}$ from image-text representation head with the cross entropy loss as a loss function.
+A linear classification and softmax layer is added on top of the student image encoder model to produce output distribution $\hat{s}_i$ for self-distillation process.
+The target for training self-distillation is the softmax output $\hat{y}_i$ from image-text representation head with the cross entropy loss as a loss function.
 The objective for self-distillation is cross entropy loss as showed in Eq \ref{eq:loss_self_dist}.
 
 \begin{equation}
     \label{eq:loss_self_dist}
-    \mathcal{L}_{\texttt{distillation}} = -\sum^{N} \hat{y}\log\hat{s}
+    \mathcal{L}_{\texttt{distillation}} = -\sum_{i=1}^{N} \hat{y}_i\log\hat{s}_i
 \end{equation}
 
 % \subsection{Teacher student}
@@ -99,7 +99,7 @@ The image captioning model is used to create image description for the self-dist
 
 \subsection{Repeatation self-distillation}
 By using student as a teacher model for training another student model, which have the same architecture, but with different initialized parameters.
-The performance increased gradually over each generation of the student model \shortcite{furlanello2018born}.
+The performance increased gradually over each generation of the student model \shortcite{furlanello2018born, xie2020self}
 In this work, we also investigate the performance increasing over each generation of the student model using our self-distillation method.
 
 \subsection{Image-Text Retrieval}
