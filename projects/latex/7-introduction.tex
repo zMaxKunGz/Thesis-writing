@@ -11,7 +11,7 @@
 In computer vision, self-distillation \shortcite{furlanello2018born, zhang2019your, xie2020self} is a technique for improving deep learning models without increasing model size.
 This paradigm involves training a student model whose parameter size is equal to the teacher model with new parameter initialization.
 One method from this paradigm can work without any label called Self-\textbf{di}stillation with \textbf{no} labels (DINO) \shortcite{caron2021emerging}.
-The method has been shown showed to improve the performance of both ResNet \shortcite{he2016deep} and Vision Transformers (ViT) \shortcite{dosovitskiy2021an}.
+The method has shown to improve the performance of both ResNet \shortcite{he2016deep} and Vision Transformers (ViT) \shortcite{dosovitskiy2021an}.
 According to \shortciteA{allen-zhu2023towards}, when using the self-distillation technique, the student model is forced to learn soft-label features, which were extracted from the dataset. Additionally, by training the model with difference parameter initialization, the student model acquires knowledge from multiple views of images. The result shows around 2\% improvement by the self-distillation method over multiple ResNet models \shortcite{Zagoruyko2016WideResnet}.
 
 % However, most self-distillation methods have conventionally focused on visual information without using the textual information, which can be concise and informative.
@@ -21,8 +21,8 @@ Contrastive Language-Image Pre-training (CLIP) \shortcite{radford2021learning} a
 These models are obtained by training the models with image-text pairs using the contrastive vision language pre-training method.
 The current state-of-the-art is \textbf{Co}ntrastive \textbf{Ca}ptioner (CoCa) \shortcite{yu2022coca}.
 This approach used image-text pairs with contrastive language-image loss and image captioning loss.
-It is a clear benefit of the training model in utilizing image and text information.
-Thus, this work investigated the effectiveness of using both texts and images with the self-distillation method.
+Thus, it is a clear benefit of the training model in utilizing image and text information.
+% Thus, this work investigated the effectiveness of using both texts and images with the self-distillation method.
 
 \begin{figure}[h]
     \caption{Overall methodology}
@@ -35,20 +35,23 @@ Thus, this work investigated the effectiveness of using both texts and images wi
 \end{figure}
 
 By merging the two paradigms, we proposed a new approach to train an image classification model by distilling knowledge from a multimodal teacher as shown in Figure~\ref{fig:overall_method}.
-A multimodal teacher model is constructed by leveraging a pre-trained language model and a pre-trained image encoder.
-The output of both encoders is combined using cross-attention and a linear classification layer, called ``image-text representation head".
+A multimodal teacher models were constructed by leveraging a pre-trained language model and a pre-trained image encoder.
+The output of both encoders was combined using cross-attention and a linear classification layer, called ``image-text representation head".
 The detail of the image-text representation head is described in Figure~\ref{fig:cross_attention}.
-In this work, the encoded text is used as a query to extract the relevant information from the image encoding.
-The student model, whose have the same architecture as the teacher image encoder model, is trained using teacher output as a target.
-Thus, the student learns with high-level semantic information.
+In this work, the encoded text was used as a query to extract the relevant information from the image encoding.
+The student model, whose had the same architecture as the teacher image encoder model, was trained using teacher output as a target.
+Thus, the student learned with high-level semantic information.
 
 The result showed that by combining textual information with images, our approach improved accuracy by 3\% in both ResNet \shortcite{he2016deep} and ViT \shortcite{dosovitskiy2021an} model compared to the baseline self-distillation method.
-The ablation study shows that the student model achieves 3\% higher accuracy by providing detailed descriptions in the training process.
-This suggests that by using the text encodings with cross-attention, the model extracts higher semantic information and more precise image representations from the images.
+The ablation study showed that the student model achieved 3\% higher accuracy by providing detailed descriptions in the training process.
+This suggested that by using the text encodings with cross-attention, the model extracted higher semantic information and more precise image representations from the images.
 % By repeating our self-distillation method, the accuracy of the student model gradually increases over each repetition.
 % Ablation Image-text retrieval
 
-To summarize our contribution. Firstly this paper investigates the effectiveness of combining text-image representation by using text as a query to emphasize image representation in the self-distillation method. Secondly, this work proposes a method to efficiently combine textual information and image for self-distillation method. Lastly, this work also investigates the effect of prompt in our methods to create image descriptions for training.
+To summarize our contribution.
+Firstly this paper investigated the effectiveness of combining text-image representation by using text as a query to emphasize image representation in the self-distillation method.
+Secondly, this work proposed a method to efficiently combine textual information and image for self-distillation method.
+Lastly, this work also investigated the effect of prompt in our methods to create image descriptions for training.
 
 % The experimental is designed to answer the question of whether the joining of textual information with image representations to create joined text image representation can enhance both the training efficiency and the accuracy of the image classification model. Furthermore, the study investigates the potential benefits of leveraging the CLIP model’s ability to understand and utilize multimodal information.
 
