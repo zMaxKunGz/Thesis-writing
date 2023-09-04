@@ -1,16 +1,14 @@
 \chapter{LITERATURE REVIEW}
 
 \section{Vision-Language model}
-In the past few years, many works have shown the ability to utilize textual information with the image task by training with image text pair, such as Contrastive Language-Image Pre-training (CLIP) \shortcite{radford2021learning}, \textbf{A} \textbf{L}arge-scale \textbf{I}ma\textbf{G}e and \textbf{N}oisy-text embedding (ALIGN) \shortcite{jia2021scaling}.
-By training with a large amount of the image-text pair dataset, the ALIGN model could make up for the noisy image description and surpass the model, which was trained with the benchmark dataset in the zero shot image classification task.
-Recently \textbf{Co}ntrastive \textbf{Ca}ptioner (CoCa) \shortcite{yu2022coca} proposed a vision-language encoder-decoder model which was trained with image-text contrastive loss and captioning loss
-Cross attention layers were added to join image-text modality.
-The CoCa model performed linear probing image classification on ImageNet with top-1\% 90.6\% accuracy.
-In this research, we adopted the two stream encoder method same as CLIP, and we also used a cross attention layer to create image-text representation for classification.
-% \textcolor{red}{todo: Add detail about blip model}
+\subsection{Learning Transferable Visual Models From Natural Language Supervision}
+Most computer vision deep learning pre-trained model are trained with specific set of class.
+For this reason, most computer vision deep learning models are lack of generalizability and usability.
+\shortciteA{clip}
+The training dataset is gather from the internet in a form of (image, text) pairs of 400 million pairs.
 
 \begin{figure}[h]
-    \caption{CLIP Classification example}
+    \caption{Overall method of contrastive language-image pre-training}
     \label{fig:clip_classification}
     \centering
     \includegraphics[width=1\textwidth]{Images/CLIPClassification.png}
