@@ -37,7 +37,7 @@ Klong Luang Pathumthani 12120, Thailand\\
 % just like the second author.
 % To save space, use either the email address or home page, not both
 \and
-Dr.Chaklam Silpasuwanchai\\
+Dr. Chaklam Silpasuwanchai\\
 Asian Institute of Technology\\
 Klong Luang Pathumthani 12120, Thailand\\
 {\tt\small chaklam@ait.asia}
@@ -61,56 +61,57 @@ Klong Luang Pathumthani 12120, Thailand\\
 %%%%%%%%% BODY TEXT
 \section{Introduction}
 
-In computer vision, self-distillation \cite{furlanello2018born, zhang2019your, xie2020self} is a technique for improving deep learning models without increasing model size.
-This paradigm involves training a student model whose parameter size is equal to the teacher model with new parameter initialization.
-One method from this paradigm can work without any label called Self-\textbf{di}stillation with \textbf{no} labels (DINO) \cite{caron2021emerging}.
-The method has been shown to improve the performance of both ResNet \cite{he2016deep} and Vision Transformers (ViT) \cite{dosovitskiy2021an}.
-According to \cite{allen-zhu2023towards}, when using the self-distillation technique, the student model is forced to learn soft-label features, which were extracted from the dataset. Additionally, by training the model with difference parameter initialization, the student model acquires knowledge from multiple views of images. 
-The result shows around 2\% improvement by the self-distillation method over multiple ResNet models \cite{Zagoruyko2016WideResnet}.
-test
+Vision language pre-trained models have show effective performance both in-domain and down-stream task by utilizing both text and image information.
+CLIP \cite{clip} and ALIGN \cite{align} training two-stream encoder with constrastive learning to align vision and language modalities, which result in competitive performance in many vision language task \eg image-text retrieval, visual question answer and zero shot image classification.
+ALBEF \cite{albef}, CoCa \cite{coca} and mPLUG \cite{mplug} added cross-attention layers over two-stream encoder to providing better alignment over vision and language modalities with multiple traning objective \eg image-text captioning, image-text contrastive loss, image-text matching and masked-language-modeling loss.
+As a result these models achieved state-of-the-art multiple vision-language and image classification task
 
-In another branch of research, a multimodal approach demonstrates that the model's performance can be improved when combining both image and text data into the model.
-Contrastive Language-Image Pre-training (CLIP) \cite{radford2021learning} and \textbf{A} \textbf{L}arge-scale \textbf{I}ma\textbf{G}e and \textbf{N}oisy-text embedding (ALIGN) \cite{jia2021scaling} both achieved performance on par with fully supervised image classification across multiple benchmarks.
-These models are obtained by training the models with image-text pairs using the contrastive vision language pre-training method.
-The current state-of-the-art is \textbf{Co}ntrastive \textbf{Ca}ptioner (CoCa) \cite{yu2022coca}.
-This approach used image-text pairs with contrastive language-image loss and image captioning loss.
-Thus, it is a clear benefit of the training model in utilizing image and text information.
+However, the gap of using self-distillation to improve vision language models performance was still underexplored. 
+By using moving average teacher \cite{mean_teacher,eman}, the teacher model weight is updated with average of the student model gradient. 
+As a result, the teacher model output representation is consistent.
+MixMatch \cite{mixmatch}, Mixup \cite{mixup} and Fixmatch \cite{fixmatch} is an image input interpolation method for improving output consistency within teacher-student framework by image augmentation and input interpolation between each samples.
+DINO \cite{dino} utilize both moving average teacher and image interpolation to train the teacher-student image encoder model without using any label, which result in competitive down-stream task performance.
 
-By merging the two paradigms, we proposed a new approach to train an image classification model by distilling knowledge from a multimodal teacher as shown in Figure~\ref{fig:overall_method}.
-Multimodal teacher models were constructed by leveraging a pre-trained language model and a pre-trained image encoder.
-The output of both encoders was combined using cross-attention and a linear classification layer, called ``image-text representation head".
-The detail of the image-text representation head is described in Figure~\ref{fig:cross_attention}.
-In this work, the encoded text was used as a query to extract the relevant information from the image encoding.
-The student model, which had the same architecture as the teacher image encoder model, was trained using teacher output as a target.
-Thus, the student learned with high-level semantic information.
+In this paper, we proposed a method to improve performance of two-stream encoder vision language model using self-distllation technique.
+By using moving average teacher, we can remove noise from the encoder model, which is trained using noisy internet image-text pairs.
+The image interpolation technique were applied to create more consistent encoding.
+We provide result by applied our method over baseline model including CLIP and CoCa over image classification, image-text retrieval and image captioning task.
 
-\begin{figure}[h]
-   \label{fig:overall_method}
-   \begin{center}
-      \includegraphics[width=0.8\linewidth]{Images/OverviewMethod.png}
-   \end{center}
-   \caption{Self-distillation training with image text joined representation.}
-   \small
-\end{figure}
+% \begin{figure}[h]
+%    \label{fig:overall_method}
+%    \begin{center}
+%       \includegraphics[width=0.8\linewidth]{Images/OverviewMethod.png}
+%    \end{center}
+%    \caption{Self-distillation training with image text joined representation.}
+%    \small
+% \end{figure}
 
-The result showed that by combining textual information with images, our approach improved accuracy by 3\% in both ResNet \cite{he2016deep} and ViT \cite{dosovitskiy2021an} model compared to the baseline self-distillation method.
-The ablation study showed that the student model achieved 3\% higher accuracy by providing detailed descriptions in the training process.
-This suggested that by using the text encodings with cross-attention, the model extracted higher semantic information and more precise image representations from the images.
-% By repeating our self-distillation method, the accuracy of the student model gradually increases over each repetition.
-% Ablation Image-text retrieval
 
-To summarize our contribution.
-Firstly this paper investigated the effectiveness of combining text-image representation by using text as a query to emphasize image representation in the self-distillation method.
-Secondly, this work proposed a method to efficiently combine textual information and images for the self-distillation method.
-Lastly, this work also investigated the effect of prompts in our methods to create image descriptions for training.
 
 \section{Related work}
 
 \subsection{Vision-Language model}
+In the past few years, many works have shown the ability to utilize textual information with the image task by training with image text pair \eg CLIP \cite{clip}, UNITER \cite{uniter}, Blip \cite{blip-1,blip-2}, BEiT \cite{beit-3} and CoCa \cite{coca}.
+By training with a large amount of the image-text pair dataset, the ALIGN model could make up for the noisy image description and surpass the model, which was trained with the benchmark dataset in the zero shot image classification task.
+Recently \textbf{Co}ntrastive \textbf{Ca}ptioner (CoCa) \cite{coca} proposed a vision-language encoder-decoder model which was trained with image-text contrastive loss and captioning loss
+Cross attention layers were added to join image-text modality.
+The CoCa model performed linear probing image classification on ImageNet with top-1\% 90.6\% accuracy.
+In this research, we adopted the two stream encoder method same as CLIP, and we also used a cross attention layer to create image-text representation for classification.
+Another methods \cite{uniter,beit-3,uniter,vlmo} is to concatenate both image and text embedding and utilize multi-head self-attention to joined vision and language modalities.
 
 \subsection{Knowledge Distillation and Self-Distillation}
+Knowledge Distillation was firstly proposed by \cite{knowledge_distill} to compress the model size while maintaining the model performance as much as possible.
+The method contained a smaller student model and a single or multiple larger teacher model.
+The knowledge was transferred by optimizing the student model output to match the teacher's output.
+\cite{born_again} investigated knowledge distillation using a student model size the same as the teacher model, showing improvement in the student model.
+Such a method is called self-distillation.
+The self-distillation has widely adopted in semi-supervised image classification tasks, such as Mean Teacher \cite{mean_teacher}, EMAN \cite{eman} and FixMatch \cite{fixmatch}.
+DINO \cite{dino} proposed self-distillation pre-training without using any label, which resulted in performance improvement.
+In this paper, we extended the self-distillation by creating representation which was image-text combined representation, and we trained the student model to match teacher softmax outputs.
 
 \section{Methodology}
+% \subsection{}
+
 
 {\small
 \bibliographystyle{ieee_fullname}
