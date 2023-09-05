@@ -1,34 +1,17 @@
 \chapter{METHODOLOGY}
 
-The proposed self-distillation method training process is shown in Figure~\ref{fig:methodology}.
 The first step in the training process is to train the image-text representation head by freezing both the image and text encoder model as shown in Figure~\ref{fig:methodology} a).
 The second step is self-distillation with combined text and image representation output from the image-text representation head as shown in Figure~\ref{fig:methodology} b).
 Difference image and text encoder models pair are choose to demonstrate the benefit of our method.
-We compare our approach with other self-distillation \shortcite{furlanello2018born,xie2020self}.
+We compare our approach with other self-distillation \shortcite{born_again,noisy_student}.
 The detail of each part in this experiment is provided in this section.
 
-\begin{figure}[h]
-    \caption{Training methodology}
-    \label{fig:methodology}
-    \begin{center}
-        \includegraphics[width=1\textwidth]{Images/Methodology.png}
-    \end{center}
-    \small a) Training image-text representation head using cross entropy loss b) Self-distillation training by freezing all teacher model
-\end{figure}
-
-\begin{figure}[h]
-    \caption{Image-Text Cross Attention Classification head}
-    \label{fig:cross_attention}
-    \centering
-    \includegraphics[width=0.5\textwidth]{Images/CrossAttention.png}
-\end{figure}
 
 \section{Image-Text Representation Head Training}
 % \textcolor{red}{todo:change method image to use sub figure a and b}
-In the first step as shown in Figure~\ref{fig:methodology}a), the image-text representation head is trained with image-text pairs $(x_i, t_i)$, where $x_i$ is an $i^{th}$ image input and $t^{th}$ is a $i^{th}$ text created with a propmt ``This is an image of [Class]''.
+
 The teacher image encoder $\theta_{IE}$ and the text encoder $\theta_{TE}$ in the training are pre-trained and freezed.
 The image and text encoding are obtained by a mapping function $x'_i = f(x_i; \theta_{IE})$ and $t'_i = f(t_i; \theta_{TE})$ repectively.
-The image-text representation head as shown in Figure~\ref{fig:cross_attention} which based on a cross-attention and linear classification layer, is produce logits output as Eq.\ref{eq:cross-attention}.
 Then, the logits output from the image-text representation head transform into probability distribution output with a softmax function.
 
 \begin{equation}
@@ -99,7 +82,7 @@ The image captioning model is used to create image description for the self-dist
 
 \subsection{Repeatation self-distillation}
 By using student as a teacher model for training another student model, which have the same architecture, but with different initialized parameters.
-The performance increased gradually over each generation of the student model \shortcite{furlanello2018born, xie2020self}
+The performance increased gradually over each generation of the student model \shortcite{born_again,noisy_student}
 In this work, we also investigate the performance increasing over each generation of the student model using our self-distillation method.
 
 \subsection{Image-Text Retrieval}

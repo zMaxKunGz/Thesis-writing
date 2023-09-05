@@ -4,38 +4,43 @@
 \subsection{Learning Transferable Visual Models From Natural Language Supervision}
 Most computer vision deep learning pre-trained model are trained with specific set of class.
 For this reason, most computer vision deep learning models are lack of generalizability and usability.
-\shortciteA{radford2021learning} proposed pre-training method which utilize image and text description to train vision models called Contrastive Language-Image Pre-training (CLIP).
+\shortciteA{clip} proposed pre-training method which utilize image and text description to train vision models called Contrastive Language-Image Pre-training (CLIP).
 The overall method is showed in Figure~\ref{fig:clip}.
 The training dataset is gather from the internet in a form of (image, text) pairs of 400 million pairs.
 The model had a text encoder and an image encoder model.
-In \shortcite{radford2021learning}, the image encoder models are ResNet and Vision Transformer and the text encoder model are transformer model.
+In \shortcite{clip}, the image encoder models are ResNet and Vision Transformer and the text encoder model are transformer model.
 The model is optimized to maximize the similarity between each image text pair with non original image text pair as a negative target for contrastive training.
 As a result the CLIP model has generalizability tested by comparing CLIP zero-shot classification and linear probe on ResNet50 as showed in the Figure~\ref{fig:clip-performance}
 
 \begin{figure}[h]
-    \label{fig:clip}
     \caption{Overall method of contrastive language-image pre-training}
+    \label{fig:clip}
     \centering
     \includegraphics[width=1\textwidth]{Images/CLIP.png}
     \small
 \end{figure}
 
 \begin{figure}[h]
-    \label{fig:clip-performance}
     \caption{Zero-shot CLIP is competitive with a fully supervised baseline.}
+    \label{fig:clip-performance}
     \centering
-    \includegraphics[width=1\textwidth]{Images/CLIPPerformance.png.png}
+    \includegraphics[width=1\textwidth]{Images/CLIPPerformance.png}
     \small
 \end{figure}
 
+\subsection{CoCa}
+
+
+\subsection{mPlug}
+
 \section{Knowledge Distillation and Self-Distillation}
-Knowledge Distillation was firstly proposed by \shortciteA{geoffrey2014distilling} to compress the model size while maintaining the model performance as much as possible.
+Knowledge Distillation was firstly proposed by \shortciteA{knowledge_distill} to compress the model size while maintaining the model performance as much as possible.
 The method contained a smaller student model and a single or multiple larger teacher model.
 The knowledge was transferred by optimizing the student model output to match the teacher's output.
-\shortciteA{furlanello2018born} investigated knowledge distillation using a student model size the same as the teacher model, showing improvement in the student model.
+\shortciteA{born_again} investigated knowledge distillation using a student model size the same as the teacher model, showing improvement in the student model.
 Such a method is called self-distillation.
-The self-distillation has widely adopted in semi-supervised image classification tasks, such as Mean Teacher \shortcite{tarvainen2017mean}, EMAN \shortcite{cai2021exponential} and FixMatch \shortcite{sohn2020fixmatch}.
-DINO \shortciteA{caron2021emerging} proposed self-distillation pre-training without using any label, which resulted in performance improvement.
+The self-distillation has widely adopted in semi-supervised image classification tasks, such as Mean Teacher \shortcite{mean_teacher}, EMAN \shortcite{eman} and FixMatch \shortcite{fixmatch}.
+DINO \shortciteA{dino} proposed self-distillation pre-training without using any label, which resulted in performance improvement.
 In this paper, we extended the self-distillation by creating representation which was image-text combined representation, and we trained the student model to match teacher softmax outputs.
 
 % \section{Semi-Supervised Learning}

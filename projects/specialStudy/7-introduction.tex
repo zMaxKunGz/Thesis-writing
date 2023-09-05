@@ -8,41 +8,23 @@
 \chapter{INTRODUCTION}
 \section{Background}
 
-In computer vision, self-distillation \shortcite{furlanello2018born, zhang2019your, xie2020self} is a technique for improving deep learning models without increasing model size.
+In computer vision, self-distillation \shortcite{born_again, be_yourown_teacher, noisy_student} is a technique for improving deep learning models without increasing model size.
 This paradigm involves training a student model whose parameter size is equal to the teacher model with new parameter initialization.
-One method from this paradigm can work without any label called Self-\textbf{di}stillation with \textbf{no} labels (DINO) \shortcite{caron2021emerging}.
-The method has been shown to improve the performance of both ResNet \shortcite{he2016deep} and Vision Transformers (ViT) \shortcite{dosovitskiy2021an}.
-According to \shortciteA{allen-zhu2023towards}, when using the self-distillation technique, the student model is forced to learn soft-label features, which were extracted from the dataset. Additionally, by training the model with difference parameter initialization, the student model acquires knowledge from multiple views of images. The result shows around 2\% improvement by the self-distillation method over multiple ResNet models \shortcite{Zagoruyko2016WideResnet}.
+One method from this paradigm can work without any label called Self-\textbf{di}stillation with \textbf{no} labels (DINO) \shortcite{dino}.
+The method has been shown to improve the performance of both ResNet \shortcite{resnet} and Vision Transformers (ViT) \shortcite{vit}.
+According to \shortciteA{toward_understanding}, when using the self-distillation technique, the student model is forced to learn soft-label features, which were extracted from the dataset. Additionally, by training the model with difference parameter initialization, the student model acquires knowledge from multiple views of images. The result shows around 2\% improvement by the self-distillation method over multiple ResNet models \shortcite{wide_resnet}.
 
 % However, most self-distillation methods have conventionally focused on visual information without using the textual information, which can be concise and informative.
 % By utilizing text and image information, the model can learn to extract semantic information from the images based on text description.
 In another branch of research, a multimodal approach demonstrates that the model's performance can be improved when combining both image and text data into the model.
-Contrastive Language-Image Pre-training (CLIP) \shortcite{radford2021learning} and \textbf{A} \textbf{L}arge-scale \textbf{I}ma\textbf{G}e and \textbf{N}oisy-text embedding (ALIGN) \shortcite{jia2021scaling} both achieved performance on par with fully supervised image classification across multiple benchmarks.
+Contrastive Language-Image Pre-training (CLIP) \shortcite{clip} and \textbf{A} \textbf{L}arge-scale \textbf{I}ma\textbf{G}e and \textbf{N}oisy-text embedding (ALIGN) \shortcite{align} both achieved performance on par with fully supervised image classification across multiple benchmarks.
 These models are obtained by training the models with image-text pairs using the contrastive vision language pre-training method.
-The current state-of-the-art is \textbf{Co}ntrastive \textbf{Ca}ptioner (CoCa) \shortcite{yu2022coca}.
+The current state-of-the-art is \textbf{Co}ntrastive \textbf{Ca}ptioner (CoCa) \shortcite{coca}.
 This approach used image-text pairs with contrastive language-image loss and image captioning loss.
 Thus, it is a clear benefit of the training model in utilizing image and text information.
 % Thus, this work investigated the effectiveness of using both texts and images with the self-distillation method.
 
-\begin{figure}[h]
-    \caption{Overall methodology}
-    \label{fig:overall_method}
-    Self-distillation training with image text joined representation.
-    \begin{center}
-        \includegraphics[width=0.75\textwidth]{Images/OverviewMethod.png}
-    \end{center}
-    \small
-\end{figure}
-
-By merging the two paradigms, we proposed a new approach to train an image classification model by distilling knowledge from a multimodal teacher as shown in Figure~\ref{fig:overall_method}.
-Multimodal teacher models were constructed by leveraging a pre-trained language model and a pre-trained image encoder.
-The output of both encoders was combined using cross-attention and a linear classification layer, called ``image-text representation head".
-The detail of the image-text representation head is described in Figure~\ref{fig:cross_attention}.
-In this work, the encoded text was used as a query to extract the relevant information from the image encoding.
-The student model, which had the same architecture as the teacher image encoder model, was trained using teacher output as a target.
-Thus, the student learned with high-level semantic information.
-
-The result showed that by combining textual information with images, our approach improved accuracy by 3\% in both ResNet \shortcite{he2016deep} and ViT \shortcite{dosovitskiy2021an} model compared to the baseline self-distillation method.
+The result showed that by combining textual information with images, our approach improved accuracy by 3\% in both ResNet \shortcite{resnet} and ViT \shortcite{vit} model compared to the baseline self-distillation method.
 The ablation study showed that the student model achieved 3\% higher accuracy by providing detailed descriptions in the training process.
 This suggested that by using the text encodings with cross-attention, the model extracted higher semantic information and more precise image representations from the images.
 % By repeating our self-distillation method, the accuracy of the student model gradually increases over each repetition.
