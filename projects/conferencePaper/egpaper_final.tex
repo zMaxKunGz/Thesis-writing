@@ -61,31 +61,34 @@ Klong Luang Pathumthani 12120, Thailand\\
 %%%%%%%%% BODY TEXT
 \section{Introduction}
 
-Vision language pre-trained models have show effective performance both in-domain and down-stream task by utilizing both text and image information.
-CLIP \cite{clip} and ALIGN \cite{align} training two-stream encoder with constrastive learning to align vision and language modalities, which result in competitive performance in many vision language task \eg image-text retrieval, visual question answer and zero shot image classification.
-ALBEF \cite{albef}, CoCa \cite{coca} and mPLUG \cite{mplug} added cross-attention layers over two-stream encoder to providing better alignment over vision and language modalities with multiple traning objective \eg image-text captioning, image-text contrastive loss, image-text matching and masked-language-modeling loss.
-As a result these models achieved state-of-the-art multiple vision-language and image classification task
+Vision language pre-trained models have shown effective performance in both in-domain and downstream tasks by utilizing both text and image information.
+CLIP \cite{clip} and ALIGN \cite{align} train image and text encoders with contrastive learning to align vision and language modalities, which results in competitive performance in many vision language tasks \eg image-text retrieval, visual question answer, and zero-shot image classification.
+ALBEF \cite{albef}, CoCa \cite{coca} and mPLUG \cite{mplug} added cross-attention layers over image and text encoders to provide better alignment over vision and language modalities with multiple training objectives \eg image-text captioning, image-text contrastive loss, image-text matching and masked-language-modeling loss.
+As a result these models achieved state-of-the-art multiple vision-language and image classification task.
 
-However, the gap of using self-distillation to improve vision language models performance was still underexplored. 
-By using moving average teacher \cite{mean_teacher,eman}, the teacher model weight is updated with average of the student model gradient. 
+However, the gap in using the self-distillation to improve vision language model performance for downstream task was still underexplored. 
+By using the moving average teacher \cite{mean_teacher,eman}, the teacher model weight is updated with the average of the student model gradient. 
 As a result, the teacher model output representation is consistent.
-MixMatch \cite{mixmatch}, Mixup \cite{mixup} and Fixmatch \cite{fixmatch} is an image input interpolation method for improving output consistency within teacher-student framework by image augmentation and input interpolation between each samples.
-DINO \cite{dino} utilize both moving average teacher and image interpolation to train the teacher-student image encoder model without using any label, which result in competitive down-stream task performance.
+MixMatch \cite{mixmatch}, Mixup \cite{mixup}, and Fixmatch \cite{fixmatch} are image input interpolation methods for improving output consistency within the teacher-student framework by image augmentation and input interpolation between each sample.
+Our work is inspired by DINO \cite{dino} which utilizes both moving average teacher and image interpolation techniques to train the teacher-student image encoder model without using any label, which results in competitive down-stream task performance.
 
-In this paper, we proposed a method to improve performance of two-stream encoder vision language model using self-distllation technique.
-By using moving average teacher, we can remove noise from the encoder model, which is trained using noisy internet image-text pairs.
-The image interpolation technique were applied to create more consistent encoding.
-We provide result by applied our method over baseline model including CLIP and CoCa over image classification, image-text retrieval and image captioning task.
+In this paper, we proposed a method to improve the performance of the image and text encoder vision language model using the self-distillation \cite{mean_teacher} technique as shown in Figure \ref{fig:overall_method}.
+LiT \cite{lit} showed that with the image and text encoders architecture, the freezing image encoder and tuning only the text encoder for the downstream tasks can perform better than tuning both image and text encoders.
+By using the moving average teacher, we can remove noise from the text encoder model, which is trained using noisy internet image-text pairs.
+In order to produce a robust text encoder, interpolated text input is required for moving average teacher methods.
+%% TODO: clarify why I choose two-stream pre-trained model.
+We provided the result by applying our method over pre-trained vision language models in image classification and cross-modal retrieval tasks compared to the finetuning method.
+%% TODO: Identify finetuning method.
+The main contribution of our work was to utilize the moving average teacher to improve downstream task performance for the pre-trained vision language model.
 
-% \begin{figure}[h]
-%    \label{fig:overall_method}
-%    \begin{center}
-%       \includegraphics[width=0.8\linewidth]{Images/OverviewMethod.png}
-%    \end{center}
-%    \caption{Self-distillation training with image text joined representation.}
-%    \small
-% \end{figure}
-
+\begin{figure}[h]
+   \label{fig:overall_method}
+   \begin{center}
+      \includegraphics[width=0.8\linewidth]{Images/ThesisDiagram.png}
+   \end{center}
+   \caption{Overview of proposed method of applying moving average teacher to produce robust text encoder in pre-trained vision language model.}
+   \small
+\end{figure}
 
 
 \section{Related work}
@@ -110,7 +113,10 @@ DINO \cite{dino} proposed self-distillation pre-training without using any label
 In this paper, we extended the self-distillation by creating representation which was image-text combined representation, and we trained the student model to match teacher softmax outputs.
 
 \section{Methodology}
-% \subsection{}
+In this section we provided our self-distillation method and experiment setup details.
+\subsection{Self-Distillation}
+   
+\subsection{Evaluation}
 
 
 {\small
