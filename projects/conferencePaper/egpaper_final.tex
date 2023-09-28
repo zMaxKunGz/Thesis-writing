@@ -95,12 +95,16 @@ The main contribution of our work was to utilize the moving average teacher to i
 
 \subsection{Vision-Language model}
 In the past few years, many works have shown the ability to utilize textual information with the image task by training with image text pair \eg CLIP \cite{clip}, UNITER \cite{uniter}, Blip \cite{blip-1,blip-2}, BEiT \cite{beit-3} and CoCa \cite{coca}.
+We can roughly divide the vision language model architecture into two categories.
+First, vision and language encoder \eg CLIP, CoCa, ALIGN, and mPlug.
+These model focus on maximize alignment of two encoders for vision and language encoding.
 By training with a large amount of the image-text pair dataset, the ALIGN model could make up for the noisy image description and surpass the model, which was trained with the benchmark dataset in the zero shot image classification task.
-Recently \textbf{Co}ntrastive \textbf{Ca}ptioner (CoCa) \cite{coca} proposed a vision-language encoder-decoder model which was trained with image-text contrastive loss and captioning loss
+Recently \textbf{Co}ntrastive \textbf{Ca}ptioner (CoCa) \cite{coca} proposed a vision-language encoder-decoder model which was trained with image-text contrastive loss and captioning loss.
 Cross attention layers were added to join image-text modality.
-The CoCa model performed linear probing image classification on ImageNet with top-1\% 90.6\% accuracy.
-In this research, we adopted the two stream encoder method same as CLIP, and we also used a cross attention layer to create image-text representation for classification.
-Another methods \cite{uniter,beit-3,uniter,vlmo} is to concatenate both image and text embedding and utilize multi-head self-attention to joined vision and language modalities.
+% The CoCa model performed linear probing image classification on ImageNet with top-1\% 90.6\% accuracy.
+Second methods are single encoder jointly trained with both modalities \eg Uniter \cite{uniter}, BeiT-3 \cite{beit-3}, and VLMO \cite{vlmo}.
+These methods concatenated both image and text embedding and utilize multi-head self-attention to joined vision and language modalities.
+In this research, we choose to experiment with the vision and language encoders method same as CLIP due to separable encoders for distillation.
 
 \subsection{Knowledge Distillation and Self-Distillation}
 Knowledge Distillation was firstly proposed by \cite{knowledge_distill} to compress the model size while maintaining the model performance as much as possible.
