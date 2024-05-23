@@ -25,7 +25,7 @@
 \begin{document}
 
 %%%%%%%%% TITLE
-\title{Self-Distillation using image-language representation for image classification}
+\title{Semi-Supervised learning image-text retrieval}
 
 \author{Pasit Tiwawongrut\\
 Asian Institute of Technology\\
@@ -61,25 +61,10 @@ Klong Luang Pathumthani 12120, Thailand\\
 %%%%%%%%% BODY TEXT
 \section{Introduction}
 
-Vision language pre-trained models have shown effective performance in both in-domain and downstream tasks by utilizing both text and image information.
-CLIP \cite{clip} and ALIGN \cite{align} train image and text encoders with contrastive learning to align vision and language modalities, which results in competitive performance in many vision language tasks \eg image-text retrieval, visual question answer, and zero-shot image classification.
-ALBEF \cite{albef}, CoCa \cite{coca} and mPLUG \cite{mplug} added cross-attention layers over image and text encoders to provide better alignment over vision and language modalities with multiple training objectives \eg image-text captioning, image-text contrastive loss, image-text matching and masked-language-modeling loss.
-As a result these models achieved state-of-the-art multiple vision-language and image classification task.
-
-However, the gap in using the self-distillation to improve vision language model performance for downstream task was still underexplored. 
-By using the moving average teacher \cite{mean_teacher,eman}, the teacher model weight is updated with the average of the student model gradient. 
-As a result, the teacher model output representation is consistent.
-MixMatch \cite{mixmatch}, Mixup \cite{mixup}, and Fixmatch \cite{fixmatch} are image input interpolation methods for improving output consistency within the teacher-student framework by image augmentation and input interpolation between each sample.
-Our work is inspired by DINO \cite{dino} which utilizes both moving average teacher and image interpolation techniques to train the teacher-student image encoder model without using any label, which results in competitive down-stream task performance.
-
-In this paper, we proposed a method to improve the performance of the image and text encoder vision language model using the self-distillation \cite{mean_teacher} technique as shown in Figure \ref{fig:overall_method}.
-LiT \cite{lit} showed that with the image and text encoders architecture, the freezing image encoder and tuning only the text encoder for the downstream tasks can perform better than tuning both image and text encoders.
-By using the moving average teacher, we can remove noise from the text encoder model, which is trained using noisy internet image-text pairs.
-In order to produce a robust text encoder, interpolated text input is required for moving average teacher methods.
-%% TODO: clarify why I choose two-stream pre-trained model.
-We provided the result by applying our method over pre-trained vision language models in image classification and cross-modal retrieval tasks compared to the finetuning method.
-%% TODO: Identify finetuning method.
-The main contribution of our work was to utilize the moving average teacher to improve downstream task performance for the pre-trained vision language model.
+Vision-langugage retrieval is a crucial task to create a search related image and text depends on each modalities.
+With the growth in vision language pre-trained models, these models become foundation models for many downstream task \cite{foundation_model}.
+CLIP \cite{clip} propose pre-trained vision-language model results in remarkable performance in many vision language tasks by training with web-scaled image-text pairs.
+However when adapted to speicialized domain such as medical images and remote sensing, the model still struggle to get alignment of these specialized image-text \cite{s-clip}.
 
 \begin{figure}[h]
    \label{fig:overall_method}
