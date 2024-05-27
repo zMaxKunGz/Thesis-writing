@@ -61,10 +61,22 @@ Klong Luang Pathumthani 12120, Thailand\\
 %%%%%%%%% BODY TEXT
 \section{Introduction}
 
-Vision-langugage retrieval is a crucial task to create a search related image and text depends on each modalities.
-With the growth in vision language pre-trained models, these models become foundation models for many downstream task \cite{foundation_model}.
-CLIP \cite{clip} propose pre-trained vision-language model results in remarkable performance in many vision language tasks by training with web-scaled image-text pairs.
-However when adapted to speicialized domain such as medical images and remote sensing, the model still struggle to get alignment of these specialized image-text \cite{s-clip}.
+Vision-langugage retrieval is a crucial task to create a search and a recommendation system and gains a lot of attention with the increasing of vision-language datasets. \cite{cross_modal_review, cross_modal_review_2}.
+The key challenge in this domain is to extract relavant information from image and text, which should have good aligned in each modalities.
+With the CLIP model \cite{clip}, the CLIP have showed remarkable performance on many tasks, and it become foundation models for many downstream task\cite{foundation_model}.
+However when adapted to speicialized domain such as medical images and remote sensing, the model still struggle to get alignment of these specialized image-text \cite{s-clip, kim2024discovering}.
+
+In specialized domain, the numbers of images are limited and the captions for the images is expensive to get \cite{generate_fashion_caption}. %some citation
+In specialized domain such as in house dataset, it is hard to find pre-trained model to get external knowledge to improve the training process.
+The key question is can pseudo captioning improve the performance of the model. %change this
+Many work focus in gather more data.
+Many work focus on reusing current caption.
+Some work imrpove the alignment of the image and caption \cite{zlap}.
+
+In this work we propose soft pseudo caption from images and captions.
+We have hypothesis that the image captions can be create by keyword and image embedding with transform function.
+We experiment method to create soft psuedo captions and compare method to create image and text representation.
+
 
 \begin{figure}[h]
    \label{fig:overall_method}
