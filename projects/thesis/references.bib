@@ -446,15 +446,48 @@ location = {Glasgow, United Kingdom}
 }
 
 @article{mask_object,
-  title={Data Efficient Masked Language Modeling for Vision and Language},
-  author={Bitton, Yonatan and Stanovsky, Gabriel and Elhadad, Michael and Schwartz, Roy},
-  journal={arXiv preprint arXiv:2109.02040},
-  year={2021}
+    title={Data Efficient Masked Language Modeling for Vision and Language},
+    author={Bitton, Yonatan and Stanovsky, Gabriel and Elhadad, Michael and Schwartz, Roy},
+    journal={arXiv preprint arXiv:2109.02040},
+    year={2021}
 }
 
 @article{selective_masking,
-  title={Difference-masking: Choosing what to mask in continued pretraining},
-  author={Wilf, Alex and Akter, Syeda Nahida and Mathur, Leena and Liang, Paul Pu and Mathew, Sheryl and Shou, Mengrou and Nyberg, Eric and Morency, Louis-Philippe},
-  journal={arXiv preprint arXiv:2305.14577},
-  year={2023}
+    title={Difference-masking: Choosing what to mask in continued pretraining},
+    author={Wilf, Alex and Akter, Syeda Nahida and Mathur, Leena and Liang, Paul Pu and Mathew, Sheryl and Shou, Mengrou and Nyberg, Eric and Morency, Louis-Philippe},
+    journal={arXiv preprint arXiv:2305.14577},
+    year={2023}
+}
+
+@inproceedings{valse,
+    title = "{VALSE}: A Task-Independent Benchmark for Vision and Language Models Centered on Linguistic Phenomena",
+    author = "Parcalabescu, Letitia  and
+        Cafagna, Michele  and
+        Muradjan, Lilitta  and
+        Frank, Anette  and
+        Calixto, Iacer  and
+        Gatt, Albert",
+    booktitle = "Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+    month = may,
+    year = "2022",
+    address = "Dublin, Ireland",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2022.acl-long.567",
+    pages = "8253--8280",
+    abstract = "We propose VALSE (Vision And Language Structured Evaluation), a novel benchmark designed for testing general-purpose pretrained vision and language (V{\&}L) models for their visio-linguistic grounding capabilities on specific linguistic phenomena. VALSE offers a suite of six tests covering various linguistic constructs. Solving these requires models to ground linguistic phenomena in the visual modality, allowing more fine-grained evaluations than hitherto possible. We build VALSE using methods that support the construction of valid foils, and report results from evaluating five widely-used V{\&}L models. Our experiments suggest that current models have considerable difficulty addressing most phenomena. Hence, we expect VALSE to serve as an important benchmark to measure future progress of pretrained V{\&}L models from a linguistic perspective, complementing the canonical task-centred V{\&}L evaluations.",
+}
+
+@inproceedings{mm-shap,
+    title = "{MM}-{SHAP}: A Performance-agnostic Metric for Measuring Multimodal Contributions in Vision and Language Models {\&} Tasks",
+    author = "Parcalabescu, Letitia  and
+        Frank, Anette",
+    booktitle = "Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+    month = jul,
+    year = "2023",
+    address = "Toronto, Canada",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2023.acl-long.223",
+    doi = "10.18653/v1/2023.acl-long.223",
+    pages = "4032--4059",
+    abstract = "Vision and language models (VL) are known to exploit unrobust indicators in individual modalities (e.g., introduced by distributional biases) instead of focusing on relevant information in each modality. That a unimodal model achieves similar accuracy on a VL task to a multimodal one, indicates that so-called unimodal collapse occurred. However, accuracy-based tests fail to detect e.g., when the model prediction is wrong, while the model used relevant information from a modality.Instead, we propose MM-SHAP, a performance-agnostic multimodality score based on Shapley values that reliably quantifies in which proportions a multimodal model uses individual modalities. We apply MM-SHAP in two ways: (1) to compare models for their average degree of multimodality, and (2) to measure for individual models the contribution of individual modalities for different tasks and datasets.Experiments with six VL models {--} LXMERT, CLIP and four ALBEF variants {--} on four VL tasks highlight that unimodal collapse can occur to different degrees and in different directions, contradicting the wide-spread assumption that unimodal collapse is one-sided. Based on our results, we recommend MM-SHAP for analysing multimodal tasks, to diagnose and guide progress towards multimodal integration. Code available at https://github.com/Heidelberg-NLP/MM-SHAP.",
 }
