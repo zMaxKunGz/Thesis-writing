@@ -1,35 +1,23 @@
 \chapter{LITERATURE REVIEW}
+This section of the literature review is organized around three key topics relevant to our study.
+The first topic addresses VL models, providing an overview of the model architectures recently used in VL models and discussing the choice of the base architecture for the VL model used in this research.
+The second topic explores probing and interpretability, which are essential for analyzing experimental outcomes.
+The final topic focuses on masked language modeling (MLM), an important pre-training approach that has improved VL model performance.
+Together, these sections provide a comprehensive overview of the methodological foundations of this study.
 
 \section{Vision-Language model}
-Recent advancements in vision-language model training can be roughly categorized into three main methods. 
+Recent advancements in VL model training can be roughly categorized into three main methods. 
 The first approach is an individual unimodal model encoder for each modality, such as CLIP \cite{clip} and Align \cite{align}.
 This method is trained with the objective to align the intermediate output of each modality encoding. 
 The second method utilizes a cross-attention layer to fuse multimodal input, e.g., Flamingo \cite{flamingo}, mPlug \cite{mplug}, LXMERT \cite{lxmert}, and ALBEF \cite{albef}. 
 With the cross-attention layer, the model can fuse each modality more deeply. 
 Finally, the third approach is a single large attention model with the concatenation of image and text tokens as input, such as BEIT \cite{beit-3}. 
 This approach allows each modality to be fused in the early stage, although it requires the highest amount of computational resources.
-In this work, we adopt the cross-attention method as the base model due to its ability to fuse each modality input. This method also allows the model to be trained with the MLM task. 
+In this work, we adopt the cross-attention method as the base model due to its ability to fuse each modality input.
 Additionally, this approach enables the model to be trained using the Masked Language Modeling (MLM) task.
 
 
 \section{Probing and interpretability}
-In order to analysis deep learning model, it is important to consider utilizing probing and interprete method.
-We can devide model-agnostic method into two categories: White-box methods, which utilize the internal structure and parameter of a deep learning models to interprete the reason behind output and
-black-box method, where we modify input and observe the change occur with output of a deep learning model.
-
-For the white-box method, Grad-CAM \citeA{grad-cam} is a method for CNN and Vision transformer based.
-The method consider the gradient of the input to interprete the reason behind the prediction.
-\citeA{attention-explanations} proposed a method to interprete the attention score.
-However, these white-box method is not suitable for the multimodal deep learning model to analyze the interaction between each modality.
-
-For the black-box method, DIME \cite{dime} proposed intepretation by probe a deep learning model with interpretable linear function over model output.
-Another method to consider is Amnesic Probing \cite{amnesic-probing}.
-This method considered the causal intervention by remove some part of the input. 
-As a result, we can measure the contribution for each part of the input.
-In the field of multimodal traning, \citeA{mm-shap} proposed MM-Shap, inspired by shapley value to evaluate the contribution from each modalities.
-
-In this work we adopt MM-Shap as a intepretation for analysis change in contribution from each modalities.
-
 In order to analyze deep learning models, it is important to utilize both probing and interpretation methods. 
 We can divide model-agnostic methods into two categories: white-box methods, which leverage the internal structure and parameters of deep learning models to interpret the reasoning behind their outputs, and black-box methods, where we modify the input and observe the resulting changes in the model's output.
 
@@ -46,3 +34,5 @@ In the context of multimodal training, \citeA{mm-shap} proposed MM-Shap, inspire
 In this work, we adopt MM-Shap as an interpretation method to analyze changes in the contribution of each modality.
 MM-Shap is specifically designed to handle multimodal inputs without considering the accuracy of a deep learning model. 
 It provides a quantitative measure of the contribution of each modality.
+
+\section{Masked Language Modelling}
