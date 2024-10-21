@@ -1,8 +1,8 @@
 \chapter{LITERATURE REVIEW}
-This section of the literature review is organized around three key topics relevant to our study.
+This section of the literature review is organized around two key topics relevant to our study.
 The first topic addresses VL models, providing an overview of the model architectures recently used in VL models and discussing the choice of the base architecture for the VL model used in this research.
-The second topic explores probing and interpretability, which are essential for analyzing experimental outcomes.
-The final topic focuses on masked language modeling (MLM), an important pre-training approach that has improved VL model performance.
+The second topic MLM, an important pre-training approach that has improved VL model performance.
+% The final topic focuses on 
 Together, these sections provide a comprehensive overview of the methodological foundations of this study.
 
 \section{Vision-Language model}
@@ -14,25 +14,37 @@ With the cross-attention layer, the model can fuse each modality more deeply.
 Finally, the third approach is a single large attention model with the concatenation of image and text tokens as input, such as BEIT \cite{beit-3}. 
 This approach allows each modality to be fused in the early stage, although it requires the highest amount of computational resources.
 In this work, we adopt the cross-attention method as the base model due to its ability to fuse each modality input.
-Additionally, this approach enables the model to be trained using the Masked Language Modeling (MLM) task.
+Additionally, this approach enables the model to be trained using the MLM task.
 
 
-\section{Probing and interpretability}
-In order to analyze deep learning models, it is important to utilize both probing and interpretation methods. 
-We can divide model-agnostic methods into two categories: white-box methods, which leverage the internal structure and parameters of deep learning models to interpret the reasoning behind their outputs, and black-box methods, where we modify the input and observe the resulting changes in the model's output.
-
-For white-box methods, Grad-CAM \citeA{grad-cam} is a technique used with CNNs and Vision Transformers. 
-This method considers the gradient of the input to interpret the reasoning behind the model’s prediction. 
-\citeA{attention-explanations} proposed a method for interpreting attention scores. 
-However, these white-box methods are not well-suited for analyzing multimodal deep learning models to understand interactions between different modalities.
-
-For black-box methods, DIME \cite{dime} proposed an interpretation technique that probes a deep learning model using an interpretable linear function over the model’s output. 
-Another method to consider is Amnesic Probing \cite{amnesic-probing}, which uses causal intervention by removing parts of the input. 
-This allows us to measure the contribution of each part of the input to the model's output. 
-In the context of multimodal training, \citeA{mm-shap} proposed MM-Shap, inspired by Shapley values, to evaluate the contribution of each modality.
-
-In this work, we adopt MM-Shap as an interpretation method to analyze changes in the contribution of each modality.
-MM-Shap is specifically designed to handle multimodal inputs without considering the accuracy of a deep learning model. 
-It provides a quantitative measure of the contribution of each modality.
 
 \section{Masked Language Modelling}
+Masked language modelling (MLM) is a widely used pre-training method in language model (LM) training \cite{bert, albert, dictbert, opt, realm} as a self-supervised task.
+\citeA{bert} had proposed MLM as a pre-training task, which had been proved to be effective for pre-training.
+MLM task is a task where some of the input tokens replace with special [MASK] token, and the model have to predict the masked tokens based on the given unmasked tokens.
+In the field of VL model, many VL model also adopted MLM as a training task to train the model to predict masked text to based on visual information \cite{albef, mplug, uniter, beit-3}.
+% todo: Add more citation about MLM analysis
+In the field of selective masking strategy, \citeA{posmaskinglearning} had present a training analysis based on POS masking focus on LM training, and proposed masking ratio decay to control the percentage of categories POS masking ratio.
+The result showed that, focusing on masking Non-function word (ADJ, ADV, NOUN, PROPN and VERB) in the late stage of training can forced the LM model to get better understanding of the context. 
+For selective masking in VL training, \citeA{mask_object} introduced an object token masking strategy, where object tokens in image captions are selectively masked, and the model is pre-trained from scratch.
+This approach led to superior performance compared to random masking.
+Furthermore, \citeA{selective_masking} demonstrated that selectively masking infrequent words from the pre-training dataset during continued training enhances model performance on out-of-domain datasets.
+In this work, we focus on analysis effect and behavior of the VL model when training with masking each POS.
+
+% \section{Probing and interpretability}
+% In order to analyze deep learning models, it is important to utilize both probing and interpretation methods. 
+% We can divide model-agnostic methods into two categories: white-box methods, which leverage the internal structure and parameters of deep learning models to interpret the reasoning behind their outputs, and black-box methods, where we modify the input and observe the resulting changes in the model's output.
+
+% For white-box methods, Grad-CAM \citeA{grad-cam} is a technique used with CNNs and Vision Transformers. 
+% This method considers the gradient of the input to interpret the reasoning behind the model’s prediction. 
+% \citeA{attention-explanations} proposed a method for interpreting attention scores. 
+% However, these white-box methods are not well-suited for analyzing multimodal deep learning models to understand interactions between different modalities.
+
+% For black-box methods, DIME \cite{dime} proposed an interpretation technique that probes a deep learning model using an interpretable linear function over the model’s output. 
+% Another method to consider is Amnesic Probing \cite{amnesic-probing}, which uses causal intervention by removing parts of the input. 
+% This allows us to measure the contribution of each part of the input to the model's output. 
+% In the context of multimodal training, \citeA{mm-shap} proposed MM-Shap, inspired by Shapley values, to evaluate the contribution of each modality.
+
+% In this work, we adopt MM-Shap as an interpretation method to analyze changes in the contribution of each modality.
+% MM-Shap is specifically designed to handle multimodal inputs without considering the accuracy of a deep learning model. 
+% It provides a quantitative measure of the contribution of each modality.

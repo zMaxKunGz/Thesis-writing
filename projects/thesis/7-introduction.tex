@@ -9,8 +9,9 @@
 \section{Background}
 Masked Language Modeling (MLM) is a fundamental task in the training of vision-language (VL) models \cite{albef, mplug, uniter, beit-3}. 
 Typically, a subset of word tokens is randomly masked at a fixed percentage during training, with the model tasked to predict the masked tokens based on information from the visual modality. 
+
 However, \citeA{mask_object} demonstrated that many of the masked tokens are often stop-words or punctuation, which result in the model relies more heavily on language patterns that do not require visual understanding.
-Thus, exploring the impact of masking strategies has become another research area for improving the effectiveness of VL models.
+Thus, exploring the impact of masking has become another research area for improving the effectiveness of VL models.
 
 Some work explore the the impact of token masking strategies on multimodal model performance. 
 \citeA{mask_object} introduced an object token masking strategy, where object tokens in image captions are selectively masked, and the model is pre-trained from scratch.
@@ -18,7 +19,7 @@ This approach led to superior performance compared to random masking.
 Furthermore, \citeA{selective_masking} demonstrated that selectively masking infrequent words from the pre-training dataset during continued training enhances model performance on out-of-domain datasets, highlighting the importance of domain-aware masking techniques.
 
 However, the effects of masking strategies based on linguistic features remain under-explored. 
-Thus, we design experiments to analyze the impact of selective masking based on the part-of-speech categories in image captions.
+Thus, we design experiments to analyze the impact of selective masking based on the part-of-speech (POS) categories in image captions.
 
 In this work, we explore the effects of masking each part-of-speech category by masking each part-of-speech of each image captions as shown in figure \ref{fig:overview}. 
 As each part-of-speech contributes uniquely to the meaning of a sentence, for instance, nouns typically represent objects, while verbs describe actions, which often require contextual understanding. 
