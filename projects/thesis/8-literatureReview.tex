@@ -6,7 +6,12 @@ The second topic MLM, an important pre-training approach that has improved VL mo
 Together, these sections provide a comprehensive overview of the methodological foundations of this study.
 
 \section{Vision-Language model}
-Recent advancements in VL model training can be roughly categorized into three main methods. 
+In the early stage of VL learning, the goal of training is aim to align fine grain feature of the image to text.
+Many work have adopt object detection to create fine grain label of the training images \cite{uniter, vlmo}.
+However, the idea of traning VL have shifted to web-scale image-text pairs as a training target with a competetive performance as demonstrated from CLIP \cite{clip}.
+\citeA{clip} proposed contrastive training for VL with large scale image-text pairs dataset by optimize alignment of image and text encoding from the same pair, which is proved to be scalable by \citeA{align}, and has become a foundation model for VL task \cite{foundation_model}. 
+
+Recent advancements in VL model training can be roughly categorized into three main methods.
 The first approach is an individual unimodal model encoder for each modality, such as CLIP \cite{clip} and Align \cite{align}.
 This method is trained with the objective to align the intermediate output of each modality encoding. 
 The second method utilizes a cross-attention layer to fuse multimodal input, e.g., Flamingo \cite{flamingo}, mPlug \cite{mplug}, LXMERT \cite{lxmert}, and ALBEF \cite{albef}. 
@@ -23,7 +28,9 @@ Masked language modelling (MLM) is a widely used pre-training method in language
 \citeA{bert} had proposed MLM as a pre-training task, which had been proved to be effective for pre-training.
 MLM task is a task where some of the input tokens replace with special [MASK] token, and the model have to predict the masked tokens based on the given unmasked tokens.
 In the field of VL model, many VL model also adopted MLM as a training task to train the model to predict masked text to based on visual information \cite{albef, mplug, uniter, beit-3}.
+MLM have shown to be effective for training both
 % todo: Add more citation about MLM analysis
+
 In the field of selective masking strategy, \citeA{posmaskinglearning} had present a training analysis based on POS masking focus on LM training, and proposed masking ratio decay to control the percentage of categories POS masking ratio.
 The result showed that, focusing on masking Non-function word (ADJ, ADV, NOUN, PROPN and VERB) in the late stage of training can forced the LM model to get better understanding of the context. 
 For selective masking in VL training, \citeA{mask_object} introduced an object token masking strategy, where object tokens in image captions are selectively masked, and the model is pre-trained from scratch.
