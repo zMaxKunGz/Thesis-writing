@@ -7,20 +7,24 @@
 
 \chapter{INTRODUCTION}
 \section{Background}
-Vision language model have gained a lot of interest 
-Masked Language Modeling (MLM) is a fundamental task in the training of vision-language (VL) models \cite{albef, mplug, uniter, beit-3}. 
-Typically, a subset of word tokens is randomly masked at a fixed percentage during training, with the model tasked to predict the masked tokens based on information from the visual modality. 
+\acrfull{vl} models have gained significant attention due to their ability to perform zero-shot and transfer learning, achieving high performance across numerous downstream tasks through pre-training with web-scale image-text pairs.
+Many \acrshort{vl} models incorporate \acrfull{mlm} as a pre-training task, making it a fundamental approach for training \acrshort{vl} models \cite{albef, mplug, uniter, beit-3}.
+Typically, a subset of word tokens is randomly masked at a fixed percentage during training, and the model is tasked with predicting these masked tokens using information from the visual modality.
+This masking approach has proven to enhance the alignment between visual and linguistic representations, significantly boosting performance in vision-language tasks.
 
-However, \citeA{mask_object} demonstrated that many of the masked tokens are often stop-words or punctuation, which result in the model relies more heavily on language patterns that do not require visual understanding.
-Thus, exploring the impact of masking has become another research area for improving the effectiveness of VL models.
+However, the impact of \acrshort{mlm} on \acrshort{vl} training remains underexplored.
+\citeA{mask_object} demonstrated that many of the masked tokens are often stop-words or punctuation, leading the model to rely more on language patterns that do not require visual understanding.
+By focusing on masking objects instead, this approach showed improvements in both performance and efficiency compared to random masking \cite{mask_object}.
+Another study by \citeA{selective_masking} found that selectively masking infrequent words from the pre-training dataset during continued training enhances model performance on out-of-domain datasets.
+Furthermore, \citeA{rf-curriculum-masking} introduced a curriculum masking scheme where a reinforcement learning agent selects masking spans based on cross-model interactions, leading to improved relational understanding with a reduced training dataset.
+These works underscore the importance of selecting appropriate tokens for masking.
 
-Some work explore the the impact of token masking strategies on multimodal model performance. 
-\citeA{mask_object} introduced an object token masking strategy, where object tokens in image captions are selectively masked, and the model is pre-trained from scratch.
-This approach led to superior performance compared to random masking. 
-Furthermore, \citeA{selective_masking} demonstrated that selectively masking infrequent words from the pre-training dataset during continued training enhances model performance on out-of-domain datasets, highlighting the importance of domain-aware masking techniques.
-
-However, the effects of masking strategies based on linguistic features remain under-explored. 
-Thus, we design experiments to analyze the impact of selective masking based on the part-of-speech (POS) categories in image captions.
+Despite the widespread adoption of \acrshort{mlm} in \acrshort{vl} training, its effects on model performance and learning dynamics remain underexplored.
+\citeA{mask_object} highlighted that many of the randomly masked tokens are often stop-words or punctuation, which encourages the model to rely on linguistic patterns that require minimal visual understanding.
+To address this, they proposed masking object-related tokens, which led to notable improvements in model performance and training efficiency compared to random masking \cite{mask_object}.
+Similarly, \citeA{selective_masking} demonstrated that selectively masking infrequent words from the pre-training dataset can boost model performance on out-of-domain datasets during continued training.
+Additionally, \citeA{rf-curriculum-masking} introduced a curriculum-based masking strategy, where a reinforcement learning agent dynamically selects masking spans based on cross-model interactions. This approach improved the model's relational understanding while reducing the dataset size required for effective training.
+These findings collectively emphasize the importance of strategic token selection in \acrshort{mlm} to enhance \acrshort{vl} model learning and efficiency.
 
 In this work, we explore the effects of masking each part-of-speech category by masking each part-of-speech of each image captions as shown in figure \ref{fig:overview}. 
 As each part-of-speech contributes uniquely to the meaning of a sentence, for instance, nouns typically represent objects, while verbs describe actions, which often require contextual understanding. 
