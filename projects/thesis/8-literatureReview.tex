@@ -28,12 +28,15 @@ The \acrshort{mlm} task involves replacing some input tokens with a special [MAS
 In the field of \acrshort{vl} models, many \acrshort{vl} models have also adopted \acrshort{mlm} as a training task to train the model to predict masked text based on visual information \cite{albef, mplug, uniter, beit-3}.
 
 In the field of selective masking strategies, \citeA{posmaskinglearning} presented a training analysis based on POS masking focused on LM training and proposed a masking ratio decay to control the masking ratio for each POS category. 
-The results showed that focusing on masking non-function words (ADJ, ADV, NOUN, PROPN, and VERB) in the later stages of training can encourage the LM model to develop a better understanding of context. 
-For selective masking in \acrshort{vl} training, \citeA{mask_object} introduced an object token masking strategy, where object tokens in image captions are selectively masked, and the model is pre-trained from scratch. 
-This approach led to superior performance compared to random masking. 
-Another work by \citeA{selective_masking} demonstrated that selectively masking infrequent words from the pre-training dataset during continued training enhances model performance on out-of-domain datasets. 
-Furthermore, \cite{rf-curriculum-masking} 
-In this work, we focus on analyzing the effect and behavior of the \acrshort{vl} model when trained with masking applied to each POS category.
+The results showed that focusing on masking non-function words (ADJ, ADV, NOUN, PROPN, and VERB) in the later stages of training can encourage the LM model to develop a better understanding of context.
+% Add 2 more paper MLM in NLP
+
+For selective masking in \acrshort{vl} training, \citeA{mask_object} introduced an object token masking strategy, selectively masking object tokens in image captions and pre-training the model. 
+This approach achieved superior performance compared to random masking. 
+Another study by \citeA{selective_masking} showed that selectively masking infrequent words from the pre-training dataset during continued training enhances model performance on out-of-domain datasets. 
+Additionally, \cite{rf-curriculum-masking} proposed a curriculum-based masking strategy in which a reinforcement learning agent dynamically selects masking spans based on cross-modal interactions. 
+This method improved the model’s mulitmodalities understanding while reducing the dataset size needed for effective training. 
+In this work, we focus on analyzing the effects and behavior of the \acrshort{vl} model when trained with masking applied to each POS category.
 
 
 % \section{Probing and interpretability}

@@ -14,9 +14,9 @@ This masking approach has proven to enhance the alignment between visual and lin
 
 Despite the widespread adoption of \acrshort{mlm} in \acrshort{vl} training, its effects on model performance and learning dynamics remain underexplored.
 \citeA{mask_object} demonstrated that many of the randomly masked tokens are often stop-words or punctuation, which the model can easily learn without any need for masking.
-% To address this, they proposed masking object-related tokens, which led to notable improvements in model performance and training efficiency compared to random masking \cite{mask_object}.
 Another stduy by \citeA{selective_masking} demonstrated that selectively masking infrequent words from the pre-training dataset can boost model performance on out-of-domain datasets during continued training.
-Additionally, \citeA{rf-curriculum-masking} introduced a curriculum-based masking strategy, where a reinforcement learning agent dynamically selects masking spans based on cross-model interactions. This approach improved the model's relational understanding while reducing the dataset size required for effective training.
+Additionally, \citeA{rf-curriculum-masking} suggest that random masking causes the model to rely heavily on local text signals in the early stages of pre-training. 
+This reliance results in inefficient and inconsistent interactions between modalities, leading to suboptimal performance. s
 These findings emphasize the importance of strategic token selection in \acrshort{mlm} to enhance \acrshort{vl} model performance and efficiency.
 
 In this work, we aim to address the gap in understanding how masking each part of speech impacts \acrshort{vl} models.
