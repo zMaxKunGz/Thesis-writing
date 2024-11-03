@@ -19,13 +19,13 @@ Additionally, \citeA{rf-curriculum-masking} suggest that random masking causes t
 This reliance results in inefficient and inconsistent interactions between modalities, leading to suboptimal performance. s
 These findings emphasize the importance of strategic token selection in \acrshort{mlm} to enhance \acrshort{vl} model performance and efficiency.
 
-In this work, we aim to address the gap in understanding how masking each part of speech impacts \acrshort{vl} models.
-Each part of speech contributes distinctively to sentence meaning: nouns typically denote objects, while verbs describe actions and often demand contextual comprehension.
+In this work, we aim to address the gap in understanding how masking each \acrfull{pos} impacts \acrshort{vl} models.
+Each \acrshort{pos} contributes distinctively to sentence meaning: nouns typically denote objects, while verbs describe actions and often demand contextual comprehension.
 By selectively masking different parts of speech, we can better understand how each category influences the alignment between visual and linguistic information.
 We hypothesize that masking verbs is the most effective way to enhance \acrshort{vl} model comprehension, as verbs represent interactions among objects and require the model to rely more on visual information.
 The experiment is designed to answer the following questions:
 \begin{enumerate}
-    \item How does masking each part of speech impact the performance and training dynamics of vision-language pre-training models?
+    \item How does masking each \acrshort{pos} impact the performance and training dynamics of vision-language pre-training models?
     \item Which types of questions in \acrfull{vqa} task benefit most from masking specific parts of speech in vision-language models?
     \item What are the effects of part-of-speech masking during the fine-tuning phase of vision-language models?
 \end{enumerate}
@@ -33,7 +33,7 @@ The experiment is designed to answer the following questions:
 \begin{figure}[h]
     \caption{Overall methodology}
     \label{fig:overview}
-    Pre-training the model with a \acrshort{mlm} task by masking tokens based on the part of speech in the image captions.
+    Pre-training the model with a \acrshort{mlm} task by masking tokens based on the \acrshort{pos} in the image captions.
     \begin{center}
         \includegraphics[width=0.6\textwidth]{Images/overview.png}
     \end{center}
@@ -43,7 +43,7 @@ The experiment is designed to answer the following questions:
 \section{Objective}
 The objectives for our experiment are as listed.
 \begin{enumerate}
-    \item Develop a pre-trained \acrshort{vl} model to evaluate the impact of masking each part of speech on performance and training dynamics.
+    \item Develop a pre-trained \acrshort{vl} model to evaluate the impact of masking each \acrshort{pos} on performance and training dynamics.
     \item Benchmark the performance of our masking approach using specialized datasets \cite{valse, foil-dataset}, to gain a deeper understanding of masking effects.
     \item Analyze the effects of part-of-speech masking in the fine-tuning setup to understand its effect and performance in \acrshort{vl} task.
 \end{enumerate}
