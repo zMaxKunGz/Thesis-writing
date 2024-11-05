@@ -23,7 +23,7 @@ Additionally, this approach allows the model to be trained using the \acrshort{m
 
 \section{Masked Language Modelling}
 \acrshort{mlm} is a widely used pre-training method in language model (LM) training \cite{bert, albert, dictbert, opt, realm} as a self-supervised task. 
-\citeA{bert} proposed \acrshort{mlm} as a pre-training task, which has been proven effective for pre-training language models. 
+BERT \cite{bert} proposed \acrshort{mlm} as a pre-training task, which has been proven effective for pre-training language models. 
 The \acrshort{mlm} task involves replacing some input tokens with a special [MASK] token, and the model must predict the masked tokens based on the given unmasked tokens. 
 In the field of \acrshort{vl} models, many \acrshort{vl} models have also adopted \acrshort{mlm} as a training task to train the model to predict masked text based on visual information \cite{albef, mplug, uniter, beit-3}.
 
