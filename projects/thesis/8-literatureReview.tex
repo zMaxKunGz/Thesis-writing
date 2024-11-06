@@ -7,7 +7,7 @@ Together, these sections provide a comprehensive overview of the methodological 
 \section{Vision-Language model}
 In the early stage of \acrshort{vl} learning, the goal of training is to align fine-grained features of the image with text. 
 Many works have adopted object detection to create fine-grained labels for the training images \cite{uniter, vlmo}. 
-However, the focus of \acrshort{vl} training has shifted to using web-scale image-text pairs as a training target, demonstrating competitive performance, as shown by CLIP \cite{clip}. 
+However, the focus of \acrshort{vl} training has shifted to using web-scale image-text pairs as a training set, demonstrating competitive performance, as shown by CLIP \cite{clip}. 
 \citeA{clip} proposed contrastive training for \acrshort{vl} with a large-scale image-text pairs dataset by optimizing the alignment of image and text encodings from the same pair, which was proven to be scalable by \citeA{align}. 
 This approach has become a foundational model for \acrshort{vl} tasks \cite{foundation_model}.
 
@@ -16,7 +16,7 @@ The first approach is a separate unimodal encoder for each modality, as seen in 
 This method is trained with the objective of aligning the intermediate outputs of each modality's encoding.  
 The second method uses a cross-attention layer to fuse multimodal inputs, e.g., Flamingo \cite{flamingo}, mPLUG \cite{mplug}, LXMERT \cite{lxmert}, and ALBEF \cite{albef}. 
 The cross-attention layer enables the model to fuse each modality more deeply.  
-Finally, the third approach uses a single large attention model with concatenated image and text tokens as input, as in BEIT \cite{beit-3}. 
+Finally, the third approach uses a single large attention model with concatenated image and text tokens as input, as in BEIT-3 \cite{beit-3}, OSCAR \cite{oscar}. 
 This approach allows for early-stage fusion of each modality, though it requires the highest amount of computational resources.  
 In this work, we adopt the cross-attention method as the base model due to its effectiveness in fusing multimodal inputs. 
 Additionally, this approach allows the model to be trained using the \acrshort{mlm} task.
@@ -38,6 +38,8 @@ Another study by \citeA{selective_masking} showed that selectively masking infre
 Additionally, \cite{rf-curriculum-masking} proposed a curriculum-based masking strategy in which a reinforcement learning agent dynamically selects masking spans based on cross-modal interactions. 
 This method improved the model’s mulitmodalities understanding while reducing the dataset size needed for effective training. 
 In this work, we conduct experiments to analyze the impact of each \acrshort{pos} on results within a \acrshort{vl} setting.
+
+\section{Part of speech tagging}
 
 % \section{Probing and interpretability}
 % In order to analyze deep learning models, it is important to utilize both probing and interpretation methods. 
