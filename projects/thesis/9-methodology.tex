@@ -18,15 +18,18 @@ Lastly, we provide details on the visual question answering setup.
 
 \section{Model architecture}
 As shown in Figure \ref{fig:overview}, our model include with 3 main component, an image encoder, a text encoder and a multimodal encoder. 
-The first one is image encoder, which we used ResNet \cite{resnet} architecture and modified following OpenClip as a image encoder in this experiment.
+The first one is image encoder, which we used ViT \cite{vit} and modified following \cite{clip} as a image encoder in this experiment.
 The second one is text encoder, which used transformer architecture as BERT \cite{bert} to encode image caption.
 The last one is multimodal encoder.
 This part is where \acrshort{vl} interaction is occurs.
-Given a training dataset \(D\) consisting of image-text pairs \((v_i, t_i) \in D\), where \(v_i\) is the image and \(t_i\) is the image caption of the \(i\)-th image, 
-The image encoder
+Given a training dataset \(D\) consisting of image-text pairs \((I_i, T_i) \in D\), where \(I_i\) is the image and \(T_i\) is the image caption of the \(i\)-th image, 
+Follwing ViT, each image encoded to a sequence of token \(\{v_{cls}, v_1, ..., v_n\}\), where \(v_{cls}\) is the embedding of the [CLS] token appended to image patch input.
+In this experiment, the image encoder was initialized with ViT-B-32 pre-trained with ImageNet-21K \cite{imagenet}.
+For text encoder, we use 6 layer transformer randomly initialized to encoded image caption \(T_i\) into text embedding \(\{w_{cls}, w_1, ...,w_n\}\).
+% Thought: The image encoder choice can be change based on training speec.
+\section{Pre-training objectives}
 
-
-\section{Mask language modelling}
+\subsection{Mask language modelling}
 Our model is trained with the \acrshort{mlm} task.
 Normally, a percentage of tokens \(\{w_1,...w_T\}\) are replaced with a special [MASK] token to create a masked caption \(t_i^{\text{mask}}\).
 However, in this work, the masked tokens are based on the type of \acrshort{pos} instead of randomly masking.
@@ -39,11 +42,9 @@ The model’s objective is to maximize the probability of the original tokens at
 \]
 where \(t_i[m]\) is the original token at position \(m\) in \(t_i\), and \(P(t_i[m] \mid t_i^{\text{mask}}, v_i)\) is the model's predicted probability of the token based on both the masked caption and the visual context. 
 
-% \subsection{Mask langauge modelling}
+\subsection{Image-text contrative learning}
 
-% \subsection{Image-text contrative learning}
-
-% \subsection{Image-text matching}
+\subsection{Image-text matching}
 \section{Part of speech tagging}
 
 
