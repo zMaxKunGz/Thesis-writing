@@ -62,11 +62,24 @@ The \acrshort{itc} loss is calculated as cross-entropy \(\mathbf{H}\) between \(
 \section{Part of speech tagging}
 
 
-\section{Dataset}
+\section{Pre-training dataset}
+We pre-trained the model on the Conceptual Captions dataset \cite{conceptual-caption}, which consists of 3.3 million image-text pairs. 
+In Conceptual Captions dataset, an automated process was used to select, filter, and refine these image-caption pairs to ensure they are clear, informative, and suitable for effective model training.
+
+\section{Evaluation}
+In this work, we evaluate each model trained with different types of \acrshort{pos} masking using image-text retrieval and visual question answering tasks. 
+The details of the evaluation methods and datasets are described in this section.
 
 
-\section{Visual question answering}
+\subsection{Image-text retrieval}
+For the image-text retrieval task, we evaluate the effect of masking on each \acrshort{pos} category by performing zero-shot evaluations on the Flickr30K \cite{flickr30k} and VALSE \cite{valse} datasets for both image-to-text and text-to-image retrieval. 
+The Flickr30K dataset is used to assess the model's overall performance in retrieval tasks. 
+For a deeper understanding, the VALSE dataset provides a breakdown of linguistic phenomena into six categories: existence, plurality, counting, relation, action, and coreference. 
+Each image caption in the VALSE dataset also includes a "foil" version, in which words related to each caption category are altered. 
+This approach enables us to analyze how different \acrshort{pos} masking strategies impact the model retrieval performance and the alignment between visual and textual representations.
 
+\subsection{Visual question answering}
+For visual question answering task, we assess each model with
 
-\section{Implementation Detail}
-BF16 datatype
+% \section{Implementation Detail}
+% BF16 datatype
