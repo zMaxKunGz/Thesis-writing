@@ -25,7 +25,7 @@ We furthur expand the experiment into fine-tuning situation, where the model had
 The experiment is designed to answer the following questions:
 \begin{enumerate}
     \item How does masking each \acrshort{pos} impact the performance, efficiency and training loss of \acrshort{vl} pre-training models?
-    \item Which types of questions in \acrfull{vqa} task benefit most from masking specific parts of speech in \acrshort{vl} models?
+    \item How does each \acrshort{pos} masking strategy affect \acrfull{vqa} performance when analyzed based on different question types?
     \item What are the effects of part-of-speech masking during the fine-tuning phase of \acrshort{vl} models?
 \end{enumerate}
 
@@ -33,13 +33,13 @@ The experiment is designed to answer the following questions:
 The objectives for our experiment are as listed.
 \begin{enumerate}
     \item Develop a pre-trained \acrshort{vl} model to evaluate the impact of masking each \acrshort{pos} on performance and training dynamics.
-    \item Benchmark the performance of our masking approach using specialized datasets \cite{valse, foil-dataset}, to gain a deeper understanding of masking effects.
+    \item Benchmark the performance of our masking approach using specialized datasets to gain a deeper understanding of masking effects.
     \item Analyze the effects of part-of-speech masking in the fine-tuning setup to understand its effect and performance in \acrshort{vl} task.
 \end{enumerate}
 
 \section{Scope}
 \begin{enumerate}
-    \item The training and testing datasets are both natural images.
+    % \item The training and testing datasets are both natural images.
     \item The model architecture is a cross-attention model, chosen for its ability to jointly predict answers based on information from multiple modalities.
     \item The fine-tuning dataset is in the same domain as the training dataset.
 \end{enumerate}
