@@ -21,12 +21,11 @@ These findings emphasize the importance of strategic token selection in \acrshor
 In this work, we aim to address the gap in understanding how masking each \acrfull{pos} impacts \acrshort{vl} models.
 Each \acrshort{pos} contributes distinctively to sentence meaning: nouns typically denote objects, while verbs describe actions and often demand contextual comprehension.
 By selectively masking different parts of speech, we can better understand how each category influences the alignment between visual and linguistic information.
-We furthur expand the experiment into fine-tuning situation, where the model had pre-trained already.
 The experiment is designed to answer the following questions:
 \begin{enumerate}
     \item How does masking each \acrshort{pos} impact the performance, efficiency and training loss of \acrshort{vl} pre-training models?
     \item How does each \acrshort{pos} masking strategy affect \acrfull{vqa} performance when analyzed based on different question types?
-    \item What are the effects of part-of-speech masking during the fine-tuning phase of \acrshort{vl} models?
+    \item Does \acrshort{pos} masking improve fine-grained alignment between image and text based on relationships, attibutes and order of image caption.
 \end{enumerate}
 
 \section{Objective}
@@ -34,7 +33,6 @@ The objectives for our experiment are as listed.
 \begin{enumerate}
     \item Develop a pre-trained \acrshort{vl} model to evaluate the impact of masking each \acrshort{pos} on performance and training dynamics.
     \item Benchmark the performance of our masking approach using specialized datasets to gain a deeper understanding of masking effects.
-    \item Analyze the effects of part-of-speech masking in the fine-tuning setup to understand its effect and performance in \acrshort{vl} task.
 \end{enumerate}
 
 \section{Scope}
