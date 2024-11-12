@@ -94,6 +94,12 @@ To gain deeper insights, we evaluate our model using the VALSE dataset, which ca
 Each image caption in the VALSE dataset also includes a "foil" version, where words related to each caption category are modified. 
 This setup allows us to analyze how different \acrshort{pos} masking strategies affect the model's retrieval performance and the alignment between visual and textual representations.
 
+\subsection{Attribution, Relation and Order benchmark}
+As demonstrated by \citeA{rf-curriculum-masking}, the results suggest that masking strategies impact a model’s ability to understand attributes, relationships, and word order. 
+In this work, we also benchmark each pre-trained model with specific \acrshort{pos} masking against four tasks proposed by \citeA{vl-bag-of-word}: \acrfull{vgr}, \acrfull{vga}, \acrfull{co}, and \acrfull{fo}. 
+This benchmark is designed to assess the \acrshort{vl} model’s understanding of compositional relationships by swapping and replacing words in image captions, such as altering "The horse is eating the grass" to "The grass is eating the horse." 
+Evaluating models against this benchmark provides valuable insights into their semantic and context understanding of vision and language modality.
+
 \begin{figure}[h]
     \caption{Visual question answering model architecture}
     \label{fig:vqa}
