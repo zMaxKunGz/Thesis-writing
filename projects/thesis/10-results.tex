@@ -1,5 +1,29 @@
 \chapter{Results}
 In this chapter, we provide all the experiment results for each experiment and evaluation.
 
-\subsection{Pre-training}
+\section{Pre-training}
 
+\begin{table}[]
+    \centering
+    \label{tab:flickr30k}
+    \caption{Visual question answering model architecture}
+    \begin{tabular}{ll|llll}
+        \multicolumn{2}{l|}{\multirow{3}{*}{POS Masking}} & \multicolumn{4}{c}{Flickr30K}                   \\
+        \multicolumn{2}{l|}{}                             & \multicolumn{2}{l}{\acrshort{tr}} & \multicolumn{2}{l}{\acrshort{ir}} \\
+        \multicolumn{2}{l|}{}                             & R@5       & R@10       & R@5       & R@10       \\
+        \hline
+        \multirow{5}{*}{Non-function word}    & Noun     &           &            &           &            \\
+        & Verb     &           &            &           &            \\
+        & Adj      &           &            &           &            \\
+        & Adv      &           &            &           &            \\
+        & PropN    &           &            &           &            \\
+        \hline
+        \multirow{5}{*}{Function word}        & Det      &           &            &           &            \\
+        & Aux      &           &            &           &            \\
+        & Punct    &           &            &           &            \\
+        & ProN     &           &            &           &            \\
+        & Adp      &           &            &           &           
+    \end{tabular}
+\end{table}
+
+\section{\Acrlong{vqa}}
