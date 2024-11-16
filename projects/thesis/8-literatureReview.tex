@@ -4,9 +4,10 @@ The first topic addresses \acrshort{vl} models, providing an overview of the mod
 The second topic \acrshort{mlm}, an important pre-training approach that has improved \acrshort{vl} model performance.
 Together, these sections provide a comprehensive overview of the methodological foundations of this study.
 
-\section{Vision-Language pre-training}
-The goa
-However, the focus of \acrshort{vl} training has shifted to using web-scale image-text pairs as a training set, demonstrating competitive performance, as shown by CLIP \cite{clip}. 
+\section{Vision-Language model}
+\Acrshort{vl} model aims to align vision and language information to perform complex task, multimodal task, which require reasoning with both vision and language modalities, e.g., image captioning, visual question answering and multimodal retrieval.
+In the early stage of \acrshort{vl}, many models adopt CNN and RNN as a feature extractor for image and text with a multi layer perceptron to combine image and text feature. 
+With the upcoming of CLIP model \cite{clip}, 
 \citeA{clip} proposed contrastive training for \acrshort{vl} with a large-scale image-text pairs dataset by optimizing the alignment of image and text encodings from the same pair, which was proven to be scalable by \citeA{align}. 
 This approach has become a foundational model for \acrshort{vl} tasks \cite{foundation_model}.
 
