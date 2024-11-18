@@ -8,7 +8,7 @@ Together, these sections provide a comprehensive overview of the methodological 
 \Acrshort{vl} learning aims to align visual and linguistic information for multimodal tasks that require reasoning across both modalities, such as image captioning, visual question answering, and multimodal retrieval. 
 The training objective can be divide roughly into three main categories: contrastive, generative and alignment.
 Firstly, the contrastive learning objective trains \acrshort{vl} representations by maximizing the alignment score between paired images and text while minimizing the score between unpaired images and text \cite{clip, align, unicl}. 
-Secondly, the generative learning objective focuses on reconstructing masked tokens in either the image or text modality, or both, to learn \acrshort{vl} representations \cite{flava, align, flamingo}. 
+Secondly, the generative learning objective focuses on reconstructing masked tokens in either the image or text modality, or both, to learn \acrshort{vl} representations \cite{flava, albef, flamingo}. 
 This objective requires the model to utilize both modalities to reconstruct missing tokens, which enhances alignment. 
 Lastly, the alignment objective involves learning \acrshort{vl} representations by predicting whether an image and text pair match \cite{vlmo}. 
 The combined use of these three training objectives has proven effective and is commonly applied across various pre-trained \acrshort{vl} models.
