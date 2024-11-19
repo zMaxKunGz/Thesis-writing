@@ -32,9 +32,9 @@ For the multimodal encoder, a cross-attention layer is used, where both keys and
 
 % Cross Attention using Image = K, V Text as a query.
 % Thought: The image encoder choice can be change based on training speec.
-\section{Pre-training objectives}
+\section{Pre-training Objectives}
 In this work, we pre-train our model with three objectives: \acrfull{mlm}, \acrfull{itc} and \acrfull{itm}.
-\subsection{Mask language modelling}
+\subsection{Mask Language Modelling}
 Our model is trained with the \acrlong{mlm} task. 
 Typically, a percentage of tokens \(\{w_1, \dots, w_T\}\) are replaced with a special [MASK] token to create a masked caption \(T^{\text{mask}}\). 
 However, in this work, the masked tokens are selected based on \acrshort{pos} type instead of randomly masking. 
@@ -42,10 +42,10 @@ The model is then trained to predict the original tokens at the masked positions
 Let \(y^{\text{mask}}\) be a one-hot vector representing the ground-truth vocabulary for the masked token, where the masked token has a probability of 1. 
 The model’s objective is to minimize the cross-entropy \(\mathbf{H}\), given by:
 \[
-    \mathcal{L}_{\text{MLM}} = \mathbf{H}(y^{\text{mask}}, p^{\text{mask}}(I, T^{\text{mask}})S))
+    \mathcal{L}_{\text{MLM}} = \mathbf{H}(y^{\text{mask}}, p^{\text{mask}}(I, T^{\text{mask}})))
 \]
 
-\subsection{Image-text contrative learning}
+\subsection{Image-Text Contrastive Learning}
 To improve each unimodal encoders representation, we use \acrlong{itc} to improve alignment of each modality.
 \acrshort{itc} aims to improve alignment by maximize similarity score of image and text from the same pair with score function \(s(I, T) = v_{cls}^\top w_{cls}\), and minimize similarity score of image and text not from its pair.
 We then calculate softmax-normalized similiarity score for each image to any text and each text to any image, identified as image-to-text \(p^{i2t} \in \mathbb{R}^{M}\) and text-to-image \(p^{t2i} \in \mathbb{R}^{M}\) score as:
@@ -57,7 +57,7 @@ The \acrshort{itc} loss is calculated as cross-entropy \(\mathbf{H}\) between \(
 \[
     \mathcal{L}_{\text{ITC}} = \frac{1}{2}(\mathbf{H}(y^{i2t},p^{i2t}) + \mathbf{H}(y^{t2i},p^{t2i}))
 \]
-\subsection{Image-text matching}
+\subsection{Image-Text Matching}
 To further improve multimodal alignment in the \acrshort{vl} model, \acrlong{itm} is employed to enhance alignment. 
 The model is trained to predict whether an image and caption are from the same pair. 
 A fully connected layer, followed by a softmax function, is added over the model. 
@@ -74,12 +74,12 @@ The full pre-training objective of our work can be written as:
     \mathcal{L} = \mathcal{L}_{\text{MLM}} + \mathcal{L}_{\text{ITC}} + \mathcal{L}_{\text{ITM}}
 \]
 
-\section{Part of speech masking}
+\section{Part Of Ppeech Masking}
 In this experiment, we explored the effect of each \acrshort{pos} on \acrshort{vl} learning in term of performance, efficiency and training loss.
 For each image caption, each token have to be classified into \acrshort{pos} categories for masking.
 We use POS-tagging tools SpaCy\footnote{POS-tagging tool SpaCy: https://spacy.io/} to classify each word into \acrshort{pos} classes based-on the Universal POS tag set\footnote{Universal POS tag set: https://universaldependencies.org/u/pos/}.
 
-\section{Pre-training dataset}
+\section{Pre-Training Dataset}
 We pre-trained the model on the Conceptual Captions dataset \cite{conceptual-caption}, which consists of 3.3 million image-text pairs. 
 In Conceptual Captions dataset, an automated process was used to select, filter, and refine these image-caption pairs to ensure they are clear, informative, and suitable for effective model training.
 
@@ -87,7 +87,7 @@ In Conceptual Captions dataset, an automated process was used to select, filter,
 In this work, we evaluate each model trained with different types of \acrshort{pos} masking through image-text retrieval and visual question answering tasks. 
 Details of the evaluation methods and datasets used in these tasks are provided in this section.
 
-\subsection{Image-text retrieval}
+\subsection{Image-text Retrieval}
 For the image-text retrieval task, we evaluate the effect of masking on each \acrshort{pos} category by performing zero-shot evaluations on the Flickr30K \cite{flickr30k} and VALSE \cite{valse} datasets for both \acrfull{ir} and \acrfull{tr}. 
 The Flickr30K dataset is used to assess the model's overall performance in retrieval tasks. 
 To gain deeper insights, we evaluate our model using the VALSE dataset, which categorizes linguistic phenomena into six distinct types: existence, plurality, counting, relation, action, and coreference.
@@ -110,7 +110,7 @@ Evaluating models against this benchmark provides valuable insights into their s
     \small
 \end{figure}
 
-\subsection{Visual question answering}
+\subsection{Visual Question Answering}
 The \acrfull{vqa} task requires the model to generate answers, which require an additional decoder over the multimodal encoder, as shown in Figure \ref{fig:vqa}. 
 In this work, we append a 6-layer transformer as a decoder, initialized with the parameters of the multimodal encoder. 
 Answers are generated in an auto-regressive manner, with multimodal embeddings as input and a special start-of-sequence token ([CLS]) as the initial input to the decoder.
