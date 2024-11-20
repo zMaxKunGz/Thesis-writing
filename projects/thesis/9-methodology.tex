@@ -74,10 +74,10 @@ The full pre-training objective of our work can be written as:
     \mathcal{L} = \mathcal{L}_{\text{MLM}} + \mathcal{L}_{\text{ITC}} + \mathcal{L}_{\text{ITM}}
 \]
 
-\section{Part Of Ppeech Masking}
+\section{Part Of Speech Masking}
 In this experiment, we explored the effect of each \acrshort{pos} on \acrshort{vl} learning in term of performance, efficiency and training loss.
-For each image caption, each token have to be classified into \acrshort{pos} categories for masking.
-We use POS-tagging tools SpaCy\footnote{POS-tagging tool SpaCy: https://spacy.io/} to classify each word into \acrshort{pos} classes based-on the Universal POS tag set\footnote{Universal POS tag set: https://universaldependencies.org/u/pos/}.
+For each image caption, each token is classified into \acrshort{pos} categories for masking.
+We use POS-tagging tools SpaCy\footnote{POS-tagging tool SpaCy: https://spacy.io/} to classify each word into \acrshort{pos} classes based on the Universal POS tag set\footnote{Universal POS tag set: https://universaldependencies.org/u/pos/}.
 
 \section{Pre-Training Dataset}
 We pre-trained the model on the Conceptual Captions dataset \cite{conceptual-caption}, which consists of 3.3 million image-text pairs. 
