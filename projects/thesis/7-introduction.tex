@@ -20,7 +20,8 @@ These findings emphasize the importance of strategic token selection in \acrshor
 
 In this work, we aim to address the gap in understanding how masking each \acrfull{pos} impacts \acrshort{vl} models.
 Each \acrshort{pos} contributes distinctively to sentence meaning: nouns typically denote objects, while verbs describe actions and often demand contextual comprehension.
-By selectively masking different parts of speech, we can better understand how each category influences the alignment between visual and linguistic information.
+By selectively masking different parts of speech, we can better understand how each \acrshort{pos} category affects the alignment between visual and linguistic information.
+To further explore the effect of each \acrshort{pos}, we experiment with fine-tuning the pre-trained model by masking each \acrshort{pos} category to assess the effect in the continued training situation.
 The experiment is designed to answer the following questions:
 \begin{enumerate}
     \item How does masking each \acrshort{pos} impact the performance, efficiency and training loss of \acrshort{vl} pre-training models?
