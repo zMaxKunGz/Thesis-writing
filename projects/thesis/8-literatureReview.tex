@@ -1,46 +1,46 @@
 \chapter{LITERATURE REVIEW}
-This section of the literature review is organized around two key topics relevant to our study.
-The first topic addresses \acrshort{vl} models, providing an overview of the model architectures recently used in \acrshort{vl} models and discussing the choice of the base architecture for the \acrshort{vl} model used in this research.
-The second topic \acrshort{mlm}, an important pre-training approach that has improved \acrshort{vl} model performance.
-Together, these sections provide a comprehensive overview of the methodological foundations of this study.
+This section of the literature review is organized around two key topics relevant to our study.  
+The first topic addresses \acrshort{vl} models, providing an overview of the model architectures recently used in \acrshort{vl} models and discussing the choice of the base architecture for the \acrshort{vl} model used in this research.  
+The second topic is \acrshort{mlm}, an important pre-training approach that has improved \acrshort{vl} model performance.  
+Together, these sections provide a comprehensive overview of the methodological foundations of this study.  
 
 \section{Vision-Language Representation Learning}
-\Acrshort{vl} learning aims to align visual and linguistic information for multimodal tasks that require reasoning across both modalities, such as image captioning, visual question answering, and multimodal retrieval. 
-The training objective can be divide roughly into three main categories: contrastive, generative and alignment.
-Firstly, the contrastive learning objective trains \acrshort{vl} representations by maximizing the alignment score between paired images and text while minimizing the score between unpaired images and text \cite{clip, align, unicl}. 
-Secondly, the generative learning objective focuses on reconstructing masked tokens in either the image or text modality, or both, to learn \acrshort{vl} representations \cite{flava, albef, flamingo}. 
-This objective requires the model to utilize both modalities to reconstruct missing tokens, which enhances alignment. 
-Lastly, the alignment objective involves learning \acrshort{vl} representations by predicting whether an image and text pair match \cite{vlmo}. 
-The combined use of these three training objectives has proven effective and is commonly applied across various pre-trained \acrshort{vl} models.
+\Acrshort{vl} learning aims to align visual and linguistic information for multimodal tasks that require reasoning across both modalities, such as image captioning, visual question answering, and multimodal retrieval.  
+The training objective can be divided roughly into three main categories: contrastive, generative, and alignment.  
+Firstly, the contrastive learning objective trains \acrshort{vl} representations by maximizing the alignment score between paired images and text while minimizing the score between unpaired images and text \cite{clip, align, unicl}.  
+Secondly, the generative learning objective focuses on reconstructing masked tokens in either the image or text modality, or both, to learn \acrshort{vl} representations \cite{flava, albef, flamingo}.  
+This objective requires the model to utilize both modalities to reconstruct missing tokens, which enhances alignment.  
+Lastly, the alignment objective involves learning \acrshort{vl} representations by predicting whether an image and text pair match \cite{vlmo}.  
+The combined use of these three training objectives has proven effective and is commonly applied across various pre-trained \acrshort{vl} models.  
 
-Recent advancements in \acrshort{vl} fusion method can be roughly categorized into three main methods.  
-The first approach is a separate unimodal encoder for each modality, as seen in models like CLIP \cite{clip} and ALIGN \cite{align}. 
+Recent advancements in \acrshort{vl} fusion methods can be roughly categorized into three main approaches.  
+The first approach is a separate unimodal encoder for each modality, as seen in models like CLIP \cite{clip} and ALIGN \cite{align}.  
 This method is trained with the objective of aligning the intermediate outputs of each modality's encoding.  
-The second method uses a cross-attention layer to fuse multimodal inputs, e.g., Flamingo \cite{flamingo}, LXMERT \cite{lxmert}, and ALBEF \cite{albef}. 
+The second method uses a cross-attention layer to fuse multimodal inputs, e.g., Flamingo \cite{flamingo}, LXMERT \cite{lxmert}, and ALBEF \cite{albef}.  
 The cross-attention layer enables the model to fuse each modality more deeply.  
-Finally, the third approach uses a single large attention model with concatenated image and text tokens as input, as in BEIT-3 \cite{beit-3}, OSCAR \cite{oscar}, UNITER \cite{uniter}, FLAVA \cite{flava}, mPLUG \cite{mplug}. 
+Finally, the third approach uses a single large attention model with concatenated image and text tokens as input, as in BEIT-3 \cite{beit-3}, OSCAR \cite{oscar}, UNITER \cite{uniter}, FLAVA \cite{flava}, and mPLUG \cite{mplug}.  
 This approach allows for early-stage fusion of each modality, though it requires the highest amount of computational resources.  
-In this work, we adopt the cross-attention method as the base model due to its effectiveness in fusing multimodal inputs. 
-Additionally, this approach allows the model to be trained using the \acrshort{mlm} task.
-We also used all 3 training objective with modified \Acrshort{mlm} for this experiment.
+In this work, we adopt the cross-attention method as the base model due to its effectiveness in fusing multimodal inputs.  
+Additionally, this approach allows the model to be trained using the \acrshort{mlm} task.  
+We also use all three training objectives with a modified \acrshort{mlm} for this experiment.  
 
 \section{Masked Language Modelling}
-\acrshort{mlm} is a widely used pre-training method in language model (LM) training \cite{bert, albert, dictbert, opt, realm} as a self-supervised task. 
-BERT \cite{bert} proposed \acrshort{mlm} as a pre-training task, which has been proven effective for pre-training language models. 
-The \acrshort{mlm} task involves replacing some input tokens with a special [MASK] token, and the model must predict the masked tokens based on the given unmasked tokens. 
-In the field of \acrshort{vl} models, many \acrshort{vl} models have also adopted \acrshort{mlm} as a training task to train the model to predict masked text based on visual information \cite{albef, mplug, uniter, beit-3}.
+\acrshort{mlm} is a widely used pre-training method in language model (LM) training \cite{bert, albert, dictbert, opt, realm} as a self-supervised task.  
+BERT \cite{bert} proposed \acrshort{mlm} as a pre-training task, which has been proven effective for pre-training language models.  
+The \acrshort{mlm} task involves replacing some input tokens with a special [MASK] token, and the model must predict the masked tokens based on the given unmasked tokens.  
+In the field of \acrshort{vl} models, many \acrshort{vl} models have also adopted \acrshort{mlm} as a training task to train the model to predict masked text based on visual information \cite{albef, mplug, uniter, beit-3}.  
 
-In the field of selective masking strategies in natural language processing, several works have further refined \acrshort{mlm} to enhance training efficiency. 
-ERNIE \cite{ERNIE}, SpanBERT \cite{spanBERT}, and \(n\)-gram Masking \cite{n-gram-masking} propose span masking instead of single-token masking, which forces the model to rely more on long-range dependencies rather than adjacent tokens, resulting in better performance compared to BERT \cite{bert}. 
-Considering linguistic features, \citeA{posmaskinglearning} conducted a training analysis based on POS masking focused on LM training. 
-The results showed that focusing the masking of non-function words (ADJ, ADV, NOUN, PROPN, and VERB) in the later stages of training can encourage the LM model to develop a better contextual understanding.
+In the field of selective masking strategies in natural language processing, several works have further refined \acrshort{mlm} to enhance training efficiency.  
+ERNIE \cite{ERNIE}, SpanBERT \cite{spanBERT}, and \(n\)-gram Masking \cite{n-gram-masking} propose span masking instead of single-token masking, which forces the model to rely more on long-range dependencies rather than adjacent tokens, resulting in better performance compared to BERT \cite{bert}.  
+Considering linguistic features, \citeA{posmaskinglearning} conducted a training analysis based on POS masking focused on LM training.  
+The results showed that focusing the masking of non-function words (ADJ, ADV, NOUN, PROPN, and VERB) in the later stages of training can encourage the LM model to develop a better contextual understanding.  
 
-For selective masking in \acrshort{vl} training, \citeA{mask_object} introduced an object token masking strategy, selectively masking object tokens in image captions and pre-training the model. 
-This approach achieved superior performance compared to random masking. 
-Another study by \citeA{selective_masking} showed that selectively masking infrequent words from the pre-training dataset during continued training enhances model performance on out-of-domain datasets. 
-Additionally, \cite{rf-curriculum-masking} proposed a curriculum-based masking strategy in which a reinforcement learning agent dynamically selects masking spans based on cross-modal interactions. 
-This method improved the model’s mulitmodalities understanding while reducing the dataset size needed for effective training. 
-In this work, we conduct experiments to analyse the impact of each \acrshort{pos} on results within a \acrshort{vl} setting.
+For selective masking in \acrshort{vl} training, \citeA{mask_object} introduced an object token masking strategy, selectively masking object tokens in image captions and pre-training the model.  
+This approach achieved superior performance compared to random masking.  
+Another study by \citeA{selective_masking} showed that selectively masking infrequent words from the pre-training dataset during continued training enhances model performance on out-of-domain datasets.  
+Additionally, \cite{rf-curriculum-masking} proposed a curriculum-based masking strategy in which a reinforcement learning agent dynamically selects masking spans based on cross-modal interactions.  
+This method improved the model’s multimodalities understanding while reducing the dataset size needed for effective training.  
+In this work, we conduct experiments to analyze the impact of each \acrshort{pos} on results within a \acrshort{vl} setting.  
 
 % \section{Part of speech tagging}
 
