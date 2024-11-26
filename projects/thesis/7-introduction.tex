@@ -8,7 +8,7 @@
 \chapter{INTRODUCTION}
 \section{Background}
 \acrfull{vl} models have gained significant attention due to their ability to perform both zero-shot and transfer learning, achieving high performance across numerous downstream tasks through pre-training with web-scale image-text pairs \cite{s-clip, medclip, vl-review}.  
-Many \acrshort{vl} models incorporate \acrfull{mlm} as a pre-training task, making it an important method to train \acrshort{vl} models \cite{albef, mplug, uniter, beit-3, lxmert}.  
+Many \acrshort{vl} models incorporated \acrfull{mlm} as a pre-training task, making it an important method to train \acrshort{vl} models \cite{albef, mplug, uniter, beit-3, lxmert}.  
 Typically, a subset of word tokens is randomly masked at a percentage during training, and the model is tasked with predicting these masked tokens using information from both visual and language modalities.  
 This masking approach has proven to enhance the alignment between visual and linguistic representations, boosting performance in \acrshort{vl} tasks \cite{lxmert}.  
 
@@ -18,14 +18,14 @@ Another study by \citeA{selective_masking} demonstrated that selectively masking
 Additionally, \citeA{rf-curriculum-masking} suggested that random masking causes the model to rely heavily on local text signals, and it results in inefficient and inconsistent interactions between modalities, leading to suboptimal performance.  
 These findings emphasize the importance of strategic token selection in \acrshort{mlm} to enhance \acrshort{vl} model performance and efficiency.  
 
-In this work, we aim to address the gap in understanding how masking each \acrfull{pos} impacts \acrshort{vl} models.  
+In this work, we aimed to address the gap in understanding how masking each \acrfull{pos} impacts \acrshort{vl} models.  
 Each \acrshort{pos} contributes distinctively to sentence meaning: nouns typically denote objects, while verbs describe actions and often demand contextual comprehension.  
-By selectively masking different parts of speech, we can better understand how each \acrshort{pos} category affects the alignment between visual and linguistic information.  
-To further explore the effect of each \acrshort{pos}, we experiment with fine-tuning the pre-trained model by masking each \acrshort{pos} category to assess the effect in the continued training situation.  
+By selectively masking different parts of speech, we could better understand how each \acrshort{pos} category affects the alignment between visual and linguistic information.  
+To further explore the effect of each \acrshort{pos}, we experimented with fine-tuning the pre-trained model by masking each \acrshort{pos} category to assess the effect in the continued training situation.  
 The experiment is designed to answer the following questions:  
 \begin{enumerate}  
     \item How does masking each \acrshort{pos} impact the performance, efficiency, and training loss of \acrshort{vl} pre-training models?  
-    \item How does each \acrshort{pos} masking strategy affect \acrfull{vqa} performance when analyzed based on different question types?  
+    \item How does each \acrshort{pos} masking strategy affect \acrfull{vqa} performance when analysed based on different question types?  
     \item What are the effects of part-of-speech masking during the fine-tuning phase of pre-trained \acrshort{vl} models?  
 \end{enumerate}  
 

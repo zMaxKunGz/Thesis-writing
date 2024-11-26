@@ -3,27 +3,140 @@ In this chapter, we provide all the experiment results for each experiment and e
 
 \section{Pre-training}
 
+\subsection{Flickr30K}
+
 \begin{table}[]
     \centering
     \label{tab:flickr30k}
-    \caption{Visual question answering model architecture}
+    \caption{Flickr30K benchmark image retrieval result.}
     \begin{tabular}{ll|llll}
-        \multicolumn{2}{l|}{\multirow{3}{*}{POS Masking}} & \multicolumn{4}{c}{Flickr30K}                   \\
-        \multicolumn{2}{l|}{}                             & \multicolumn{2}{l}{\acrshort{tr}} & \multicolumn{2}{l}{\acrshort{ir}} \\
-        \multicolumn{2}{l|}{}                             & R@5       & R@10       & R@5       & R@10       \\
+        \multicolumn{2}{c|}{\multirow{3}{*}{Masking Method}} & \multicolumn{4}{c}{Flickr30K} \\
+        \multicolumn{2}{l|}{} & \multicolumn{2}{l}{\acrshort{tr}} & \multicolumn{2}{l}{\acrshort{ir}} \\
+        \multicolumn{2}{l|}{} & R@5 & R@10 & R@5 & R@10 \\
         \hline
-        \multirow{5}{*}{Non-function word}    & Noun     &           &            &           &            \\
-        & Verb     &           &            &           &            \\
-        & Adj      &           &            &           &            \\
-        & Adv      &           &            &           &            \\
-        & PropN    &           &            &           &            \\
+        \multicolumn{2}{c|}{Random Masking} & & & & \\
         \hline
-        \multirow{5}{*}{Function word}        & Det      &           &            &           &            \\
-        & Aux      &           &            &           &            \\
-        & Punct    &           &            &           &            \\
-        & ProN     &           &            &           &            \\
-        & Adp      &           &            &           &           
+        \multirow{5}{*}{Non-function} & Noun & & & & \\
+        & Verb & & & & \\
+        & Adj & & & & \\
+        & Adv & & & & \\
+        & PropN & & & & \\
+        \hline
+        \multirow{5}{*}{Function} & Det & & & & \\
+        & Aux & & & & \\
+        & Punct & & & & \\
+        & ProN & & & & \\
+        & Adp & & & & \\
+    \end{tabular}
+\end{table}
+
+\section{Image-Text Matching}
+
+\subsection{VALSE}
+\begin{table}[]
+    \centering
+    \label{tab:valse}
+    \caption{VALSE benchmark for image-text matching result.}
+    \begin{adjustbox}{width=1\textwidth}
+        \begin{tabular}{ll|llllll}
+            \multicolumn{2}{c|}{\multirow{3}{*}{Masking Method}} & \multicolumn{6}{c}{VALSE} \\
+            & & Existence & Prularity & Counting & Sp.Re \footnotemark & Action & Coreference \\
+            \hline
+            \multicolumn{2}{c|}{Random Masking} & & & & & \\
+            \hline
+            \multirow{5}{*}{Non-function} & Noun & & & & & \\
+            & Verb & & & & & \\
+            & Adj & & & & & \\
+            & Adv & & & & & \\
+            & PropN & & & & & \\
+            \hline
+            \multirow{5}{*}{Function} & Det & & & & & \\
+            & Aux & & & & & \\
+            & Punct & & & & & \\
+            & ProN & & & & & \\
+            & Adp & & & & & \\
+        \end{tabular}
+    \end{adjustbox}
+\end{table}
+\footnotetext{{Spacial Relation}}
+
+\subsection{Attribution, Relation and Order benchmark}
+
+\begin{table}[]
+    \centering
+    \label{tab:relation}
+    \caption{Attribution, Relation and Order benchmark result with image-text matching task.}
+    \begin{tabular}{ll|cccc}
+        \multicolumn{2}{c|}{\multirow{2}{*}{Masking Method}} & \multicolumn{4}{c}{Attribution, Relation and Order} \\
+        \multicolumn{2}{l|}{} & \acrshort{vgr} & \acrshort{vga} & \acrshort{co} & \acrshort{fo} \\
+        \hline
+        \multicolumn{2}{c|}{Random Masking} & & & & \\
+        \hline
+        \multirow{5}{*}{Non-function word} & Noun & & & & \\
+        & Verb & & & & \\
+        & Adj & & & & \\
+        & Adv & & & & \\
+        & PropN & & & & \\
+        \hline
+        \multirow{5}{*}{Function word} & Det & & & & \\
+        & Aux & & & & \\
+        & Punct & & & & \\
+        & ProN & & & & \\
+        & Adp & & & & \\
     \end{tabular}
 \end{table}
 
 \section{\Acrlong{vqa}}
+
+\begin{table}[]
+    \centering
+    \label{tab:valse}
+    \caption{Visual question answering result with VQA2.0 benchmark.}
+    \begin{adjustbox}{width=1\textwidth}
+        \begin{tabular}{ll|llllll}
+            \multicolumn{2}{c|}{\multirow{3}{*}{Masking Method}} & \multicolumn{6}{c}{VQA2.0} \\
+            & & Existence & Prularity & Counting & Sp.Re \footnotemark & Action & Coreference \\
+            \hline
+            \multicolumn{2}{c|}{Random Masking} & & & & & \\
+            \hline
+            \multirow{5}{*}{Non-function} & Noun & & & & & \\
+            & Verb & & & & & \\
+            & Adj & & & & & \\
+            & Adv & & & & & \\
+            & PropN & & & & & \\
+            \hline
+            \multirow{5}{*}{Function} & Det & & & & & \\
+            & Aux & & & & & \\
+            & Punct & & & & & \\
+            & ProN & & & & & \\
+            & Adp & & & & & \\
+        \end{tabular}
+    \end{adjustbox}
+\end{table}
+
+\section{Fine tuning}
+
+\begin{table}[]
+    \centering
+    \label{tab:flickr30k}
+    \caption{Fine tuning benchmark.}
+    \begin{tabular}{ll|llllll}
+        \multicolumn{2}{c|}{\multirow{3}{*}{Masking Method}} & \multicolumn{2}{c}{GoodNews} & \multicolumn{2}{c}{RSICD} & \multicolumn{2}{c}{Sketchy Scene} \\
+        \multicolumn{2}{l|}{} & \multicolumn{6}{c}{R@5} \\
+        \multicolumn{2}{l|}{} & \acrshort{tr} & \acrshort{ir}  & \acrshort{tr} & \acrshort{ir}  & \acrshort{tr} & \acrshort{ir} \\
+        \hline
+        \multicolumn{2}{c|}{Random Masking} & & & & \\
+        \hline
+        \multirow{5}{*}{Non-function} & Noun & & & & \\
+        & Verb & & & & \\
+        & Adj & & & & \\
+        & Adv & & & & \\
+        & PropN & & & & \\
+        \hline
+        \multirow{5}{*}{Function} & Det & & & & \\
+        & Aux & & & & \\
+        & Punct & & & & \\
+        & ProN & & & & \\
+        & Adp & & & & \\
+    \end{tabular}
+\end{table}
