@@ -9,24 +9,23 @@ In this chapter, we provide all the experiment results for each experiment and e
     \centering
     \label{tab:flickr30k}
     \caption{Flickr30K benchmark image retrieval result.}
-    \begin{tabular}{ll|llll}
-        \multicolumn{2}{c|}{\multirow{3}{*}{Masking Method}} & \multicolumn{4}{c}{Flickr30K} \\
-        \multicolumn{2}{l|}{} & \multicolumn{2}{l}{\acrshort{tr}} & \multicolumn{2}{l}{\acrshort{ir}} \\
-        \multicolumn{2}{l|}{} & R@5 & R@10 & R@5 & R@10 \\
+    \begin{tabular}{ll|lll|lll}
+        \multicolumn{2}{c|}{\multirow{3}{*}{Masking Method}} & \multicolumn{6}{c}{Flickr30K} \\
+        \multicolumn{2}{l|}{} & \multicolumn{3}{l|}{\acrshort{tr}} & \multicolumn{3}{l}{\acrshort{ir}} \\
+        \multicolumn{2}{l|}{} & r@1 & r@5 & r@10 & r@1 & r@5 & r@10 \\
         \hline
-        \multicolumn{2}{c|}{Random Masking} & & & & \\
+        \multicolumn{2}{c|}{Random Masking} & \cellcolor{yellow}67.00 & 88.00 & 93.75 & 52.61 & 80.14 & 87.76 \\
         \hline
-        \multirow{5}{*}{Non-function} & Noun & & & & \\
-        & Verb & & & & \\
-        & Adj & & & & \\
-        & Adv & & & & \\
-        & PropN & & & & \\
+        \multirow{5}{*}{Non-function} & Noun & 67.15 & 88.60 & 94.65 & 52.73 & 80.45 & 87.79 \\
+        & Verb & 54.85 & 82.85 & 90.05 & 43.82 & 73.84 & 82.82 \\
+        & Adj & 62.30 & 87.30 & 92.40 & 47.39 & 75.47 & 84.06 \\
+        & Adv & 46.85 & 76.25 & 85.75 & 36.40 & 66.38 & 76.78 \\
+        & PropN & 44.85 & 74.40 & 84.10 & 34.91 & 64.09 & 75.01 \\
         \hline
-        \multirow{5}{*}{Function} & Det & & & & \\
-        & Aux & & & & \\
-        & Punct & & & & \\
-        & ProN & & & & \\
-        & Adp & & & & \\
+        \multirow{4}{*}{Function} & Det & 71.05 & 92.00 & 95.30 & 56.01 & 81.93 & 88.59 \\
+        & Aux  & 52.10 & 79.60 & 88.20 & 41.13 & 70.92 & 80.68 \\
+        & ProN & 51.45 & 78.80 & 87.10 & 39.97 & 69.58 & 79.32 \\
+        & Adp & 65.05 & 88.25 & 93.40 & 51.19 & 78.83 & 85.15 \\
     \end{tabular}
 \end{table}
 
@@ -38,59 +37,34 @@ In this chapter, we provide all the experiment results for each experiment and e
     \label{tab:valse}
     \caption{VALSE benchmark for image-text matching result.}
     \begin{adjustbox}{width=1\textwidth}
-        \begin{tabular}{ll|llllll}
-            \multicolumn{2}{c|}{\multirow{3}{*}{Masking Method}} & \multicolumn{6}{c}{VALSE} \\
-            & & Existence & Prularity & Counting & Sp.Re \footnotemark & Action & Coreference \\
+        \begin{tabular}{ll|llllllllllll}
+            \multicolumn{2}{c|}{\multirow{3}{*}{Masking Method}} & \multicolumn{12}{c}{VALSE} \\
+            & & Existence & Prularity & \multicolumn{3}{c}{Counting} & Sp.Re \footnotemark & \multicolumn{2}{c}{Action} & \multicolumn{2}{c}{Coreference} & \multirow{2}{*}{Foil-it!} & \multirow{2}{*}{Avg} \\
+            & & Quantifiers & Number & Balanced & Small number & Adversarial & Relations & Replacement & Actant swap & Standard & Clean & & \\
             \hline
-            \multicolumn{2}{c|}{Random Masking} & & & & & \\
+            \multicolumn{2}{c|}{Random Masking}  & & & & & & & & & & & & \\
             \hline
-            \multirow{5}{*}{Non-function} & Noun & & & & & \\
-            & Verb & & & & & \\
-            & Adj & & & & & \\
-            & Adv & & & & & \\
-            & PropN & & & & & \\
+            \multirow{5}{*}{Non-function} & Noun & & & & & & & & & & & & \\
+            & Verb & & & & & & & & & & & & \\
+            & Adj & & & & & & & & & & & & \\
+            & Adv & & & & & & & & & & & & \\
+            & PropN & & & & & & & & & & & & \\
             \hline
-            \multirow{5}{*}{Function} & Det & & & & & \\
-            & Aux & & & & & \\
-            & Punct & & & & & \\
-            & ProN & & & & & \\
-            & Adp & & & & & \\
+            \multirow{5}{*}{Function} & Det & & & & & & & & & & & & \\
+            & Aux & & & & & & & & & & & & \\
+            & Punct & & & & & & & & & & & & \\
+            & ProN & & & & & & & & & & & & \\
+            & Adp & & & & & & & & & & & & \\
         \end{tabular}
     \end{adjustbox}
 \end{table}
 \footnotetext{{Spacial Relation}}
 
-\subsection{Attribution, Relation and Order benchmark}
-
-\begin{table}[]
-    \centering
-    \label{tab:relation}
-    \caption{Attribution, Relation and Order benchmark result with image-text matching task.}
-    \begin{tabular}{ll|cccc}
-        \multicolumn{2}{c|}{\multirow{2}{*}{Masking Method}} & \multicolumn{4}{c}{Attribution, Relation and Order} \\
-        \multicolumn{2}{l|}{} & \acrshort{vgr} & \acrshort{vga} & \acrshort{co} & \acrshort{fo} \\
-        \hline
-        \multicolumn{2}{c|}{Random Masking} & & & & \\
-        \hline
-        \multirow{5}{*}{Non-function word} & Noun & & & & \\
-        & Verb & & & & \\
-        & Adj & & & & \\
-        & Adv & & & & \\
-        & PropN & & & & \\
-        \hline
-        \multirow{5}{*}{Function word} & Det & & & & \\
-        & Aux & & & & \\
-        & Punct & & & & \\
-        & ProN & & & & \\
-        & Adp & & & & \\
-    \end{tabular}
-\end{table}
-
 \section{\Acrlong{vqa}}
 
 \begin{table}[]
     \centering
-    \label{tab:valse}
+    \label{tab:vqa}
     \caption{Visual question answering result with VQA2.0 benchmark.}
     \begin{adjustbox}{width=1\textwidth}
         \begin{tabular}{ll|llllll}
