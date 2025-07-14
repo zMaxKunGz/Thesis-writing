@@ -118,23 +118,22 @@
     \setcounter{secnumdepth}{3}
     
     % ====== include other section ======
-    \include{1-title}
-    
-    % Show page numbering as 'roman'
     \pagenumbering{roman}
-    % Start page counter as 2
+
+    \setcounter{page}{1}
+    \include{1-title}
     \setcounter{page}{2}
-    
+    \include{authorDeclaration}
     \include{2-acknowledgment}
     \include{3-abstract}
     \include{4-tableOfContent}
     \include{5-listOfTable}
     \include{6-listOfFigure}
     
-    % Start page counter as 1
-    \setcounter{page}{1}
     % Show page numbering as 'arabic'
     \pagenumbering{arabic}
+    % Start page counter as 1
+    \setcounter{page}{1}
     \include{7-introduction}
     \include{8-literatureReview}
     \include{9-methodology}
