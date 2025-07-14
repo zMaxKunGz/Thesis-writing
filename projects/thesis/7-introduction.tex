@@ -21,13 +21,13 @@ These findings emphasize the importance of strategic token selection in \acrshor
 In this work, we aimed to address the gap in understanding how masking each \acrfull{pos} impacts \acrshort{vl} models.  
 Each \acrshort{pos} contributes distinctively to sentence meaning: nouns typically denote objects, while verbs describe actions and often demand contextual comprehension.  
 By selectively masking different parts of speech, we could better understand how each \acrshort{pos} category affects the alignment between visual and linguistic information.  
-To further explore the effect of each \acrshort{pos}, we experimented with fine-tuning the pre-trained model by masking each \acrshort{pos} category to assess the effect in the continued training situation.  
+To further explore the effect of each \acrshort{pos}, training without the \acrshort{mlm} task and with different \acrshort{pos} masking ratios were compared.
 The experiment is designed to answer the following questions:  
 \begin{enumerate}  
-    \item How does masking each \acrshort{pos} impact the performance, efficiency, and training loss of \acrshort{vl} pre-training models?  
+    \item How does masking each \acrshort{pos} impact the performance, and training loss of \acrshort{vl} pre-training models?  
     \item How does each \acrshort{pos} masking strategy affect \acrfull{vqa} performance when analysed based on different question types?  
-    \item What are the effects of part-of-speech masking during the fine-tuning phase of pre-trained \acrshort{vl} models?  
-\end{enumerate}  
+    \item What is the difference between training without the \acrshort{mlm} task compared to training with it, and when masking each \acrshort{pos} with a 100 percent masking ratio?  
+\end{enumerate}
 
 
 \section{Objective}  
@@ -35,7 +35,7 @@ The objectives for our experiment are as listed.
 \begin{enumerate}  
     \item Develop a pre-trained \acrshort{vl} model to evaluate the impact of masking each \acrshort{pos} on performance and training efficiency.  
     \item Benchmark the performance of each \acrshort{pos} masking approach using specialized datasets to gain a deeper understanding of masking effects with retrieval and question answering tasks.  
-    \item Fine-tune the pre-trained \acrshort{vl} model to assess the performance and efficiency in the continued training situation.  
+    \item Train the model without \acrshort{pos} masking and with \acrshort{pos} masking at a 100 percent masking ratio.  
 \end{enumerate}  
 
 \section{Scope}

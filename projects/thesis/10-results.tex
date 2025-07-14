@@ -9,9 +9,10 @@ In this chapter, we provide all the experiment results for each experiment and e
     \centering
     \label{tab:flickr30k}
     \caption{Flickr30K benchmark image retrieval result.}
-    \begin{tabular}{ll|lll|lll}
-        \multicolumn{2}{c|}{\multirow{3}{*}{Masking Method}} & \multicolumn{6}{c}{Flickr30K} \\
-        \multicolumn{2}{l|}{} & \multicolumn{3}{l|}{\acrshort{tr}} & \multicolumn{3}{l}{\acrshort{ir}} \\
+    \begin{tabular}{ll|ccc|ccc}
+        \hline
+        \multicolumn{2}{c|}{\multirow{3}{*}{\textbf{Masking Method}}} & \multicolumn{6}{c}{\textbf{Flickr30K}} \\
+        \multicolumn{2}{l|}{} & \multicolumn{3}{c|}{\acrshort{tr}} & \multicolumn{3}{c}{\acrshort{ir}} \\
         \multicolumn{2}{l|}{} & r@1 & r@5 & r@10 & r@1 & r@5 & r@10 \\
         \hline
         \multicolumn{2}{c|}{Random Masking} & \cellcolor{yellow}67.00 & 88.00 & 93.75 & 52.61 & 80.14 & 87.76 \\
@@ -26,6 +27,7 @@ In this chapter, we provide all the experiment results for each experiment and e
         & Aux  & 52.10 & 79.60 & 88.20 & 41.13 & 70.92 & 80.68 \\
         & ProN & 51.45 & 78.80 & 87.10 & 39.97 & 69.58 & 79.32 \\
         & Adp & 65.05 & 88.25 & 93.40 & 51.19 & 78.83 & 85.15 \\
+        \hline
     \end{tabular}
 \end{table}
 
@@ -37,24 +39,25 @@ In this chapter, we provide all the experiment results for each experiment and e
     \label{tab:valse}
     \caption{VALSE benchmark for image-text matching result.}
     \begin{adjustbox}{width=1\textwidth}
-        \begin{tabular}{ll|llllllllllll}
-            \multicolumn{2}{c|}{\multirow{3}{*}{Masking Method}} & \multicolumn{12}{c}{VALSE} \\
-            & & Existence & Prularity & \multicolumn{3}{c}{Counting} & Sp.Re \footnotemark & \multicolumn{2}{c}{Action} & \multicolumn{2}{c}{Coreference} & \multirow{2}{*}{Foil-it!} & \multirow{2}{*}{Avg} \\
-            & & Quantifiers & Number & Balanced & Small number & Adversarial & Relations & Replacement & Actant swap & Standard & Clean & & \\
+        \begin{tabular}{ll|c|c|ccc|c|cc|cc|c|c}
             \hline
-            \multicolumn{2}{c|}{Random Masking}  & & & & & & & & & & & & \\
+            \multicolumn{2}{c|}{\multirow{3}{*}{\textbf{Masking Method}}} & \multicolumn{12}{c}{\textbf{VALSE}} \\
+            & & Existence & Prularity & \multicolumn{3}{c|}{Counting} & Sp.Re \footnotemark & \multicolumn{2}{c|}{Action} & \multicolumn{2}{c|}{Coreference} & \multirow{2}{*}{Foil-it!} & \multirow{2}{*}{Avg} \\
+            & & quantifiers & number & balanced & small number & adversarial & relations & replacement & actant swap & standard & clean & & \\
             \hline
-            \multirow{5}{*}{Non-function} & Noun & & & & & & & & & & & & \\
-            & Verb & & & & & & & & & & & & \\
-            & Adj & & & & & & & & & & & & \\
-            & Adv & & & & & & & & & & & & \\
-            & PropN & & & & & & & & & & & & \\
+            \multicolumn{2}{c|}{Random Masking} & 65.06 & 61.43 & 54.64 & 57.81 & 62.83 & 61.61 & 68.04 & 51.88 & 49.70 & 43.37 & 85.79 & 60.20 \\
             \hline
-            \multirow{5}{*}{Function} & Det & & & & & & & & & & & & \\
-            & Aux & & & & & & & & & & & & \\
-            & Punct & & & & & & & & & & & & \\
-            & ProN & & & & & & & & & & & & \\
-            & Adp & & & & & & & & & & & & \\
+            \multirow{5}{*}{Non-function} & Noun & 67.63 & 62.60 & 52.59 & 54.64 & 64.39 & 59.84 & 68.15 & 48.87 & 51.31 & 49.21 & 85.69 & 60.45 \\
+            & Verb & 60.37 & 60.50 & 54.83 & 56.30 & 61.52 & 57.68 & 68.24 & 48.62 & 51.30 & 42.40 & 83.45 & 58.66 \\
+            & Adj & 60.85 & 60.55 & 54.00 & 56.84 & 67.01 & 57.68 & 65.68 & 50.92 & 50.34 & 44.74 & 83.01 & 59.24 \\
+            & Adv & 62.56 & 58.74 & 53.08 & 57.32 & 59.92 & 58.10 & 65.74 & 49.11 & 49.04 & 41.30 & 84.28 & 58.11 \\
+            & PropN & 61.51 & 59.23 & 52.49 & 56.25 & 61.26 & 55.86 & 64.31 & 50.85 & 50.36 & 43.03 & 82.62 & 57.98 \\
+            \hline
+            \multirow{4}{*}{Function} & Det & 60.14 & 63.33 & 53.47 & 57.86 & 65.40 & 59.06 & 66.67 & 50.43 & 50.09 & 38.99 & 87.94 & 59.40 \\
+            & Aux & 56.73 & 60.60 & 51.76 & 57.32 & 60.59 & 56.48 & 65.04 & 50.65 & 49.33 & 51.39 & 84.62 & 58.59 \\
+            & ProN & 56.05 & 61.33 & 50.39 & 54.88 & 58.87 & 58.93 & 64.36 & 48.05 & 53.23 & 50.48 & 83.40 & 58.18 \\
+            & Adp & 66.27 & 61.23 & 53.52 & 57.03 & 66.04 & 58.28 & 67.73 & 52.14 & 50.05 & 46.13 & 86.38 & 60.44 \\
+            \hline
         \end{tabular}
     \end{adjustbox}
 \end{table}
@@ -65,52 +68,26 @@ In this chapter, we provide all the experiment results for each experiment and e
 \begin{table}[]
     \centering
     \label{tab:vqa}
-    \caption{Visual question answering result with VQA2.0 benchmark.}
+    \caption{VQA2.0 test-dev benchmark result.}
     \begin{adjustbox}{width=1\textwidth}
-        \begin{tabular}{ll|llllll}
-            \multicolumn{2}{c|}{\multirow{3}{*}{Masking Method}} & \multicolumn{6}{c}{VQA2.0} \\
-            & & Existence & Prularity & Counting & Sp.Re \footnotemark & Action & Coreference \\
+        \begin{tabular}{ll|cccc}
             \hline
-            \multicolumn{2}{c|}{Random Masking} & & & & & \\
+            \multicolumn{2}{c|}{\multirow{2}{*}{Masking Method}} & \multicolumn{4}{c}{VQA2.0 test dev} \\
+            & & Yes/No & Number & Other & Overall \\
             \hline
-            \multirow{5}{*}{Non-function} & Noun & & & & & \\
-            & Verb & & & & & \\
-            & Adj & & & & & \\
-            & Adv & & & & & \\
-            & PropN & & & & & \\
+            \multicolumn{2}{c|}{Random Masking} & 87.88 & 49.64 & 59.63 & 70.28 \\
             \hline
-            \multirow{5}{*}{Function} & Det & & & & & \\
-            & Aux & & & & & \\
-            & Punct & & & & & \\
-            & ProN & & & & & \\
-            & Adp & & & & & \\
+            \multirow{5}{*}{Non-function} & Noun & 87.84 & 49.49 & 60.03 & 70.29 \\
+            & Verb & 87.17 & 48.39 & 58.43 & 69.13 \\
+            & Adj & 86.69 & 48.86 & 58.64 & 69.09 \\
+            & Adv & 83.10 & 43.83 & 52.49 & 64.12 \\
+            & PropN & 85.07 & 46.38 & 56.60 & 67.71 \\
+            \hline
+            \multirow{4}{*}{Function} & Det & 87.35 & 49.49 & 57.68 & 68.98 \\
+            & Aux & 85.25 & 46.59 & 56.24 & 67.09 \\
+            & ProN & 84.13 & 46.29 & 56.15 & 66.55 \\
+            & Adp & 87.07 & 48.82 & 58.07 & 68.96 \\
+            \hline
         \end{tabular}
     \end{adjustbox}
-\end{table}
-
-\section{Fine tuning}
-
-\begin{table}[]
-    \centering
-    \label{tab:flickr30k}
-    \caption{Fine tuning benchmark.}
-    \begin{tabular}{ll|llllll}
-        \multicolumn{2}{c|}{\multirow{3}{*}{Masking Method}} & \multicolumn{2}{c}{GoodNews} & \multicolumn{2}{c}{RSICD} & \multicolumn{2}{c}{Sketchy Scene} \\
-        \multicolumn{2}{l|}{} & \multicolumn{6}{c}{R@5} \\
-        \multicolumn{2}{l|}{} & \acrshort{tr} & \acrshort{ir}  & \acrshort{tr} & \acrshort{ir}  & \acrshort{tr} & \acrshort{ir} \\
-        \hline
-        \multicolumn{2}{c|}{Random Masking} & & & & \\
-        \hline
-        \multirow{5}{*}{Non-function} & Noun & & & & \\
-        & Verb & & & & \\
-        & Adj & & & & \\
-        & Adv & & & & \\
-        & PropN & & & & \\
-        \hline
-        \multirow{5}{*}{Function} & Det & & & & \\
-        & Aux & & & & \\
-        & Punct & & & & \\
-        & ProN & & & & \\
-        & Adp & & & & \\
-    \end{tabular}
 \end{table}
