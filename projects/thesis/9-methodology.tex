@@ -43,6 +43,8 @@ The model’s objective is to minimize the cross-entropy \(\mathbf{H}\), given b
 \[
     \mathcal{L}_{\text{MLM}} = \mathbf{H}(y^{\text{mask}}, p^{\text{mask}}(I, T^{\text{mask}})))
 \]
+For the masking ratio, each POS token is masked with either a 70 percent or 100 percent probability.
+In this work, random token masking was also tested with a masking ratio of 15 percent.
 
 \subsection{Image-Text Contrastive Learning}
 To improve each unimodal encoder's representation, we used \acrlong{itc} to improve alignment of each modality.  
@@ -75,12 +77,15 @@ The full pre-training objective of our work can be written as:
 \]
 
 \section{Part Of Speech Masking}
-In this experiment, we explored the effect of each \acrshort{pos} on \acrshort{vl} learning in terms of performance, efficiency, and training loss.  
 For each image caption, each token was classified into \acrshort{pos} categories for masking.  
 We used POS-tagging tools SpaCy\footnote{POS-tagging tool SpaCy: https://spacy.io/} to classify each word into \acrshort{pos} classes based on the Universal POS tag set\footnote{Universal POS tag set: https://universaldependencies.org/u/pos/}.
 In this work, we modified the BERT tokenizer to integrate with SpaCy by using the Tokenizations\footnote{Tokenizations alignment library tool: https://github.com/explosion/tokenizations} tool to align BERT token IDs with SpaCy tokens IDs.
-For the masking ratio, each POS token is masked with either a 70 percent or 100 percent probability.
-Random token masking was also tested in this experiment with a masking ratio of 15 percent.
+
+In this experiment, we explored the effect of each \acrshort{pos} on \acrshort{vl} learning in terms of performance, and training loss.  
+For the main experiment, we focused on the following \acrshort{pos} categories: nouns, verbs, adjectives, adverbs, proper nouns, determiners, auxiliaries, pronouns, and adpositions, each with a 70 percent masking probability.
+Each \acrshort{pos} is also categorized as either functional or non-functional, where functional words include determiners, auxiliaries, pronouns, and adpositions, and non-functional words include nouns, verbs, adjectives, adverbs, and proper nouns, for evaluation purposes.
+For the 100 percent masking setting, where all tokens corresponding to a specific \acrshort{pos} are masked, we conducted experiments on non-functional parts of speech, including nouns, verbs, adjectives, adverbs, and proper nouns.
+
 
 \section{Pre-Training Dataset}
 We pre-trained the model on the Conceptual Captions dataset \cite{conceptual-caption} and the MSCOCO dataset, totaling 2.4 million image-text pairs.
@@ -109,7 +114,8 @@ As demonstrated by \citeA{rf-curriculum-masking}, the results suggest that maski
 In this work, we benchmarked each pre-trained model with specific \acrshort{pos} masking against VALSE benchmark \cite{valse}.  
 For the VALSE dataset, this benchmark categorizes each image-text sample into different linguistic phenomena, including six distinct types: existence, plurality, counting, relation, action, and coreference.  
 Each image caption in the VALSE dataset also includes a "Foil" version, where words related to each caption category are modified.  
-This task is a classification task, where the model has to predict the correct caption for each image.  
+This task is a classification task, where the model has to predict the correct caption for each image.
+We evaluated the model in a zero-shot manner by reusing the \acrshort{itm} head as a classifier.
 Evaluating models against this benchmark provides valuable insights into their semantic and contextual understanding of vision and language modality.  
 
 \begin{figure}[h]
@@ -128,3 +134,13 @@ A classification head was appended to generate the answer, as shown in Figure \r
 The benchmark dataset for the \acrshort{vqa} task is the VQA2.0 dataset \cite{vqa2}, which is constructed using images from COCO \cite{mscoco}.  
 This dataset includes 83,000 images for training, 41,000 for validation, and 81,000 for testing.  
 We further train our model using the VQA2.0 training set.
+
+\section{Training}
+The model was pre-trained on a machine equipped with four NVIDIA A100 GPUs.
+The pre-training of the model was conducted using a batch size of 64 with 10 epochs.
+We used the AdamW optimizer with an initial learning rate of \(1 \times 10^{-4}\) and a weight decay of 0.02 to help regularize the training process.
+A cosine learning rate scheduler was applied, with the learning rate gradually increasing from a warm-up value of \(1 \times 10^{-5}\) during the first 5 epochs, before decaying towards a minimum learning rate of \(1 \times 10^{-5}\) by the end of training.
+
+For the VQA task, the model was trained with a batch size of 32 on the same machine as pre-training.
+We used the AdamW optimizer with a learning rate of \(2 \times 10^{-5}\) and a weight decay of 0.02.
+A cosine learning rate scheduler was applied over 8 epochs, with a warm-up phase of 1 epoch starting at a learning rate of \(1 \times 10^{-5}\), and decaying to a minimum of \(1 \times 10^{-6}\).
