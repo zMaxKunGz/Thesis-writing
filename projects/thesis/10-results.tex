@@ -12,11 +12,12 @@ To address the question of how masking each \acrshort{pos} affects the performan
 All losses, including \acrshort{mlm}, \acrshort{itc}, and \acrshort{itm}, along with the Flickr30K evaluation results, are provided.  
 The loss values are plotted on a logarithmic scale to visualize improvements over time across different POS masking strategies.  
 The results from training the ALBEF model using the same dataset are also included for consistent comparison.
+We also provided the histrogram of each part-of-speech tag in the pre-training dataset as shown in Figure~\ref{fig:pos_count}.
 
 \subsection{Flickr30K}
 The Flickr30K evaluation results are shown in Table \ref{tab:flickr30k}, which presents the top-1, top-5, and top-10 retrieval scores for both image-to-text (i2t) and text-to-image (t2i) tasks across different training methodologies.  
-Among the non-functional group, masking verbs and proper nouns leads to the most significant performance degradation compared to the random masking baseline, while masking nouns yields the best performance.  
-The model with determiner masking achieves the highest overall performance, even surpassing the ALBEF model that uses knowledge distillation.
+Among the non-functional group, masking adverbs and proper nouns leads to the most significant performance degradation compared to the random masking baseline, while masking nouns yields the best performance.  
+The model with determiner masking achieves the highest overall performance.
 
 \begin{table}[h]
     \centering
@@ -55,8 +56,7 @@ In the \acrshort{mlm} loss graph, we can see that \acrshort{pos} masking in the 
 
 Taken together, the results show that masking each POS impacts both the training loss trajectory and final model performance in distinct ways.  
 By observing the \acrshort{mlm} loss graph, we find that non-functional \acrshort{pos} are more difficult for the model to learn through the \acrshort{mlm} task, whereas functional \acrshort{pos} are learned more quickly.
-By ranking the performance of each \acrshort{pos} masking method, we observe that the ordering of \acrshort{pos} aligns inversely with both the \acrshort{itm} and \acrshort{itc} loss curves.  
-This indicates that the retrieval performance on the Flickr30K dataset is more strongly influenced by the \acrshort{itm} and \acrshort{itc} losses than by the \acrshort{mlm} loss.
+The ranking of each \acrshort{pos} masking method aligns with the \acrshort{itm} and \acrshort{itc} loss curves, where a lower loss corresponds to higher retrieval accuracy.
 
 \begin{figure}[h]
     \caption{\acrshort{mlm} loss curves for different \acrshort{pos} masking strategies (log scale).}
@@ -81,11 +81,6 @@ This indicates that the retrieval performance on the Flickr30K dataset is more s
         \includegraphics[width=1\textwidth]{Images/graph/itm.png}
     \end{center}
 \end{figure}
-
-\subsection{\acrshort{pos} Distribution in the Dataset}
-To better understand the impact of POS masking, we analyzed the frequency distribution of each part-of-speech tag in the pre-training dataset.
-As shown in Figure~\ref{fig:pos_count}, nouns are the most frequent category, followed by adpositions, determiners, and verbs.
-In contrast, categories such as interjections, symbols, and punctuation appear infrequently and were not considered in the masking strategies due to their limited semantic contribution.
 
 \begin{figure}[h]
     \caption{Histogram of POS tag frequencies in the training dataset (sorted by frequency).}
