@@ -7,6 +7,9 @@
 
 \chapter{INTRODUCTION}
 \section{Background}
+Human describe real world by using a sentence, which compose of a strutural word with a specfic purpose, e.g noun refer to an entity, verb refer to an action, and adjective describe the detail of the entities.
+
+
 \acrfull{vl} models have gained significant attention due to their ability to perform both zero-shot and transfer learning, achieving high performance across numerous downstream tasks through pre-training with web-scale image-text pairs \cite{s-clip, medclip, vl-review}.  
 Many \acrshort{vl} models incorporated \acrfull{mlm} as a pre-training task, making it an important method to train \acrshort{vl} models \cite{albef, mplug, uniter, beit-3, lxmert}.  
 Typically, a subset of word tokens is randomly masked at a percentage during training, and the model is tasked with predicting these masked tokens using information from both visual and language modalities.  
@@ -41,5 +44,5 @@ The objectives for our experiment are as listed.
 \section{Scope}
 \begin{enumerate}  
     \item The training and testing datasets are web-scale image-text pairs.  
-    \item The model architecture is a cross-attention model, chosen for its ability to jointly predict answers based on information from multiple modalities.  
+    \item The model architecture is a cross-attention model, chosen for its ability to jointly predict answers based on information from multiple modalities, and training the model with \Acrshort{mlm} loss.
 \end{enumerate}  
