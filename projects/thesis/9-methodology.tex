@@ -82,10 +82,9 @@ We used POS-tagging tools SpaCy\footnote{POS-tagging tool SpaCy: https://spacy.i
 In this work, we modified the BERT tokenizer to integrate with SpaCy by using the Tokenizations\footnote{Tokenizations alignment library tool: https://github.com/explosion/tokenizations} tool to align BERT token IDs with SpaCy tokens IDs.
 
 In this experiment, we explored the effect of each \acrshort{pos} on \acrshort{vl} learning in terms of performance, and training loss.  
-For the main experiment, we focused on the following \acrshort{pos} categories: nouns, verbs, adjectives, adverbs, proper nouns, determiners, auxiliaries, pronouns, and adpositions, each with a 70 percent masking probability.
-Each \acrshort{pos} is also categorized as either functional or non-functional, where functional words include determiners, auxiliaries, pronouns, and adpositions, and non-functional words include nouns, verbs, adjectives, adverbs, and proper nouns, for evaluation purposes.
-For the 100 percent masking setting, where all tokens corresponding to a specific \acrshort{pos} are masked, we conducted experiments on non-functional parts of speech, including nouns, verbs, adjectives, adverbs, and proper nouns.
-
+For the main experiment, each token was assigned to one of nine \acrshort{pos} categories: NOUN (nouns), VERB (verbs), ADJ (adjectives), ADV (adverbs), PROPN (proper nouns), DET (determiners), AUX (auxiliaries), PRON (pronouns), and ADP (adpositions), and masked with a 70\% probability.
+For evaluation, these \acrshort{pos} were further classified as functional (determiners, auxiliaries, pronouns, adpositions) or non-functional (nouns, verbs, adjectives, adverbs, proper nouns).
+For the 100 percent masking setting, where all tokens corresponding to a specific \acrshort{pos} are masked, we conducted experiments on non-functional parts of speech.
 
 \section{Pre-Training Dataset}
 We pre-trained the model on the Conceptual Captions dataset \cite{conceptual-caption} and the MSCOCO dataset, totaling 2.4 million image-text pairs.
@@ -112,11 +111,32 @@ This setup allowed us to analyze how different \acrshort{pos} masking strategies
 \subsection{Image-Text Matching}
 As demonstrated by \citeA{rf-curriculum-masking}, the results suggest that masking strategies impact a model’s ability to understand attributes, relationships, and word order.  
 In this work, we benchmarked each pre-trained model with specific \acrshort{pos} masking against VALSE benchmark \cite{valse}.  
-For the VALSE dataset, this benchmark categorizes each image-text sample into different linguistic phenomena, including six distinct types: existence, plurality, counting, relation, action, and coreference.  
+For the VALSE dataset, this benchmark categorizes each image-text sample into different linguistic phenomena as showed in Table \ref{tab:valse_detail}, including six distinct types: existence, plurality, counting, relation, action, and coreference.  
 Each image caption in the VALSE dataset also includes a "Foil" version, where words related to each caption category are modified.  
 This task is a classification task, where the model has to predict the correct caption for each image.
 We evaluated the model in a zero-shot manner by reusing the \acrshort{itm} head as a classifier.
 Evaluating models against this benchmark provides valuable insights into their semantic and contextual understanding of vision and language modality.  
+
+\begin{table}[h]
+    \caption{VALSE dataset task explanations.}
+    \label{tab:valse_detail}
+    \centering
+    \begin{tabular}{|l|p{4cm}|p{5cm}|}
+        \hline
+        \textbf{VALSE Task} & \textbf{Test} & \textbf{Example} \\ \hline
+        Existence Quantifier & Detect object presence or absence & ``A cat on bed'' vs. ``A dog on bed'' \\ \hline
+        Plurality Number & Singular vs. plural & ``One flower'' vs. ``Some flowers'' \\ \hline
+        Counting Balanced & Count with equal samples per class & 3 apples vs. 5 apples \\ \hline
+        Counting Adversarial & Test for small-number bias & counts $\ge$ 4 vs counts 0–3 \\ \hline
+        Counting Small Numbers & Count small numbers only & counts $<$ 4 \\ \hline
+        Spatial Relation & Understand positions & ``Book on table'' vs. ``Book under table'' \\ \hline
+        Action Replacement & Correct action & ``Holding ball'' vs. ``Throwing ball'' \\ \hline
+        Actant Swap & Correct roles & ``Boy chases dog'' vs. ``Dog chases boy'' \\ \hline
+        Coreference Standard & Pronoun–Entity Relation Understanding (from test set) & ``Woman talks to girl. She smiles.'' \\ \hline
+        Coreference Hard & Coreference Standard (from val set) & ``Boy hugs dog. He is happy.'' \\ \hline
+        Foil-COCO & Spot small caption error & Correct vs. nearly identical with one mistake \\ \hline
+    \end{tabular}
+\end{table}
 
 \begin{figure}[h]
     \caption{Visual question answering model architecture}

@@ -33,7 +33,7 @@ In the field of \acrshort{vl} models, many \acrshort{vl} models have also adopte
 In the field of selective masking strategies in natural language processing, several works have further refined \acrshort{mlm} to enhance training efficiency.  
 ERNIE \cite{ERNIE}, SpanBERT \cite{spanBERT}, and \(n\)-gram Masking \cite{n-gram-masking} propose span masking instead of single-token masking, which forces the model to rely more on long-range dependencies rather than adjacent tokens, resulting in better performance compared to BERT \cite{bert}.  
 Considering linguistic features, \citeA{posmaskinglearning} conducted a training analysis based on POS masking focused on LM training.  
-The results showed that focusing the masking of non-function words (ADJ, ADV, NOUN, PROPN, and VERB) in the later stages of training can encourage the LM model to develop a better contextual understanding.  
+The results showed that focusing the masking of non-function words, including ADJ, ADV, NOUN, PROPN, and VERB in the later stages of training can encourage the LM model to develop a better contextual understanding.  
 
 For selective masking in \acrshort{vl} training, \citeA{mask_object} introduced an object token masking strategy, selectively masking object tokens in image captions and pre-training the model.  
 This approach achieved superior performance compared to random masking.  
