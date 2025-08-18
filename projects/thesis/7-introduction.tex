@@ -7,42 +7,42 @@
 
 \chapter{INTRODUCTION}
 \section{Background}
-Human describe real world by using a sentence, which compose of a strutural word with a specfic purpose, e.g noun refer to an entity, verb refer to an action, and adjective describe the detail of the entities.
+Human beings describe and interpret the world through language, where each part of speech serves a distinct purpose: nouns ground entities, verbs express actions, and adjectives refine attributes. 
+For example, we can easily imagine the scene described by the sentence “a dog chases a ball” because its words are organized into a structured form that maps directly onto real-world concepts. 
+Motivated by this ability, researchers have developed \acrfull{vl} models that aim to capture similar grounding by learning from large collections of paired images and text. 
+These models attempt to bridge words and vision in the way humans naturally do.
 
+One important training method in many \acrshort{vl} models is \acrfull{mlm}, in which a random set of tokens is masked and the model must predict the masked tokens using both visual and textual information. 
+Prior work has shown that effectiveness increases when the masked tokens are chosen to be semantically informative. 
+For example, masking object words yields clear gains over random masking \cite{mask_object}; selectively masking infrequent words improves out-of-domain generalization during continued pre-training \cite{selective_masking}; and curriculum-based masking reduces shallow reliance on local cues and promotes more consistent cross-modal interactions \cite{rf-curriculum-masking}. 
+These findings emphasize the importance of strategic token selection in \acrshort{mlm} to enhance \acrshort{vl} model performance and efficiency.
 
-\acrfull{vl} models have gained significant attention due to their ability to perform both zero-shot and transfer learning, achieving high performance across numerous downstream tasks through pre-training with web-scale image-text pairs \cite{s-clip, medclip, vl-review}.  
-Many \acrshort{vl} models incorporated \acrfull{mlm} as a pre-training task, making it an important method to train \acrshort{vl} models \cite{albef, mplug, uniter, beit-3, lxmert}.  
-Typically, a subset of word tokens is randomly masked at a percentage during training, and the model is tasked with predicting these masked tokens using information from both visual and language modalities.  
-This masking approach has proven to enhance the alignment between visual and linguistic representations, boosting performance in \acrshort{vl} tasks \cite{lxmert}.  
+Despite the widespread adoption of \acrshort{mlm} in \acrshort{vl} training, the effects of masking tokens based on sentence structure remain underexplored.
+In this work, we aim to address the gap in understanding how masking each \acrfull{pos} impacts \acrshort{vl} models.
+By selectively masking different parts of speech, we can better understand how each \acrshort{pos} category affects the alignment between visual and linguistic information.
+This also allows us to probe what information the model can infer beyond the masked word itself, similar to how humans infer a missing word from surrounding context while simultaneously forcing human to understand the surrounding context.
+To further explore the effect of each \acrshort{pos}, training without the \acrshort{mlm} task and with different \acrshort{pos} masking probabilities are compared.
 
-Despite the widespread adoption of \acrshort{mlm} in \acrshort{vl} training, its effects on model performance, efficiency, and training loss remain underexplored.  
-\citeA{mask_object} demonstrated that many of the randomly masked tokens are often stop-words or punctuation, which the model can easily learn without any need for masking.  
-Another study by \citeA{selective_masking} demonstrated that selectively masking infrequent words from the pre-training dataset can boost model performance on out-of-domain datasets during continued training.  
-Additionally, \citeA{rf-curriculum-masking} suggested that random masking causes the model to rely heavily on local text signals, and it results in inefficient and inconsistent interactions between modalities, leading to suboptimal performance.  
-These findings emphasize the importance of strategic token selection in \acrshort{mlm} to enhance \acrshort{vl} model performance and efficiency.  
-
-In this work, we aimed to address the gap in understanding how masking each \acrfull{pos} impacts \acrshort{vl} models.  
-Each \acrshort{pos} contributes distinctively to sentence meaning: nouns typically denote objects, while verbs describe actions and often demand contextual comprehension.  
-By selectively masking different parts of speech, we could better understand how each \acrshort{pos} category affects the alignment between visual and linguistic information.  
-To further explore the effect of each \acrshort{pos}, training without the \acrshort{mlm} task and with different \acrshort{pos} masking ratios were compared.
 The experiment is designed to answer the following questions:  
 \begin{enumerate}  
-    \item How does masking each \acrshort{pos} impact the performance, and training loss of \acrshort{vl} pre-training models?  
-    \item How does each \acrshort{pos} masking strategy affect \acrfull{vqa} performance when analysed based on different question types?  
-    \item What is the difference between training without the \acrshort{mlm} task compared to training with it, and when masking each \acrshort{pos} with a 100 percent masking ratio?  
+    \item How does masking each \acrshort{pos} affect the performance and training loss of \acrshort{vl} models during pre-training, and how does it influence downstream performance on \acrfull{vqa}?
+    \item What underlying representations do \acrshort{vl} models acquire through \acrshort{mlm} training, and does this process enable them to learn more than the masked word itself?
+    \item What is the difference between training without the \acrshort{mlm} task compared to training with it, and when masking each \acrshort{pos} with a 100 percent masking ratio?
 \end{enumerate}
 
-
-\section{Objective}  
-The objectives for our experiment are as listed.  
+\section{Contributions}  
+The main contributions of this thesis are summarized as follows:  
 \begin{enumerate}  
-    \item Develop a pre-trained \acrshort{vl} model to evaluate the impact of masking each \acrshort{pos} on performance and training efficiency.  
-    \item Benchmark the performance of each \acrshort{pos} masking approach using specialized datasets to gain a deeper understanding of masking effects with retrieval and question answering tasks.  
-    \item Train the model without \acrshort{pos} masking and with \acrshort{pos} masking at a 100 percent masking ratio.  
+    \item We present a systematic study of \acrshort{pos} masking strategies in \acrshort{vl} pre-training, providing new insights into how each \acrshort{pos} contribute to cross-modal alignment. 
+    \item We benchmark the effects of different \acrshort{pos} masking strategies across retrieval and visual question answering tasks, highlighting when and where specific linguistic categories are most influential. 
+    \item We compare models trained with no \acrshort{mlm}, standard random masking, and 100\% \acrshort{pos}-specific masking, offering a deeper understanding of the effect of \Acrshort{mlm} in both retrieval task and \acrshort{vqa} task. 
+    \item The results provide valuable insights for designing more efficient and linguistically informed masking strategies in future \acrshort{vl} systems.
 \end{enumerate}  
 
-\section{Scope}
+\section{Scope}  
+The scope of this thesis is defined as follows:  
 \begin{enumerate}  
-    \item The training and testing datasets are web-scale image-text pairs.  
-    \item The model architecture is a cross-attention model, chosen for its ability to jointly predict answers based on information from multiple modalities, and training the model with \Acrshort{mlm} loss.
+    \item The training and testing datasets are web-scale image–text pairs.  
+    \item The scope is limited to cross-attention vision–language models trained with \acrshort{mlm}, \acrshort{itm}, and \acrshort{itc} tasks, which are widely adopted objectives in modern \acrshort{vl} pre-training.
+    \item This study concentrates on structured masking guided by parts of speech, specifically focusing on nouns, verbs, adjectives, adverbs, proper nouns, determiners, auxiliaries, pronouns, and adpositions.
 \end{enumerate}  

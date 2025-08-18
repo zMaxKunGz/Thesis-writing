@@ -11,7 +11,7 @@ We also provided the histrogram of each part-of-speech tag in the pre-training d
 
 \subsection{Flickr30K}
 The Flickr30K evaluation results are shown in Table \ref{tab:flickr30k}, which presents the top-1, top-5, and top-10 retrieval scores for both image-to-text (i2t) and text-to-image (t2i) tasks across different training methodologies.  
-The model with determiner masking achieves the highest overall performance.
+By comparing r@1 performance for both \acrshort{tr}, and \acrshort{ir}, the model with determiner masking achieves the highest overall performance.
 Among the non-functional group, masking NOUN yields the best performance.
 By masking ADV and PROPN causes the most significant degradation compared to the random masking baseline.
 
@@ -34,7 +34,7 @@ By masking ADV and PROPN causes the most significant degradation compared to the
             & VERB & 54.85 & 82.85 & 90.05 & 43.82 & 73.84 & 82.82 \\
             & ADJ & 62.30 & 87.30 & 92.40 & 47.39 & 75.47 & 84.06 \\
             & ADV & 46.85 & 76.25 & 85.75 & 36.40 & 66.38 & 76.78 \\
-            \rowcolor{yellow}& PROPN & 44.85 & 74.40 & 84.10 & 34.91 & 64.09 & 75.01 \\
+            & PROPN & 44.85 & 74.40 & 84.10 & 34.91 & 64.09 & 75.01 \\
             \hline
             \rowcolor{green} \multirow{4}{*}{Function} & DET & 71.05 & 92.00 & 95.30 & 56.01 & 81.93 & 88.59 \\
             & AUX  & 52.10 & 79.60 & 88.20 & 41.13 & 70.92 & 80.68 \\
@@ -46,14 +46,13 @@ By masking ADV and PROPN causes the most significant degradation compared to the
 \end{table}
 
 From the training loss curves, it is evident that different POS categories affect the convergence behavior in difference ways.
-The loss for \acrshort{mlm}, \acrshort{itc}, and \acrshort{itm} are displayed in the Figure \ref{fig:mlm_loss_pretrain}, Figure \ref{fig:itc_loss_pretrain}, and Figure \ref{fig:itm_loss_pretrain} repectively
+The loss for \acrshort{mlm}, \acrshort{itc}, and \acrshort{itm} are displayed in the Figure \ref{fig:mlm_loss_pretrain}, Figure \ref{fig:itc_loss_pretrain}, and Figure \ref{fig:itm_loss_pretrain} respectively
 For both \acrshort{itm} and \acrshort{itc}, the loss curves are similar in behavior and follow a consistent order relative to each other.
 In the \acrshort{mlm} loss graph, we can see that \acrshort{pos} masking in the functional group result in lower loss, while those in the non-functional group show higher loss, and the random masking show the highest loss by the end of training.
 
 Taken together, the results show that masking each POS impacts both the training loss trajectory and final model performance in distinct ways.  
 By observing the \acrshort{mlm} loss graph, we find that non-functional \acrshort{pos} are more difficult for the model to learn through the \acrshort{mlm} task, whereas functional \acrshort{pos} are learned more quickly.
 The ranking of the performance for each \acrshort{pos} masking method aligns with the \acrshort{itm} and \acrshort{itc} loss curves, where a lower loss corresponds to higher retrieval accuracy.
-
 
 \begin{figure}[H]
     \caption{\acrshort{mlm} loss curves for different \acrshort{pos} masking strategies (log scale).}
@@ -120,13 +119,31 @@ NOUN tokens dominate the dataset, followed by ADP, DET, VERB, and ADJ, while cat
 
 \section{Image-Text Matching}
 In this section, we evaluate the impact of \acrshort{pos} masking on image-text matching by reporting zero-shot classification accuracy on the VALSE benchmark with a random masking method as a baseline.
+This experiment is designed to investigate whether the model acquires knowledge not only of the masked word itself but also of surrounding word elements, such as adjacent nouns, adjectives, and contextual relations.
 
 \subsection{VALSE}
-Table \ref{tab:valse} summarizes zero‐shot classification accuracy on the VALSE benchmark for each \acrshort{pos} masking strategy.
-NOUN, DET, and ADJ masking achieved the best results in the existence quantifier (+2.57\%), plurality number (+1.9\%), and counting adversarial (+4.18\%) tasks, respectively, while DET also led in counting small number (no significant gain) and Foil-it!.
-Random masking outperformed all \acrshort{pos} methods in spatial relations (+1.77\%), whereas VERB performed best in counting balanced (no gain) and action replacement (no gain).
-ADP, PRON, and AUX achieved top scores in action actant swap, coreference standard (+3.53\%), and coreference clean (+8.02\%) tasks, respectively.
-In addition to the earlier retrieval task findings, these results indicate that selecting which \acrshort{pos} tokens to mask directly affects a vision–language model’s ability to capture fine‐grained details, with performance gains observed when the masked tokens are closely related to the evaluation task.
+Table~\ref{tab:valse} summarizes zero‐shot classification accuracy on the VALSE benchmark for each \acrshort{pos} masking strategy.
+For completeness, we include the results of training without any masking, which serves as a reference point.
+Random masking is treated as the baseline, and for clarity, the best-performing method in each task (excluding the baseline) is highlighted in green, while the second-best method is highlighted in yellow.
+If random masking achieves the highest score, the corresponding result is underlined.
+This visualization allows us to focus on the relative contributions of different \acrshort{pos} categories without being overshadowed by the random masking baseline.
+
+The results reveal that different parts of speech contribute most strongly to tasks that align with their linguistic functions, while also offering useful cues beyond their primary roles.
+NOUN masking not only achieves the strongest performance on object-centric tasks such as existence task, but also shows competitive results on counting and action tasks.
+VERB masking, as expected, performs well on action task, but it also improves performance on counting task.
+Similarly, adjective masking achieves strong results on counting task.
+By contrast, PROPN masking underperforms in many tasks.
+
+For the function \acrshort{pos} group, we observe that DET masking perform the best overall, achieving the highest scores in plurality, counting, and Foil-it! tasks, while also showing competitive performance in spatial relation task.
+AUX masking yield the strongest results on coreference tasks and additionally perform on counting.
+PRON also contribute most effectively to coreference.
+ADP, on the other hand, achieve their best results on action actant swap task.
+
+When comparing the best-performing \acrshort{pos} masking results against the no-masking baseline, we find mixed outcomes.
+Existence Quantifier shows no significant improvement through masking, while Plurality experiences a modest drop of 1.61%.
+In contrast, Counting tasks benefit substantially, with gains of 1.12\%, 4.74\%, and 7.74\% for the Balanced, Small Number, and Adversarial sub-tasks, respectively.
+Spatial Relation shows only a minor decrease of 0.58\%, while Action Replacement improves by 2.44\% but Actant Swap drops slightly by 0.45\%.
+Coreference tasks improve by approximately 3\%, whereas Foil-it! shows no significant difference.
 
 \begin{table}[H]
     \centering
@@ -139,18 +156,20 @@ In addition to the earlier retrieval task findings, these results indicate that 
             & & Existence & Prularity & \multicolumn{3}{c|}{Counting} & Sp.Re \footnotemark & \multicolumn{2}{c|}{Action} & \multicolumn{2}{c|}{Coreference} & \multirow{2}{*}{Foil-it!} & \multirow{2}{*}{Avg} \\
             & & quantifiers & number & balanced & small number & adversarial & relations & replacement & actant swap & standard & clean & & \\
             \hline
-            \multicolumn{2}{c|}{Random Masking} & 65.06 & 61.43 & 54.64 & 57.81 & 62.83 & \cellcolor{green}61.61 & 68.04 & 51.88 & 49.70 & 43.37 & 85.79 & 60.20 \\
+            \multicolumn{2}{c|}{Random Masking} & 65.06 & 61.43 & 54.64 & 57.81 & 62.83 & \underline{61.61} & 68.04 & 51.88 & 49.70 & 43.37 & 85.79 & 60.20 \\
             \hline
-            \multirow{5}{*}{Non-function} & NOUN & \cellcolor{green}67.63 & 62.60 & 52.59 & 54.64 & 64.39 & 59.84 & 68.15 & 48.87 & 51.31 & 49.21 & 85.69 & \cellcolor{green}60.45 \\
-            & VERB & 60.37 & 60.50 & \cellcolor{green}54.83 & 56.30 & 61.52 & 57.68 & \cellcolor{green}68.24 & 48.62 & 51.30 & 42.40 & 83.45 & 58.66 \\
-            & ADJ & 60.85 & 60.55 & 54.00 & 56.84 & \cellcolor{green}67.01 & 57.68 & 65.68 & 50.92 & 50.34 & 44.74 & 83.01 & 59.24 \\
-            & ADV & 62.56 & 58.74 & 53.08 & 57.32 & 59.92 & 58.10 & 65.74 & 49.11 & 49.04 & 41.30 & 84.28 & 58.11 \\
+            \multirow{5}{*}{Non-function} & NOUN & \cellcolor{green}67.63 & \cellcolor{yellow}62.60 & 52.59 & 54.64 & \cellcolor{yellow}64.39 & \cellcolor{green}59.84 & \cellcolor{yellow}68.15 & 48.87 & \cellcolor{yellow}51.31 & 49.21 & 85.69 & \cellcolor{green}60.45 \\
+            & VERB & 60.37 & 60.50 & \cellcolor{green}54.83 & 56.30 & 61.52 & 57.68 & \cellcolor{green}68.24 & 48.62 & \cellcolor{yellow}51.31 & 42.40 & 83.45 & 58.66 \\
+            & ADJ & 60.85 & 60.55 & \cellcolor{yellow}54.00 & 56.84 & \cellcolor{green}67.01 & 57.68 & 65.68 & \cellcolor{yellow}50.92 & 50.34 & 44.74 & 83.01 & 59.24 \\
+            & ADV & 62.56 & 58.74 & 53.08 & \cellcolor{yellow}57.32 & 59.92 & 58.10 & 65.74 & 49.11 & 49.04 & 41.30 & 84.28 & 58.11 \\
             & PROPN & 61.51 & 59.23 & 52.49 & 56.25 & 61.26 & 55.86 & 64.31 & 50.85 & 50.36 & 43.03 & 82.62 & 57.98 \\
             \hline
-            \multirow{4}{*}{Function} & DET & 60.14 & \cellcolor{green}63.33 & 53.47 & \cellcolor{green}57.86 & 65.40 & 59.06 & 66.67 & 50.43 & 50.09 & 38.99 & \cellcolor{green}87.94 & 59.40 \\
-            & AUX & 56.73 & 60.60 & 51.76 & 57.32 & 60.59 & 56.48 & 65.04 & 50.65 & 49.33 & \cellcolor{green}51.39 & 84.62 & 58.59 \\
-            & PRON & 56.05 & 61.33 & 50.39 & 54.88 & 58.87 & 58.93 & 64.36 & 48.05 & \cellcolor{green}53.23 & 50.48 & 83.40 & 58.18 \\
-            & ADP & 66.27 & 61.23 & 53.52 & 57.03 & 66.04 & 58.28 & 67.73 & \cellcolor{green}52.14 & 50.05 & 46.13 & 86.38 & 60.44 \\
+            \multirow{4}{*}{Function} & DET & 60.14 & \cellcolor{green}63.33 & 53.47 & \cellcolor{green}57.86 & 65.40 & \cellcolor{yellow}59.06 & 66.67 & 50.43 & 50.09 & 38.99 & \cellcolor{green}87.94 & 59.40 \\
+            & AUX & 56.73 & 60.60 & 51.76 & \cellcolor{yellow}57.32 & 60.59 & 56.48 & 65.04 & 50.65 & 49.33 & \cellcolor{green}51.39 & 84.62 & 58.59 \\
+            & PRON & 56.05 & 61.33 & 50.39 & 54.88 & 58.87 & 58.93 & 64.36 & 48.05 & \cellcolor{green}53.23 & \cellcolor{yellow}50.48 & 83.40 & 58.18 \\
+            & ADP & \cellcolor{yellow}66.27 & 61.23 & 53.52 & 57.03 & 66.04 & 58.28 & 67.73 & \cellcolor{green}52.14 & 50.05 & 46.13 & \cellcolor{yellow}86.38 & \cellcolor{yellow}60.44 \\
+            \hline
+            \multicolumn{2}{c|}{No Masking} & 67.61 & 64.94 & 53.71 & 53.12 & 59.27 & 60.42 & 65.8 & 52.59 & 50.47 & 48.31 & 87.60 & 60.35 \\
             \hline
         \end{tabular}
     \end{adjustbox}
@@ -161,9 +180,8 @@ In addition to the earlier retrieval task findings, these results indicate that 
 Table \ref{tab:vqa} presents the VQA2.0 test‐dev performance after fine‐tuning on the VQA task for each \acrshort{pos} masking strategy, with results reported for Yes/No, Number, and Other question types.
 NOUN masking achieved the highest overall accuracy (70.29\%), closely followed by random masking (70.28\%).
 Within the non‐functional group, NOUN masking performed best, while VERB (69.13\%) and ADJ (69.09\%) achieved similar scores. ADV masking yielded the lowest performance (64.12\%), largely due to reduced accuracy in the Number and Other categories.
-
 For functional categories, DET and ADP masking achieved similar overall results (68.98\% and 68.96\%), with AUX (67.09\%) and PRON (66.55\%) performing lower.
-Overall, non‐functional \acrshort{pos} masking strategies tended to outperform functional ones, suggesting that masking content‐bearing words during pre‐training has a greater positive impact on downstream VQA performance than masking grammatical tokens.
+Comparing the best-performing non-function and function \acrshort{pos} masking strategies shows a performance difference of 1.31\%.
 
 \begin{table}[H]
     \centering
@@ -193,12 +211,18 @@ Overall, non‐functional \acrshort{pos} masking strategies tended to outperform
 \end{table}
 
 \section{Masking Ratio}
-In this test we report masking probability result for the Flickr30K benchmark between 0\%, 70\%, and 100\% for the non-functional \acrshort{pos} part as shown in Table \ref{tab:flickr30k-prob}.
-And for the VQA task we pick only the best NOUN masking, and random masking method, which are two best method, to compare with 0\% and 100\% masking probability as shown in Table \ref{tab:vqa-prob}.
+In this experiment, we report the effect of masking probability on both the Flickr30K and VQA benchmarks by comparing 0\%, 70\%, and 100\% masking levels.
+For Flickr30K, we focus on exploring \acrshort{pos} masking for non-functional \acrshort{pos} categories, as shown in Table~\ref{tab:flickr30k-prob}.
+For the VQA task, we compare NOUN masking—identified as the best-performing strategy on VQA—with random masking, which serves as the baseline.
 
+For the Flickr30K benchmark, we observe that the no-masking method outperforms models trained with the \acrshort{mlm} objective.
+Specifically, it achieves a 7.45\%, and 5.31\% improvement in \acrshort{tr} and \acrshort{ir} \texttt{r@1}, respectively, compared to NOUN masking with 70\% masking probability, which is the best among the masking-based methods.
+We also observe performance improvements when increasing the masking probability for VERB, ADV, and PROPN categories.
+On the other hand, performance deteriorates as masking probability increases for NOUN and ADJ masking.
 
-For the vqa task, we can see that for yes/no, and number question most model are perform very similar.
-However, for the other question, which require more fine-grained understanding of the image. 
+For the VQA results, models trained with the \acrshort{mlm} objective consistently outperform those trained without masking, showing an average improvement of approximately 2\% in overall accuracy.
+The improvement occurs most significantly on the *Other* question type, improving by 2.81\% and 2.60\% for NOUN masking at 70\% and 100\% masking probabilities, respectively.
+Under NOUN masking, increasing the masking probability to 100\% results in slight improvements for the *Yes/No* and *Number* question types, while performance slightly declines for the *Other* category.
 
 \begin{table}[h]
     \centering
@@ -210,8 +234,6 @@ However, for the other question, which require more fine-grained understanding o
             \multicolumn{2}{c|}{\multirow{3}{*}{\textbf{Masking Method}}} & {\multirow{3}{*}{\textbf{Masking probability}}} & \multicolumn{6}{c}{\textbf{Flickr30K}} \\
             & & & \multicolumn{3}{c|}{\acrshort{tr}} & \multicolumn{3}{c}{\acrshort{ir}} \\
             & & & r@1 & r@5 & r@10 & r@1 & r@5 & r@10 \\
-            \hline
-            \multicolumn{2}{l|}{Random Masking} & 15 & 67.00 & 88.00 & 93.75 & 52.61 & 80.14 & 87.76 \\
             \hline
             \multicolumn{2}{l|}{No Masking} & 0 & 74.60 & 92.50 & 95.90 & 58.04 & 83.82 & 90.04 \\
             \hline
@@ -244,11 +266,9 @@ However, for the other question, which require more fine-grained understanding o
             \multicolumn{2}{c|}{\multirow{2}{*}{Masking Method}} & \multirow{2}{*}{Masking Probability} & \multicolumn{4}{c}{VQA2.0 test dev} \\
             & & & Yes/No & Number & Other & Overall \\
             \hline
-            \multicolumn{2}{c|}{Random Masking} & 15 & 87.88 & 49.64 & 59.63 & 70.28 \\
-            \hline
             \multicolumn{2}{l|}{NOUN} & 70 & 87.84 & 49.49 & 60.03 & 70.29 \\
             \hline
-            \multicolumn{2}{l|}{NOUN} & 100 & XX & XX & XX & XX \\
+            \multicolumn{2}{l|}{NOUN} & 100 & 87.88 & 49.81 & 59.82 & 70.24 \\
             \hline
             \multicolumn{2}{l|}{No Masking} & 0 & 87.42 & 49.43 & 57.22 & 68.78 \\
             \hline
