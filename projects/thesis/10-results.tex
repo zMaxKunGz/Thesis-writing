@@ -212,17 +212,17 @@ Comparing the best-performing non-function and function \acrshort{pos} masking s
 
 \section{Masking Ratio}
 In this experiment, we report the effect of masking probability on both the Flickr30K and VQA benchmarks by comparing 0\%, 70\%, and 100\% masking levels.
-For Flickr30K, we focus on exploring \acrshort{pos} masking for non-functional \acrshort{pos} categories, as shown in Table~\ref{tab:flickr30k-prob}.
-For the VQA task, we compare NOUN masking—identified as the best-performing strategy on VQA—with random masking, which serves as the baseline.
+For Flickr30K, we focus on exploring \acrshort{pos} masking for non-functional \acrshort{pos} categories, as shown in Table \ref{tab:flickr30k-prob}.
+For the VQA task, we compare NOUN masking—identified as the best-performing strategy on VQA, as shown in Table \ref{tab:vqa-prob}.
 
 For the Flickr30K benchmark, we observe that the no-masking method outperforms models trained with the \acrshort{mlm} objective.
-Specifically, it achieves a 7.45\%, and 5.31\% improvement in \acrshort{tr} and \acrshort{ir} \texttt{r@1}, respectively, compared to NOUN masking with 70\% masking probability, which is the best among the masking-based methods.
+Specifically, it achieves a 7.45\%, and 5.31\% improvement in \acrshort{tr} and \acrshort{ir} r@1, respectively, compared to NOUN masking with 70\% masking probability, which is the best among the masking-based methods.
 We also observe performance improvements when increasing the masking probability for VERB, ADV, and PROPN categories.
 On the other hand, performance deteriorates as masking probability increases for NOUN and ADJ masking.
 
 For the VQA results, models trained with the \acrshort{mlm} objective consistently outperform those trained without masking, showing an average improvement of approximately 2\% in overall accuracy.
-The improvement occurs most significantly on the *Other* question type, improving by 2.81\% and 2.60\% for NOUN masking at 70\% and 100\% masking probabilities, respectively.
-Under NOUN masking, increasing the masking probability to 100\% results in slight improvements for the *Yes/No* and *Number* question types, while performance slightly declines for the *Other* category.
+The improvement occurs most significantly on the Other question type, improving by 2.81\% and 2.60\% for NOUN masking at 70\% and 100\% masking probabilities, respectively.
+Under NOUN masking, increasing the masking probability to 100\% results in slight improvements for the Yes/No and Number question types, while performance slightly declines for the Other category.
 
 \begin{table}[h]
     \centering
