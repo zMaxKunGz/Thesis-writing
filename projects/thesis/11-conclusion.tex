@@ -1,38 +1,51 @@
 \chapter{DISCUSSION}
-This chapter discusses the result of our experiments and reflects on their implications in relation to the main research questions: How does masking each \acrshort{pos} affect the performance and training loss of \acrshort{vl} models during pre-training, and how does it influence downstream performance on \acrfull{vqa}.
+This chapter discusses the result of our experiments and reflects on their implications in relation to the main research questions: How does masking each \acrshort{pos} affect the performance and training loss of \acrshort{vl} models during pre-training, and how does it influence downstream performance on \acrshort{vqa}.
 We begin by analyzing how masking different \acrshort{pos} affects model performance during pre-training and downstream evaluation, with a focus on the linguistic relevance of each \acrshort{pos} category.
-We then examine what the model learns beyond the masked word itself, exploring whether \acrshort{pos}-aware masking encourages deeper contextual understanding.
-This is followed by a comparison between \acrshort{pos}-based, random, and no-masking strategies to assess the overall contribution of masked language modeling (MLM) in vision–language (VL) training.
-Finally, we discuss the broader implications of our findings, highlight the limitations of our approach, and suggest directions for future work.
+The discussion about the no masking is also included in this section.
+Finally, we discuss the limitations of our approach, which suggest directions for future work.
 
 \section{The Effect of Each \acrshort{pos} in Visual Pre-training and Downstream Task}
 Our experimental findings highlight that masking different \acrshort{pos} during pre-training leads to distinct outcomes.
-On the Flickr30K benchmark, DET masking achieved the highest retrieval performance across both \acrshort{tr} and \acrshort{ir} tasks, followed by NOUN masking among the non-functional POS group.
+On the Flickr30K benchmark, DET masking achieved the highest retrieval performance across both \acrshort{tr} and \acrshort{ir} tasks, followed by NOUN masking among the non-function POS group.
 Intuitively, one might expect nouns typically carrying more semantic should outperform determiners.
 However, the results reveal the opposite, suggesting that determiners are easier for the model to learn.
 When combined with the loss curves, we observe that retrieval performance correlates more closely with the \acrshort{itm} and \acrshort{itc} objectives than with the \acrshort{mlm} task.
 The ranking of each \acrshort{pos} masking method aligns with the \acrshort{itm} and \acrshort{itc} loss curves, where lower loss corresponds to higher retrieval accuracy.
-This suggests that for retrieval tasks, masking simpler tokens such as determiners may reduce the burden on the \acrshort{mlm} task and ultimately lead to better performance.
-We find that POS masking strategies which produce lower \acrshort{itm} and \acrshort{itc} losses during pre-training tend to yield stronger retrieval performance.
+This suggests that for retrieval tasks, masking simpler tokens such as determiners may reduce the burden on the \acrshort{mlm} task and lead to better performance.
 
 In contrast, the VALSE benchmark evaluates the model's fine-grained linguistic understanding.
 Here, we find that selectively masking specific \acrshort{pos} categories consistently outperforms random masking, and that each \acrshort{pos} masking strategy also performs well on tasks related to its corresponding linguistic function.
 This indicates that the \acrshort{mlm} objective plays a more substantial role in tasks requiring fine-grained understanding, and that performance is highly sensitive to which tokens are masked.
 These results highlight the importance of strategic token selection in enhancing the model’s fine-grained performance.
+This shows that if we combine the best performance for each task by carefully selecting a masking strategy, we could improve overall performance.
+We also find that \acrshort{pos} masking learns more than just the task related to its linguistic function. For example, training the model with VERB and ADJ masks also performs well in the counting task.
 
 Similarly, in the VQA task, we observe that even some \acrshort{pos} categories that performed poorly in retrieval still enable the model to retain fine-grained image understanding.
-Specifically, most non-functional \acrshort{pos} lead to better performance compared to functional \acrshort{pos}.
+Specifically, most non-function \acrshort{pos} lead to better performance compared to function \acrshort{pos}.
 This result emphasizes that masking more content words leads to better fine-grained alignment.
-When compared to training without masking, models trained with the \acrshort{mlm} objective demonstrate clear improvements, suggesting that \acrshort{mlm} facilitates the learning of detailed visual–linguistic representations critical for question answering.
+If we combine the results of VALSE with \acrshort{vqa}, we can see that performance on the VALSE dataset is directly related to performance on the \acrshort{vqa} dataset, as both tasks require fine-grained understanding.
+
+When compared to training without masking, models trained without \acrshort{mlm} may perform reasonably well in a zero-shot setting.
+However, models trained with the \acrshort{mlm} objective show clear improvements when fine-tuned on specific tasks.
+This highlights the importance of \acrshort{mlm} for \acrshort{vl} model improvement.
 
 \section{Limitations}
-One limitation of this study is the imbalance in \acrshort{pos} distribution, as observed in the \acrshort{pos} histogram.
+The limitation in term of dataset this study is the imbalance in \acrshort{pos} distribution, as observed in the \acrshort{pos} histogram.
 Certain \acrshort{pos} categories, such as nouns, appear far more frequently than others, which may introduce bias in the model’s learning process and affect the generalizability of the results.
 While this imbalance reflects the natural distribution of language in real-world datasets, it may confound our interpretation of how each \acrshort{pos} contributes to \Acrshort{vl} learning.
+Another factor is that the performance of our work may not be optimal, since we deliberately adopted standard methods to ensure fair comparison.
 Additionally, our experiments are limited to a specific set of benchmarks; evaluating the effects of \acrshort{pos} masking across a broader range of datasets would be necessary to confirm the consistency and robustness of the observed phenomena.
 
 \chapter{CONCLUSION}
 \section{Conclusion}
+In this work, we systematically investigate \acrshort{pos} masking strategies in \Acrshort{vl} pre-training and their effects on cross-modal alignment, retrieval, and VQA tasks.
+Our findings show that different \acrshort{pos} categories yield distinct outcomes: for retrieval, simpler tokens such as determiners reduce the burden on the MLM objective and lead to higher accuracy, while for fine-grained benchmarks like VALSE and VQA, masking strategies aligned with linguistic functions consistently outperform random masking and reveal strong sensitivity to token selection.
+Notably, even \acrshort{pos} categories that perform poorly in retrieval still enhance fine-grained understanding, with content-word masking contributing most to alignment.
+Moreover, models trained with MLM consistently surpass those without it when fine-tuned, underscoring the crucial role of \acrshort{mlm} in VL model improvement.
+Together, these findings not only deepen our understanding of linguistic contributions in \acrshort{vl} pre-training but also show opportunities for designing more effective and linguistically grounded models.
+
 \section{Future work}
-- Scalability for when combine with each pos
-- Compare with another method.
+Building on our findings, we identify a clear gap in fully leveraging \acrshort{pos} masking strategies in combination to enhance model performance.
+Future work could explore adaptive masking approaches that integrate multiple \acrshort{pos} categories, selecting them dynamically to suit different tasks.
+In addition, adjusting loss scheduling presents another promising direction, as our results suggest that certain tasks depend more heavily on specific objectives.
+Balancing these objectives more effectively may further improve overall performance in \acrshort{vl} pre-training.

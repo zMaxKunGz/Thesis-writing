@@ -10,9 +10,9 @@ The results from training the ALBEF model using the same dataset are also includ
 We also provided the histrogram of each part-of-speech tag in the pre-training dataset as shown in Figure~\ref{fig:pos_count}.
 
 \subsection{Flickr30K}
-The Flickr30K evaluation results are shown in Table \ref{tab:flickr30k}, which presents the top-1, top-5, and top-10 retrieval scores for both image-to-text (i2t) and text-to-image (t2i) tasks across different training methodologies.  
+The Flickr30K evaluation results are shown in Table \ref{tab:flickr30k}, which presents the top-1, top-5, and top-10 retrieval scores for both \acrshort{tr} and \acrshort{ir} tasks across different training methodologies.  
 By comparing r@1 performance for both \acrshort{tr}, and \acrshort{ir}, the model with determiner masking achieves the highest overall performance.
-Among the non-functional group, masking NOUN yields the best performance.
+Among the non-function group, masking NOUN yields the best performance.
 By masking ADV and PROPN causes the most significant degradation compared to the random masking baseline.
 
 \begin{table}[h]
@@ -48,10 +48,10 @@ By masking ADV and PROPN causes the most significant degradation compared to the
 From the training loss curves, it is evident that different POS categories affect the convergence behavior in difference ways.
 The loss for \acrshort{mlm}, \acrshort{itc}, and \acrshort{itm} are displayed in the Figure \ref{fig:mlm_loss_pretrain}, Figure \ref{fig:itc_loss_pretrain}, and Figure \ref{fig:itm_loss_pretrain} respectively
 For both \acrshort{itm} and \acrshort{itc}, the loss curves are similar in behavior and follow a consistent order relative to each other.
-In the \acrshort{mlm} loss graph, we can see that \acrshort{pos} masking in the functional group result in lower loss, while those in the non-functional group show higher loss, and the random masking show the highest loss by the end of training.
+In the \acrshort{mlm} loss graph, we can see that \acrshort{pos} masking in the function group result in lower loss, while those in the non-function group show higher loss, and the random masking show the highest loss by the end of training.
 
 Taken together, the results show that masking each POS impacts both the training loss trajectory and final model performance in distinct ways.  
-By observing the \acrshort{mlm} loss graph, we find that non-functional \acrshort{pos} are more difficult for the model to learn through the \acrshort{mlm} task, whereas functional \acrshort{pos} are learned more quickly.
+By observing the \acrshort{mlm} loss graph, we find that non-function \acrshort{pos} are more difficult for the model to learn through the \acrshort{mlm} task, whereas function \acrshort{pos} are learned more quickly.
 The ranking of the performance for each \acrshort{pos} masking method aligns with the \acrshort{itm} and \acrshort{itc} loss curves, where a lower loss corresponds to higher retrieval accuracy.
 
 \begin{figure}[H]
@@ -119,12 +119,12 @@ NOUN tokens dominate the dataset, followed by ADP, DET, VERB, and ADJ, while cat
 
 \section{Image-Text Matching}
 In this section, we evaluate the impact of \acrshort{pos} masking on image-text matching by reporting zero-shot classification accuracy on the VALSE benchmark with a random masking method as a baseline.
-This experiment is designed to investigate whether the model acquires knowledge not only of the masked word itself but also of surrounding word elements, such as adjacent nouns, adjectives, and contextual relations.
+This experiment is designed to investigate whether the model acquires knowledge not only of the masked word itself but also of surrounding context.
 
 \subsection{VALSE}
 Table~\ref{tab:valse} summarizes zero‐shot classification accuracy on the VALSE benchmark for each \acrshort{pos} masking strategy.
 For completeness, we include the results of training without any masking, which serves as a reference point.
-Random masking is treated as the baseline, and for clarity, the best-performing method in each task (excluding the baseline) is highlighted in green, while the second-best method is highlighted in yellow.
+Random masking is treated as the baseline, and for clarity, the best-performing method in each task (excluding the baseline, and no masking) is highlighted in green, while the second-best method is highlighted in yellow.
 If random masking achieves the highest score, the corresponding result is underlined.
 This visualization allows us to focus on the relative contributions of different \acrshort{pos} categories without being overshadowed by the random masking baseline.
 
@@ -179,8 +179,8 @@ Coreference tasks improve by approximately 3\%, whereas Foil-it! shows no signif
 \section{Visual Question Answering}
 Table \ref{tab:vqa} presents the VQA2.0 test‐dev performance after fine‐tuning on the VQA task for each \acrshort{pos} masking strategy, with results reported for Yes/No, Number, and Other question types.
 NOUN masking achieved the highest overall accuracy (70.29\%), closely followed by random masking (70.28\%).
-Within the non‐functional group, NOUN masking performed best, while VERB (69.13\%) and ADJ (69.09\%) achieved similar scores. ADV masking yielded the lowest performance (64.12\%), largely due to reduced accuracy in the Number and Other categories.
-For functional categories, DET and ADP masking achieved similar overall results (68.98\% and 68.96\%), with AUX (67.09\%) and PRON (66.55\%) performing lower.
+Within the non‐function group, NOUN masking performed best, while VERB (69.13\%) and ADJ (69.09\%) achieved similar scores. ADV masking yielded the lowest performance (64.12\%), largely due to reduced accuracy in the Number and Other categories.
+For function categories, DET and ADP masking achieved similar overall results (68.98\% and 68.96\%), with AUX (67.09\%) and PRON (66.55\%) performing lower.
 Comparing the best-performing non-function and function \acrshort{pos} masking strategies shows a performance difference of 1.31\%.
 
 \begin{table}[H]
@@ -212,7 +212,7 @@ Comparing the best-performing non-function and function \acrshort{pos} masking s
 
 \section{Masking Ratio}
 In this experiment, we report the effect of masking probability on both the Flickr30K and VQA benchmarks by comparing 0\%, 70\%, and 100\% masking levels.
-For Flickr30K, we focus on exploring \acrshort{pos} masking for non-functional \acrshort{pos} categories, as shown in Table \ref{tab:flickr30k-prob}.
+For Flickr30K, we focus on exploring \acrshort{pos} masking for non-function \acrshort{pos} categories, as shown in Table \ref{tab:flickr30k-prob}.
 For the VQA task, we compare NOUN masking—identified as the best-performing strategy on VQA, as shown in Table \ref{tab:vqa-prob}.
 
 For the Flickr30K benchmark, we observe that the no-masking method outperforms models trained with the \acrshort{mlm} objective.
