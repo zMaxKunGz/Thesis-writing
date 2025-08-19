@@ -35,12 +35,13 @@ Second, we benchmark the effects of different \acrshort{pos} masking strategies 
 Third, we compare models trained with no \acrshort{mlm}, standard random masking, and 100\% \acrshort{pos}-specific masking, providing a deeper understanding of the role of \acrshort{mlm} in both retrieval and \acrshort{vqa}.  
 Finally, our findings offer insights for developing more efficient and linguistically informed masking strategies in future \acrshort{vl} systems.  
 
-
+This study is aimed at serving as a foundation for future research on selective masking techniques, contributing to the development of \acrshort{vl} models that are more robust, and data-efficient.
+By systematically exploring how different \acrshort{pos} affect learning, we provide new insights into the role of language structure in multimodal pre-training.
 
 \section{Scope}  
 The scope of this thesis is defined as follows:  
 \begin{enumerate}  
     \item The training and testing datasets are web-scale image–text pairs.  
     \item The scope is limited to cross-attention vision–language models trained with \acrshort{mlm}, \acrshort{itm}, and \acrshort{itc} tasks, which are widely adopted objectives in modern \acrshort{vl} pre-training.
-    \item This study concentrates on structured masking guided by parts of speech, specifically focusing on nouns, verbs, adjectives, adverbs, proper nouns, determiners, auxiliaries, pronouns, and adpositions.
+    \item This study concentrates on structured masking guided by \acrshort{pos}, specifically focusing on nouns, verbs, adjectives, adverbs, proper nouns, determiners, auxiliaries, pronouns, and adpositions.
 \end{enumerate}  

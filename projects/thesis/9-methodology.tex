@@ -83,8 +83,8 @@ In this work, we modified the BERT tokenizer to integrate with SpaCy by using th
 
 In this experiment, we explored the effect of each \acrshort{pos} on \acrshort{vl} learning in terms of performance, and training loss.  
 For the main experiment, each token was assigned to one of nine \acrshort{pos} categories: NOUN (nouns), VERB (verbs), ADJ (adjectives), ADV (adverbs), PROPN (proper nouns), DET (determiners), AUX (auxiliaries), PRON (pronouns), and ADP (adpositions), and masked with a 70\% probability.
-For evaluation, these \acrshort{pos} were further classified as function (determiners, auxiliaries, pronouns, adpositions) or non-function (nouns, verbs, adjectives, adverbs, proper nouns).
-For the 100 percent masking setting, where all tokens corresponding to a specific \acrshort{pos} are masked, we conducted experiments on non-function parts of speech.
+For evaluation, these \acrshort{pos} were further classified as functional (determiners, auxiliaries, pronouns, adpositions) or non-functional (nouns, verbs, adjectives, adverbs, proper nouns).
+For the 100 percent masking setting, where all tokens corresponding to a specific \acrshort{pos} are masked, we conducted experiments on non-functional parts of speech.
 
 \section{Pre-Training Dataset}
 We pre-trained the model on the Conceptual Captions dataset \cite{conceptual-caption} and the MSCOCO dataset, totaling 2.4 million image-text pairs.
