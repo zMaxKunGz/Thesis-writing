@@ -31,8 +31,8 @@ The experiment is designed to answer the following questions:
 
 The main contributions of this thesis are fourfold.
 First, we present a systematic study of \acrshort{pos} masking strategies in \acrshort{vl} pre-training, offering new insights into how each \acrshort{pos} category contributes to cross-modal alignment.  
-Second, we benchmark the effects of different \acrshort{pos} masking strategies across retrieval and \acrshort{vqa} tasks, identifying when and where specific linguistic categories are most influential.  
-Third, we compare models trained with no \acrshort{mlm}, standard random masking, and 100\% \acrshort{pos}-specific masking, providing a deeper understanding of the role of \acrshort{mlm} in both retrieval and \acrshort{vqa}.  
+Second, we benchmark the effects of different \acrshort{pos} masking strategies across retrieval, image-text matching and \acrshort{vqa} tasks, identifying when and where specific linguistic categories are most influential.  
+Third, we compare models trained with no \acrshort{mlm}, standard random masking, and 100\% \acrshort{pos}-specific masking, providing a deeper understanding of the role of \acrshort{mlm}.  
 Finally, our findings offer insights for developing more efficient and linguistically informed masking strategies in future \acrshort{vl} systems.  
 
 This study is aimed at serving as a foundation for future research on selective masking techniques, contributing to the development of \acrshort{vl} models that are more robust, and data-efficient.
@@ -41,7 +41,7 @@ By systematically exploring how different \acrshort{pos} affect learning, we pro
 \section{Scope}  
 The scope of this thesis is defined as follows:  
 \begin{enumerate}  
-    \item The training and testing datasets are web-scale image–text pairs.  
+    \item The train and test datasets are web-scale image–text pairs.  
     \item The scope is limited to cross-attention vision–language models trained with \acrshort{mlm}, \acrshort{itm}, and \acrshort{itc} tasks, which are widely adopted objectives in modern \acrshort{vl} pre-training.
-    \item This study concentrates on structured masking guided by \acrshort{pos}, specifically focusing on nouns, verbs, adjectives, adverbs, proper nouns, determiners, auxiliaries, pronouns, and adpositions.
+    \item This study concentrates on structured masking guided by \acrshort{pos}, focusing on nouns, verbs, adjectives, adverbs, proper nouns, determiners, auxiliaries, pronouns, and adpositions.
 \end{enumerate}  

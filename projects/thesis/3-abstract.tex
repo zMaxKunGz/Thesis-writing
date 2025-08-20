@@ -16,16 +16,17 @@
 \vspace{2em}
 
 \acrfull{vl} models have shown promising performance across multiple tasks in both zero-shot and fine-tuning setups. 
-Most studies use \acrlong{mlm} as a pre-training task, applying random masking to image caption tokens. 
+Most studies use \acrlong{mlm} as a pre-training task by apply random masking to image caption tokens. 
 However, random token masking is not an optimal strategy for training \acrshort{vl} models, and effective masking strategies in \acrshort{vl} remain underexplored. 
 In this work, we investigate the effects of \acrfull{pos} masking, as each \acrshort{pos} category contributes differently to sentence meaning. 
-By pre-training models with different \acrshort{pos} masking strategies, we evaluate each model on image-text retrieval and visual question answering tasks, categorizing each question type following the VALSE.
+By pre-training models with different \acrshort{pos} masking strategies, we evaluate each model on image-text retrieval, image-text matching, and visual question answering tasks.
 Our findings contribute to a deeper understanding of how \acrshort{pos} masking influences model performance, providing insights that can lead to more effective pre-training strategies for future \acrshort{vl} models.
 
 Our experiments show that the choice of masked tokens matters.
 For retrieval tasks, masking simpler tokens like determiners leads to higher accuracy than masking nouns, suggesting that freeing the model from predicting harder words can improve overall alignment.
-For VALSE and VQA, selective \acrshort{pos} masking consistently performs better than random masking, and content-word masking helps most with fine-grained understanding.
-Even categories that perform less well in retrieval still add value in VQA, showing that different parts of speech support different aspects of cross-modal learning.
+For VALSE, selective \acrshort{pos} masking consistently performs better than random masking, 
+The VQA show that content-word masking helps most with fine-grained understanding.
+Even categories that perform less well in retrieval still add value in VQA, showing that different \Acrshort{pos} support different aspects of cross-modal learning.
 We also confirm that models trained with \acrshort{mlm} consistently outperform those trained without it, especially downstream task.
 
 % 4)  key findings (2-3 sentences)
