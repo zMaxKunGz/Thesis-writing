@@ -22,6 +22,12 @@ In this work, we investigate the effects of \acrfull{pos} masking, as each \acrs
 By pre-training models with different \acrshort{pos} masking strategies, we evaluate each model on image-text retrieval and visual question answering tasks, categorizing each question type following the VALSE.
 Our findings contribute to a deeper understanding of how \acrshort{pos} masking influences model performance, providing insights that can lead to more effective pre-training strategies for future \acrshort{vl} models.
 
+Our experiments show that the choice of masked tokens matters.
+For retrieval tasks, masking simpler tokens like determiners leads to higher accuracy than masking nouns, suggesting that freeing the model from predicting harder words can improve overall alignment.
+For VALSE and VQA, selective \acrshort{pos} masking consistently performs better than random masking, and content-word masking helps most with fine-grained understanding.
+Even categories that perform less well in retrieval still add value in VQA, showing that different parts of speech support different aspects of cross-modal learning.
+We also confirm that models trained with \acrshort{mlm} consistently outperform those trained without it, especially downstream task.
+
 % 4)  key findings (2-3 sentences)
 %     - summarize ONLY the key findings - it means interesting findings
 % 5)  contributions
