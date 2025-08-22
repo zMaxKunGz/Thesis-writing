@@ -7,13 +7,13 @@ Fourth, we outline the datasets used in this experiment.
 Lastly, we provide details on the visual question answering setup.  
 
 \begin{figure}[h]
-    \caption{Overall methodology}
-    \label{fig:overview}
     Pre-training the model with a \acrshort{mlm} task by masking tokens based on the \acrshort{pos} in the image captions.
     \begin{center}
         \includegraphics[width=0.8\textwidth]{Images/overview.png}
     \end{center}
     \small
+    \caption{Overall methodology}
+    \label{fig:overview}
 \end{figure}
 
 \section{Model architecture}
@@ -139,12 +139,11 @@ Evaluating models against this benchmark provides valuable insights into their s
 \end{table}
 
 \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Images/vqa_method.png}
+    \small
     \caption{Visual question answering model architecture}
     \label{fig:vqa}
-    \begin{center}
-        \includegraphics[width=0.6\textwidth]{Images/vqa_method.png}
-    \end{center}
-    \small
 \end{figure}
 
 \subsection{Visual Question Answering}

@@ -14,6 +14,7 @@
 \usepackage{graphicx} % includegraphic 
 \usepackage{placeins} % FloatBarrier 
 \usepackage{float}
+\floatstyle{plaintop} % Set table caption on top
 \restylefloat{table}
 \graphicspath{ {./figures/} }
 \usepackage{mathptmx} % Font: Times
@@ -91,11 +92,9 @@
 \DeclareCaptionFormat{aitformat}{\textbf{#1} #2 \textit{#3}}
 % justification = RaggedRight : Caption start on the left
 % singlelinecheck = false     : Force caption to start on the left
-% labelsep = newline          : separate Table 1.1 and label
 \captionsetup{format = aitformat,
               justification = RaggedRight,
-              singlelinecheck = false,
-              labelsep = newline}
+              singlelinecheck = false}
               
 % ====== References ======
 \usepackage[notocbib]{apacite}
